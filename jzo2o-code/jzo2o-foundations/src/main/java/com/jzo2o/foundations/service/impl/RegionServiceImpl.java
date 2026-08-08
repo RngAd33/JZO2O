@@ -36,11 +36,12 @@ import java.util.List;
  **/
 @Service
 public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> implements IRegionService {
+
     @Resource
     private IConfigRegionService configRegionService;
+
     @Resource
     private CityDirectoryMapper cityDirectoryMapper;
-
 
     /**
      * 区域新增
