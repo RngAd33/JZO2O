@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/jzo2o-framework/jzo2o-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/jzo2o-code/jzo2o-api/pom.xml" />
+        <option value="$PROJECT_DIR$/jzo2o-code/jzo2o-publics/pom.xml" />
+        <option value="$PROJECT_DIR$/jzo2o-code/jzo2o-foundations/pom.xml" />
+        <option value="$PROJECT_DIR$/jzo2o-code/jzo2o-gateway/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_22" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
