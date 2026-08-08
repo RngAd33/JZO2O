@@ -7,8 +7,9 @@ import lombok.Getter;
 @Getter
 public enum FoundationStatusEnum {
     INIT(0,"草稿"),
-    ENABLE(2,"启用"),
-    DISABLE(1, "禁用");
+    DISABLE(1, "禁用"),
+    ENABLE(2,"启用");
+
     private int status;
     private String description;
 
@@ -19,4 +20,5 @@ public enum FoundationStatusEnum {
     public boolean equals(FoundationStatusEnum enableStatusEnum) {
         return enableStatusEnum != null && enableStatusEnum.status == this.getStatus();
     }
+
 }

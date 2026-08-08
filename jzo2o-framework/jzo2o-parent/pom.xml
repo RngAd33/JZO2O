@@ -4,7 +4,6 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
-
     <modules>
         <module>../jzo2o-common</module>
         <module>../jzo2o-mysql</module>
@@ -37,7 +36,7 @@
         <jzo2o.version>1.0-SNAPSHOT</jzo2o.version>
         <lombok.version>1.18.26</lombok.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <hutool.version>5.7.18</hutool.version>
+        <hutool.version>5.8.44</hutool.version>
         <mybatis-plus.version>3.4.3</mybatis-plus.version>
         <spring-boot.version>2.7.10</spring-boot.version>
         <gateway.version>3.1.1</gateway.version>

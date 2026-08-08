@@ -6,6 +6,7 @@ import com.jzo2o.common.model.PageResult;
 import com.jzo2o.foundations.model.domain.Region;
 import com.jzo2o.foundations.model.dto.request.RegionPageQueryReqDTO;
 import com.jzo2o.foundations.model.dto.request.RegionUpsertReqDTO;
+import com.jzo2o.foundations.model.dto.request.ServeUpsertReqDTO;
 import com.jzo2o.foundations.model.dto.response.RegionDisplayResDTO;
 import com.jzo2o.foundations.model.dto.response.RegionResDTO;
 
@@ -25,6 +26,13 @@ public interface IRegionService extends IService<Region> {
      * @param regionUpsertReqDTO 插入更新区域
      */
     void add(RegionUpsertReqDTO regionUpsertReqDTO);
+
+    /**
+     * 区域新增
+     *
+     * @param serveUpsertReqDTOList 插入更新区域
+     */
+    void add(List<ServeUpsertReqDTO> serveUpsertReqDTOList);
 
     /**
      * 区域修改

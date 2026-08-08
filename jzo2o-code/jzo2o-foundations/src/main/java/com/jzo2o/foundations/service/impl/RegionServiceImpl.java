@@ -1,6 +1,7 @@
 package com.jzo2o.foundations.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -10,14 +11,18 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jzo2o.api.foundations.dto.response.RegionSimpleResDTO;
 import com.jzo2o.common.expcetions.ForbiddenOperationException;
 import com.jzo2o.common.model.PageResult;
-import com.jzo2o.foundations.constants.RedisConstants;
 import com.jzo2o.foundations.enums.FoundationStatusEnum;
 import com.jzo2o.foundations.mapper.CityDirectoryMapper;
 import com.jzo2o.foundations.mapper.RegionMapper;
+import com.jzo2o.foundations.mapper.ServeItemMapper;
+import com.jzo2o.foundations.mapper.ServeMapper;
 import com.jzo2o.foundations.model.domain.CityDirectory;
 import com.jzo2o.foundations.model.domain.Region;
+import com.jzo2o.foundations.model.domain.Serve;
+import com.jzo2o.foundations.model.domain.ServeItem;
 import com.jzo2o.foundations.model.dto.request.RegionPageQueryReqDTO;
 import com.jzo2o.foundations.model.dto.request.RegionUpsertReqDTO;
+import com.jzo2o.foundations.model.dto.request.ServeUpsertReqDTO;
 import com.jzo2o.foundations.model.dto.response.RegionResDTO;
 import com.jzo2o.foundations.service.IConfigRegionService;
 import com.jzo2o.foundations.service.IRegionService;
@@ -26,6 +31,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +50,12 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
     @Resource
     private CityDirectoryMapper cityDirectoryMapper;
 
+    @Resource
+    private ServeItemMapper serveItemMapper;
+
+    @Resource
+    private ServeMapper serveMapper;
+
     /**
      * 区域新增
      *
@@ -51,25 +64,58 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
     @Override
     @Transactional
     public void add(RegionUpsertReqDTO regionUpsertReqDTO) {
-        //1.校验城市编码是否重复
+        // 1.校验城市编码是否重复
         LambdaQueryWrapper<Region> queryWrapper = Wrappers.<Region>lambdaQuery().eq(Region::getCityCode, regionUpsertReqDTO.getCityCode());
         Integer count = baseMapper.selectCount(queryWrapper);
         if (count > 0) {
             throw new ForbiddenOperationException("城市提交重复");
         }
 
-        //查询城市
+        // 查询城市
         CityDirectory cityDirectory = cityDirectoryMapper.selectById(regionUpsertReqDTO.getCityCode());
-        //查询城市的排序位
+        // 查询城市的排序位
         int sotNum = cityDirectory.getSortNum();
 
-        //2.新增区域
+        // 2.新增区域
         Region region = BeanUtil.toBean(regionUpsertReqDTO, Region.class);
         region.setSortNum(sotNum);
         baseMapper.insert(region);
 
-        //3.初始化区域配置
+        // 3.初始化区域配置
         configRegionService.init(region.getId(), region.getCityCode());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void add(List<ServeUpsertReqDTO> dtoList) {
+        // 遍历列表，拿到每个地区的服务
+        for (ServeUpsertReqDTO dto : dtoList) {
+            // 服务项目必须是启用状态才能添加到区域
+            Long serveItemId = dto.getServeItemId();
+            Long regionId = dto.getRegionId();
+            ServeItem serveItem = serveItemMapper.selectById(serveItemId);
+            if (ObjUtil.isNull(serveItem) || serveItem.getActiveStatus() != FoundationStatusEnum.ENABLE.getStatus()) {
+                throw new ForbiddenOperationException("服务项目状态有误！");
+            }
+
+            // 同一服务不能在同一区域重复添加
+            long count = serveMapper.selectCount(Wrappers.<Serve>lambdaQuery()
+                    .eq(Serve::getServeItemId, serveItemId)
+                    .eq(Serve::getRegionId, regionId)
+            );
+            if (count > 0) {
+                throw new ForbiddenOperationException("当前服务项目已经存在！");
+            }
+
+            // 保存数据
+            Serve serve = BeanUtil.copyProperties(dto, Serve.class);
+            Region region = this.getById(regionId);
+            if (ObjUtil.isNotNull(region)) {
+                serve.setCityCode(region.getCityCode());
+            }
+            serveMapper.insert(serve);
+            baseMapper.insert(region);
+        }
     }
 
     /**
