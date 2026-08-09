@@ -1,5 +1,6 @@
 package com.jzo2o.foundations.controller.operation;
 
+import com.jzo2o.common.annotation.NoWriteService;
 import com.jzo2o.common.model.PageResult;
 import com.jzo2o.common.model.Result;
 import com.jzo2o.foundations.enums.FoundationStatusEnum;
@@ -43,6 +44,7 @@ public class ServeController {
         return Result.ok();
     }
 
+    @NoWriteService
     @PutMapping("/{id}")
     @ApiOperation("区域服务修改价格")
     @ApiImplicitParams({
@@ -83,6 +85,7 @@ public class ServeController {
         serveService.offSale(id);
     }
 
+    @NoWriteService
     @PutMapping("/onHot/{id}")
     @ApiOperation("设置热门")
     @ApiImplicitParams({
@@ -96,6 +99,7 @@ public class ServeController {
         serveService.updateById(serve);
     }
 
+    @NoWriteService
     @PutMapping("/offHot/{id}")
     @ApiOperation("取消热门")
     @ApiImplicitParams({
