@@ -53,9 +53,11 @@ spring:
 #################     项目独有配置     #################
 mysql:
   db-name: jzo2o-foundations
+
 mybatis:
   mapper-locations: mapper/*.xml
   type-aliases-package: com.jzo2o.foundations.mapper
+
 swagger:
   enable: true
   package-path: com.jzo2o.foundations.controller
@@ -65,7 +67,6 @@ swagger:
   contact-url: http://www.itcast.cn/
   contact-email: yjy@itcast.cn
   version: v1.0
-
 
 #################     日志配置     #################
 logging:

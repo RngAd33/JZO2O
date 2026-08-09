@@ -2,6 +2,7 @@ package com.jzo2o.foundations.controller.operation;
 
 import com.jzo2o.common.model.PageResult;
 import com.jzo2o.common.model.Result;
+import com.jzo2o.foundations.enums.FoundationStatusEnum;
 import com.jzo2o.foundations.model.domain.Serve;
 import com.jzo2o.foundations.model.dto.request.RegionPageQueryReqDTO;
 import com.jzo2o.foundations.model.dto.request.ServePageQueryReqDTO;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,6 +63,49 @@ public class ServeController {
     })
     public void delete(@PathVariable("id") Long id) {
         serveService.deleteById(id);
+    }
+
+    @PutMapping("/onSale/{id}")
+    @ApiOperation("区域服务上架")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "区域服务id", required = true, dataTypeClass = Long.class)
+    })
+    public void onSale(@PathVariable("id") Long id) {
+        serveService.onSale(id);
+    }
+
+    @PutMapping("/offSale/{id}")
+    @ApiOperation("区域服务下架")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "区域服务id", required = true, dataTypeClass = Long.class)
+    })
+    public void offSale(@PathVariable("id") Long id) {
+        serveService.offSale(id);
+    }
+
+    @PutMapping("/onHot/{id}")
+    @ApiOperation("设置热门")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "区域服务id", required = true, dataTypeClass = Long.class)
+    })
+    public void onHot(@PathVariable("id") Long id) {
+        Serve serve = new Serve();
+        serve.setId(id);
+        serve.setHotTimeStamp(new Date().getTime());
+        serve.setIsHot(FoundationStatusEnum.ENABLE.getStatus());
+        serveService.updateById(serve);
+    }
+
+    @PutMapping("/offHot/{id}")
+    @ApiOperation("取消热门")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "区域服务id", required = true, dataTypeClass = Long.class)
+    })
+    public void offHot(@PathVariable("id") Long id) {
+        Serve serve = new Serve();
+        serve.setId(id);
+        serve.setIsHot(FoundationStatusEnum.DISABLE.getStatus());
+        serveService.updateById(serve);
     }
 
 }

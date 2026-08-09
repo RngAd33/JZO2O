@@ -20,6 +20,6 @@ public class FoundationsApplication {
         new SpringApplicationBuilder(FoundationsApplication.class)
                 .build(args)
                 .run(args);
-        log.info("家政服务-运营基础服务启动");
+        log.info("家政服务-运营基础服务启动 >>>");
     }
 }

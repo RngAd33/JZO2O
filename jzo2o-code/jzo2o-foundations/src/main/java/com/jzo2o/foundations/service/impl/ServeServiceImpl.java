@@ -109,4 +109,21 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
         this.updateById(serve);
     }
 
+    @Override
+    public void offSale(Long id) {
+        Serve serve = this.getById(id);
+        if (serve.getSaleStatus() != FoundationStatusEnum.ENABLE.getStatus()) {
+            throw new ForbiddenOperationException("当前区域服务未启用！");
+        }
+
+        Long serveItemId = serve.getServeItemId();
+        ServeItem serveItem = serveItemMapper.selectById(serveItemId);
+        if (ObjUtil.isNull(serveItem) || serveItem.getActiveStatus() != FoundationStatusEnum.DISABLE.getStatus()) {
+            throw new ForbiddenOperationException("服务项目未禁用！");
+        }
+
+        serve.setSaleStatus(FoundationStatusEnum.DISABLE.getStatus());
+        this.updateById(serve);
+    }
+
 }
