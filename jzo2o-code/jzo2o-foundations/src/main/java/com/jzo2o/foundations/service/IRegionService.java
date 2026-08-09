@@ -10,6 +10,7 @@ import com.jzo2o.foundations.model.dto.request.ServeUpsertReqDTO;
 import com.jzo2o.foundations.model.dto.response.RegionDisplayResDTO;
 import com.jzo2o.foundations.model.dto.response.RegionResDTO;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public interface IRegionService extends IService<Region> {
      * @param managerName  负责人姓名
      * @param managerPhone 负责人电话
      */
-    void update(Long id, String managerName, String managerPhone);
+    void update(Long id, String managerName, String managerPhone, BigDecimal price);
 
     /**
      * 区域删除

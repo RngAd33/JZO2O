@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @TableName("region")
 public class Region implements Serializable {
+
     private static final long serialVersionUID = -6475795569304770481L;
 
     @TableId(value = "id", type = IdType.ASSIGN_ID)

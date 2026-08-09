@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @TableName("serve")
 public class Serve implements Serializable {
+
     private static final long serialVersionUID = -283112689446411326L;
 
     @TableId(value = "id", type = IdType.ASSIGN_ID)

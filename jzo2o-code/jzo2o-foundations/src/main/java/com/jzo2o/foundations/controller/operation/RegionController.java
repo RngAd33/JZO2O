@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -33,6 +34,7 @@ import java.util.List;
 @RequestMapping("/operation/region")
 @Api(tags = "运营端 - 区域相关接口")
 public class RegionController {
+
     @Resource
     private IRegionService regionService;
 
@@ -57,8 +59,9 @@ public class RegionController {
     })
     public void update(@NotNull(message = "id不能为空") @PathVariable("id") Long id,
                        @RequestParam("managerName") String managerName,
-                       @RequestParam("managerPhone") String managerPhone) {
-        regionService.update(id, managerName, managerPhone);
+                       @RequestParam("managerPhone") String managerPhone,
+                       @RequestParam("price") BigDecimal price) {
+        regionService.update(id, managerName, managerPhone, price);
     }
 
     @DeleteMapping("/{id}")
@@ -107,7 +110,8 @@ public class RegionController {
     @PutMapping("/refreshRegionRelateCaches/{id}")
     @ApiOperation("刷新区域相关缓存")
     public void refreshRegionRelateCaches(@PathVariable("id") Long id) {
-        //todo
+        // todo
 //        homeService.refreshRegionRelateCaches(id);
     }
+
 }

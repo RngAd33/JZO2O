@@ -2,6 +2,7 @@ package com.jzo2o.foundations.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -62,7 +63,7 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
      * @param regionUpsertReqDTO 插入更新区域
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void add(RegionUpsertReqDTO regionUpsertReqDTO) {
         // 1.校验城市编码是否重复
         LambdaQueryWrapper<Region> queryWrapper = Wrappers.<Region>lambdaQuery().eq(Region::getCityCode, regionUpsertReqDTO.getCityCode());
@@ -99,7 +100,7 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
             }
 
             // 同一服务不能在同一区域重复添加
-            long count = serveMapper.selectCount(Wrappers.<Serve>lambdaQuery()
+            int count = serveMapper.selectCount(Wrappers.<Serve>lambdaQuery()
                     .eq(Serve::getServeItemId, serveItemId)
                     .eq(Serve::getRegionId, regionId)
             );
@@ -126,12 +127,21 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
      * @param managerPhone 负责人电话
      */
     @Override
-    public void update(Long id, String managerName, String managerPhone) {
-        Region region = new Region();
-        region.setId(id);
-        region.setManagerName(managerName);
-        region.setManagerPhone(managerPhone);
-        baseMapper.updateById(region);
+    @Transactional(rollbackFor = Exception.class)
+    public void update(Long id, String managerName, String managerPhone, BigDecimal price) {
+        if (!ObjUtil.isAllEmpty(id, managerName, managerPhone)) {
+            Region region = new Region();
+            region.setId(id);
+            region.setManagerName(managerName);
+            region.setManagerPhone(managerPhone);
+            this.updateById(region);
+        }
+        if (ObjUtil.isNotEmpty(price)) {
+            Serve serve = new Serve();
+            serve.setRegionId(id);
+            serve.setPrice(price);
+            serveMapper.update(serve, Wrappers.<Serve>lambdaUpdate().eq(Serve::getRegionId, id));
+        }
     }
 
     /**
@@ -140,19 +150,18 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
      * @param id 区域id
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
-        //区域信息
+        // 区域信息
         Region region = baseMapper.selectById(id);
-        //启用状态
+        // 启用状态
         Integer activeStatus = region.getActiveStatus();
-        //草稿状态方可删除
+        // 草稿状态方可删除
         if (!(FoundationStatusEnum.INIT.getStatus() == activeStatus)) {
-            throw new ForbiddenOperationException("草稿状态方可删除");
+            throw new ForbiddenOperationException("草稿状态方可删除！");
         }
-        //删除
-        baseMapper.deleteById(id);
-
+        // 删除
+        this.removeById(id);
     }
 
     /**
@@ -189,25 +198,25 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
      */
     @Override
     public void active(Long id) {
-        //区域信息
+        // 区域信息
         Region region = baseMapper.selectById(id);
-        //启用状态
+        // 启用状态
         Integer activeStatus = region.getActiveStatus();
-        //草稿或禁用状态方可启用
+        // 草稿或禁用状态方可启用
         if (!(FoundationStatusEnum.INIT.getStatus() == activeStatus || FoundationStatusEnum.DISABLE.getStatus() == activeStatus)) {
             throw new ForbiddenOperationException("草稿或禁用状态方可启用");
         }
-        //如果需要启用区域，需要校验该区域下是否有上架的服务
-        //todo
+        // todo 如果需要启用区域，需要校验该区域下是否有上架的服务
 
-        //更新启用状态
+
+        // 更新启用状态
         LambdaUpdateWrapper<Region> updateWrapper = Wrappers.<Region>lambdaUpdate()
                 .eq(Region::getId, id)
                 .set(Region::getActiveStatus, FoundationStatusEnum.ENABLE.getStatus());
         update(updateWrapper);
 
-        //3.如果是启用操作，刷新缓存：启用区域列表、首页图标、热门服务、服务类型
-        // todo
+        // todo 3.如果是启用操作，刷新缓存：启用区域列表、首页图标、热门服务、服务类型
+
     }
 
     /**
@@ -217,17 +226,16 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
      */
     @Override
     public void deactivate(Long id) {
-        //区域信息
+        // 区域信息
         Region region = baseMapper.selectById(id);
-        //启用状态
+        // 启用状态
         Integer activeStatus = region.getActiveStatus();
         //启用状态方可禁用
         if (!(FoundationStatusEnum.ENABLE.getStatus() == activeStatus)) {
             throw new ForbiddenOperationException("启用状态方可禁用");
         }
 
-        //如果禁用区域下有上架的服务则无法禁用
-        //todo
+        // todo 如果禁用区域下有上架的服务则无法禁用
 
         //更新禁用状态
         LambdaUpdateWrapper<Region> updateWrapper = Wrappers.<Region>lambdaUpdate()
