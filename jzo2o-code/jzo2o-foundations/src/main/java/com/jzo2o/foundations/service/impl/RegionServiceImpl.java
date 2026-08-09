@@ -51,12 +51,6 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
     @Resource
     private CityDirectoryMapper cityDirectoryMapper;
 
-    @Resource
-    private ServeItemMapper serveItemMapper;
-
-    @Resource
-    private ServeMapper serveMapper;
-
     /**
      * 区域新增
      *
@@ -86,39 +80,6 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
         configRegionService.init(region.getId(), region.getCityCode());
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void add(List<ServeUpsertReqDTO> dtoList) {
-        // 遍历列表，拿到每个地区的服务
-        for (ServeUpsertReqDTO dto : dtoList) {
-            // 服务项目必须是启用状态才能添加到区域
-            Long serveItemId = dto.getServeItemId();
-            Long regionId = dto.getRegionId();
-            ServeItem serveItem = serveItemMapper.selectById(serveItemId);
-            if (ObjUtil.isNull(serveItem) || serveItem.getActiveStatus() != FoundationStatusEnum.ENABLE.getStatus()) {
-                throw new ForbiddenOperationException("服务项目状态有误！");
-            }
-
-            // 同一服务不能在同一区域重复添加
-            int count = serveMapper.selectCount(Wrappers.<Serve>lambdaQuery()
-                    .eq(Serve::getServeItemId, serveItemId)
-                    .eq(Serve::getRegionId, regionId)
-            );
-            if (count > 0) {
-                throw new ForbiddenOperationException("当前服务项目已经存在！");
-            }
-
-            // 保存数据
-            Serve serve = BeanUtil.copyProperties(dto, Serve.class);
-            Region region = this.getById(regionId);
-            if (ObjUtil.isNotNull(region)) {
-                serve.setCityCode(region.getCityCode());
-            }
-            serveMapper.insert(serve);
-            baseMapper.insert(region);
-        }
-    }
-
     /**
      * 区域修改
      *
@@ -127,7 +88,6 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
      * @param managerPhone 负责人电话
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void update(Long id, String managerName, String managerPhone, BigDecimal price) {
         if (!ObjUtil.isAllEmpty(id, managerName, managerPhone)) {
             Region region = new Region();
@@ -135,12 +95,6 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
             region.setManagerName(managerName);
             region.setManagerPhone(managerPhone);
             this.updateById(region);
-        }
-        if (ObjUtil.isNotEmpty(price)) {
-            Serve serve = new Serve();
-            serve.setRegionId(id);
-            serve.setPrice(price);
-            serveMapper.update(serve, Wrappers.<Serve>lambdaUpdate().eq(Serve::getRegionId, id));
         }
     }
 
@@ -173,7 +127,7 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
     @Override
     public PageResult<RegionResDTO> page(RegionPageQueryReqDTO regionPageQueryReqDTO) {
         Page<Region> page = PageUtils.parsePageQuery(regionPageQueryReqDTO, Region.class);
-        Page<Region> serveTypePage = baseMapper.selectPage(page, new QueryWrapper<>());
+        Page<Region> serveTypePage = this.page(page, new QueryWrapper<>());
         return PageUtils.toPage(serveTypePage, RegionResDTO.class);
     }
 
@@ -207,7 +161,6 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
             throw new ForbiddenOperationException("草稿或禁用状态方可启用");
         }
         // todo 如果需要启用区域，需要校验该区域下是否有上架的服务
-
 
         // 更新启用状态
         LambdaUpdateWrapper<Region> updateWrapper = Wrappers.<Region>lambdaUpdate()

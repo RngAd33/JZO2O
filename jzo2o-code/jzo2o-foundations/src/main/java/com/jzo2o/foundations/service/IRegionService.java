@@ -29,13 +29,6 @@ public interface IRegionService extends IService<Region> {
     void add(RegionUpsertReqDTO regionUpsertReqDTO);
 
     /**
-     * 区域新增
-     *
-     * @param serveUpsertReqDTOList 插入更新区域
-     */
-    void add(List<ServeUpsertReqDTO> serveUpsertReqDTOList);
-
-    /**
      * 区域修改
      *
      * @param id           区域id

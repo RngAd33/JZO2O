@@ -47,7 +47,6 @@ public class ServeItemController {
         serveItemService.update(id, serveItemUpsertReqDTO);
     }
 
-
     @PutMapping("/activate/{id}")    //启用状态，1：禁用，:2：启用
     @ApiOperation("服务项启用")
     @ApiImplicitParams({

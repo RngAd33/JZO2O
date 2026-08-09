@@ -37,8 +37,10 @@ import java.util.List;
  **/
 @Service
 public class ServeTypeServiceImpl extends ServiceImpl<ServeTypeMapper, ServeType> implements IServeTypeService {
+
     @Resource
     private IServeItemService serveItemService;
+
     @Resource
     private IServeSyncService serveSyncService;
 
