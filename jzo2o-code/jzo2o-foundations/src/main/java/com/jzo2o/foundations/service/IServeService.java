@@ -51,6 +51,4 @@ public interface IServeService extends IService<Serve> {
      */
     void offSale(Long id);
 
-    void offHot(Long id);
-
 }
