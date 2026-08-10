@@ -62,13 +62,12 @@ public class ServeItemServiceImpl extends ServiceImpl<ServeItemMapper, ServeItem
      */
     @Override
     public void add(ServeItemUpsertReqDTO serveItemUpsertReqDTO) {
-        //校验名称是否重复
+        // 校验名称是否重复
         LambdaQueryWrapper<ServeItem> queryWrapper = Wrappers.<ServeItem>lambdaQuery().eq(ServeItem::getName, serveItemUpsertReqDTO.getName());
         Integer count = baseMapper.selectCount(queryWrapper);
         if (count > 0) {
             throw new ForbiddenOperationException("服务项名称不可重复");
         }
-
         ServeItem serveItem = BeanUtil.toBean(serveItemUpsertReqDTO, ServeItem.class);
         serveItem.setCode(IdUtil.getSnowflakeNextIdStr());
         baseMapper.insert(serveItem);
@@ -166,9 +165,9 @@ public class ServeItemServiceImpl extends ServiceImpl<ServeItemMapper, ServeItem
             throw new ForbiddenOperationException("启用状态方可禁用");
         }
 
-        // todo 有区域在使用该服务将无法禁用（存在关联的区域服务且状态为上架表示有区域在使用该服务项）
+        // 有区域在使用该服务将无法禁用（存在关联的区域服务且状态为上架表示有区域在使用该服务项）
         LambdaQueryWrapper<Serve> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Serve::getServeItemId, id).eq(Serve::getSaleStatus, 2);
+        wrapper.eq(Serve::getServeItemId, id).eq(Serve::getSaleStatus, FoundationStatusEnum.ENABLE.getStatus());
         int count = serveService.count();
         if (count > 0) {
             throw new ForbiddenOperationException("当前服务正在被其它区域使用,不能禁用");
@@ -176,7 +175,7 @@ public class ServeItemServiceImpl extends ServiceImpl<ServeItemMapper, ServeItem
 
         // 更新禁用状态
         LambdaUpdateWrapper<ServeItem> updateWrapper = Wrappers.<ServeItem>lambdaUpdate().eq(ServeItem::getId, id).set(ServeItem::getActiveStatus, FoundationStatusEnum.DISABLE.getStatus());
-        update(updateWrapper);
+        this.update(updateWrapper);
     }
 
 
