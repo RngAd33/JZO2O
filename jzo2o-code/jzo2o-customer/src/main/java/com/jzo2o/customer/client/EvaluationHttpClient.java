@@ -4,13 +4,13 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.json.JSONUtil;
-import cn.xiaozhibang.evaluation.sdk.core.TokenHelper;
-import cn.xiaozhibang.evaluation.sdk.model.domain.CurrentUser;
 import com.jzo2o.common.constants.ErrorInfo;
 import com.jzo2o.common.constants.UserType;
 import com.jzo2o.common.expcetions.CommonException;
 import com.jzo2o.common.model.CurrentUserInfo;
+import com.jzo2o.customer.model.domain.CurrentUser;
 import com.jzo2o.customer.properties.EvaluationProperties;
+import com.jzo2o.customer.utils.TokenHelper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
