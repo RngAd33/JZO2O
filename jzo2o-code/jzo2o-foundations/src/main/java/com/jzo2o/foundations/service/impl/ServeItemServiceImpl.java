@@ -16,12 +16,15 @@ import com.jzo2o.foundations.constants.RedisConstants;
 import com.jzo2o.foundations.enums.FoundationStatusEnum;
 import com.jzo2o.foundations.mapper.ServeItemMapper;
 import com.jzo2o.foundations.mapper.ServeTypeMapper;
+import com.jzo2o.foundations.model.domain.Serve;
 import com.jzo2o.foundations.model.domain.ServeItem;
 import com.jzo2o.foundations.model.domain.ServeType;
 import com.jzo2o.foundations.model.dto.request.ServeItemPageQueryReqDTO;
 import com.jzo2o.foundations.model.dto.request.ServeItemUpsertReqDTO;
 import com.jzo2o.foundations.model.dto.request.ServeSyncUpdateReqDTO;
+import com.jzo2o.foundations.service.IRegionService;
 import com.jzo2o.foundations.service.IServeItemService;
+import com.jzo2o.foundations.service.IServeService;
 import com.jzo2o.foundations.service.IServeSyncService;
 import com.jzo2o.mysql.utils.PageHelperUtils;
 import org.springframework.cache.annotation.CacheEvict;
@@ -42,6 +45,10 @@ import java.util.List;
  */
 @Service
 public class ServeItemServiceImpl extends ServiceImpl<ServeItemMapper, ServeItem> implements IServeItemService {
+
+    @Resource
+    private IServeService serveService;
+
     @Resource
     private IServeSyncService serveSyncService;
 
@@ -77,12 +84,12 @@ public class ServeItemServiceImpl extends ServiceImpl<ServeItemMapper, ServeItem
     @Override
     @CachePut(value = RedisConstants.CacheName.SERVE_ITEM, key = "#id", unless = "#result.activeStatus != 2", cacheManager = RedisConstants.CacheManager.ONE_DAY)
     public ServeItem update(Long id, ServeItemUpsertReqDTO serveItemUpsertReqDTO) {
-        //1.更新服务项
+        // 1.更新服务项
         ServeItem serveItem = BeanUtil.toBean(serveItemUpsertReqDTO, ServeItem.class);
         serveItem.setId(id);
         baseMapper.updateById(serveItem);
 
-        //2.同步数据到es
+        // 2.同步数据到 es
         ServeSyncUpdateReqDTO serveSyncUpdateReqDTO = BeanUtil.toBean(serveItemUpsertReqDTO, ServeSyncUpdateReqDTO.class);
         serveSyncUpdateReqDTO.setServeItemName(serveItemUpsertReqDTO.getName());
         serveSyncUpdateReqDTO.setServeItemImg(serveItemUpsertReqDTO.getImg());
@@ -90,10 +97,9 @@ public class ServeItemServiceImpl extends ServiceImpl<ServeItemMapper, ServeItem
         serveSyncUpdateReqDTO.setServeItemSortNum(serveItemUpsertReqDTO.getSortNum());
         serveSyncService.updateByServeItemId(id, serveSyncUpdateReqDTO);
 
-        //用于更新缓存
+        // 用于更新缓存
         return baseMapper.selectById(id);
     }
-
 
     /**
      * 启用服务项
@@ -105,7 +111,6 @@ public class ServeItemServiceImpl extends ServiceImpl<ServeItemMapper, ServeItem
     @Transactional
     @CachePut(value = RedisConstants.CacheName.SERVE_ITEM, key = "#id", cacheManager = RedisConstants.CacheManager.ONE_DAY)
     public ServeItem activate(Long id) {
-
         //查询服务项
         ServeItem serveItem = baseMapper.selectById(id);
         if (ObjectUtil.isNull(serveItem)) {
@@ -134,7 +139,7 @@ public class ServeItemServiceImpl extends ServiceImpl<ServeItemMapper, ServeItem
         }
         //更新启用状态
         LambdaUpdateWrapper<ServeItem> updateWrapper = Wrappers.<ServeItem>lambdaUpdate().eq(ServeItem::getId, id).set(ServeItem::getActiveStatus, FoundationStatusEnum.ENABLE.getStatus());
-        update(updateWrapper);
+        this.update(updateWrapper);
 
         return baseMapper.selectById(id);
     }
@@ -149,22 +154,27 @@ public class ServeItemServiceImpl extends ServiceImpl<ServeItemMapper, ServeItem
     @Transactional
     @CacheEvict(value = RedisConstants.CacheName.SERVE_ITEM, key = "#id", beforeInvocation = true)
     public void deactivate(Long id) {
-        //查询服务项
+        // 查询服务项
         ServeItem serveItem = baseMapper.selectById(id);
         if (ObjectUtil.isNull(serveItem)) {
             throw new ForbiddenOperationException("服务项不存在");
         }
-        //启用状态
+        // 启用状态
         Integer activeStatus = serveItem.getActiveStatus();
-        //启用状态方可禁用
+        // 启用状态方可禁用
         if (!(FoundationStatusEnum.ENABLE.getStatus() == activeStatus)) {
             throw new ForbiddenOperationException("启用状态方可禁用");
         }
 
-        //有区域在使用该服务将无法禁用（存在关联的区域服务且状态为上架表示有区域在使用该服务项）
-        //todo
+        // todo 有区域在使用该服务将无法禁用（存在关联的区域服务且状态为上架表示有区域在使用该服务项）
+        LambdaQueryWrapper<Serve> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Serve::getServeItemId, id).eq(Serve::getSaleStatus, 2);
+        int count = serveService.count();
+        if (count > 0) {
+            throw new ForbiddenOperationException("当前服务正在被其它区域使用,不能禁用");
+        }
 
-        //更新禁用状态
+        // 更新禁用状态
         LambdaUpdateWrapper<ServeItem> updateWrapper = Wrappers.<ServeItem>lambdaUpdate().eq(ServeItem::getId, id).set(ServeItem::getActiveStatus, FoundationStatusEnum.DISABLE.getStatus());
         update(updateWrapper);
     }
@@ -253,4 +263,5 @@ public class ServeItemServiceImpl extends ServiceImpl<ServeItemMapper, ServeItem
     public List<ServeTypeCategoryResDTO> queryActiveServeItemCategory() {
         return baseMapper.queryActiveServeItemCategory();
     }
+
 }

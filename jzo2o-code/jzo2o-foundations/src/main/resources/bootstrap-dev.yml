@@ -1,4 +1,10 @@
 spring:
+  datasource:
+    host: localhost
+    port: 3306
+    database: jzo2o_foundations
+    username: root
+    password: yxbsyx666
   cloud:
     nacos:
       username: nacos

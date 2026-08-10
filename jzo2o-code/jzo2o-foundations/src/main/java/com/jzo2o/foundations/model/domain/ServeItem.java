@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @TableName("serve_item")
 public class ServeItem implements Serializable {
+
     private static final long serialVersionUID = -6558310077509611789L;
 
     @TableId(value = "id", type = IdType.ASSIGN_ID)
@@ -33,7 +34,7 @@ public class ServeItem implements Serializable {
     private String code;
 
     /**
-     * 服务类型id
+     * 服务类型 id
      */
     private Long serveTypeId;
 
@@ -103,6 +104,5 @@ public class ServeItem implements Serializable {
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
-
 
 }

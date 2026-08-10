@@ -11,6 +11,11 @@ server:
 
 #################     spring公共配置     #################
 spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}
+    username: ${sky.datasource.username}
+    password: ${sky.datasource.password}
   mvc:
     path-match:
       matching-strategy: ant_path_matcher

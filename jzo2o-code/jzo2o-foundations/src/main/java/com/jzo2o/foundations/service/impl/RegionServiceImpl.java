@@ -27,7 +27,9 @@ import com.jzo2o.foundations.model.dto.request.ServeUpsertReqDTO;
 import com.jzo2o.foundations.model.dto.response.RegionResDTO;
 import com.jzo2o.foundations.service.IConfigRegionService;
 import com.jzo2o.foundations.service.IRegionService;
+import com.jzo2o.foundations.service.IServeService;
 import com.jzo2o.mysql.utils.PageUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,7 +51,13 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
     private IConfigRegionService configRegionService;
 
     @Resource
+    private IServeService serveService;
+
+    @Resource
     private CityDirectoryMapper cityDirectoryMapper;
+
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 区域新增
@@ -157,16 +165,23 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
         // 启用状态
         Integer activeStatus = region.getActiveStatus();
         // 草稿或禁用状态方可启用
-        if (!(FoundationStatusEnum.INIT.getStatus() == activeStatus || FoundationStatusEnum.DISABLE.getStatus() == activeStatus)) {
+        if (activeStatus == FoundationStatusEnum.INIT.getStatus() || activeStatus == FoundationStatusEnum.DISABLE.getStatus()) {
             throw new ForbiddenOperationException("草稿或禁用状态方可启用");
         }
-        // todo 如果需要启用区域，需要校验该区域下是否有上架的服务
+
+        // 如果需要启用区域，需要校验该区域下是否有上架的服务
+        LambdaQueryWrapper<Serve> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Serve::getRegionId, id).eq(Serve::getSaleStatus, 2);
+        int count = serveService.count(wrapper);
+        if (count <= 0) {
+            throw new ForbiddenOperationException("当前区域下无可用的服务,不能启用");
+        }
 
         // 更新启用状态
         LambdaUpdateWrapper<Region> updateWrapper = Wrappers.<Region>lambdaUpdate()
                 .eq(Region::getId, id)
                 .set(Region::getActiveStatus, FoundationStatusEnum.ENABLE.getStatus());
-        update(updateWrapper);
+        this.update(updateWrapper);
 
         // todo 3.如果是启用操作，刷新缓存：启用区域列表、首页图标、热门服务、服务类型
 
@@ -183,18 +198,24 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
         Region region = baseMapper.selectById(id);
         // 启用状态
         Integer activeStatus = region.getActiveStatus();
-        //启用状态方可禁用
+        // 启用状态方可禁用
         if (!(FoundationStatusEnum.ENABLE.getStatus() == activeStatus)) {
             throw new ForbiddenOperationException("启用状态方可禁用");
         }
 
-        // todo 如果禁用区域下有上架的服务则无法禁用
+        // 如果禁用区域下有上架的服务则无法禁用
+        LambdaQueryWrapper<Serve> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Serve::getRegionId, id).eq(Serve::getSaleStatus, 2);
+        int count = serveService.count(wrapper);
+        if (count > 0) {
+            throw new ForbiddenOperationException("当前区域下有上架的服务,不能禁用");
+        }
 
-        //更新禁用状态
+        // 更新禁用状态
         LambdaUpdateWrapper<Region> updateWrapper = Wrappers.<Region>lambdaUpdate()
                 .eq(Region::getId, id)
                 .set(Region::getActiveStatus, FoundationStatusEnum.DISABLE.getStatus());
-        update(updateWrapper);
+        this.update(updateWrapper);
     }
 
     /**
