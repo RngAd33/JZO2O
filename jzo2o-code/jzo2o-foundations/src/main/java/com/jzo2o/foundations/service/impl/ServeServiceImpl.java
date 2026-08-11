@@ -1,6 +1,7 @@
 package com.jzo2o.foundations.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -139,6 +140,9 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
 
         // 查询指定区域下上架的服务分类及项目信息
         List<ServeCategoryResDTO> dtoList = serveMapper.findListByRegionId(regionId);
+        if (CollUtil.isEmpty(dtoList)) {
+            return Collections.emptyList();
+        }
 
         return List.of();
     }
