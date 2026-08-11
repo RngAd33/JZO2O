@@ -243,18 +243,18 @@ public class EvaluationHttpClient {
      * @return token
      */
     public String generateToken(CurrentUserInfo currentUserInfo) {
-        //配置中心读取应用配置
+        // 配置中心读取应用配置
         String appId = evaluationProperties.getAppId();
         String accessKeyId = evaluationProperties.getAccessKeyId();
         String accessKeySecret = evaluationProperties.getAccessKeySecret();
 
-        //当前用户信息
+        // 当前用户信息
         CurrentUser currentUser = new CurrentUser();
         currentUser.setId(currentUserInfo.getId().toString());
         currentUser.setNickName(currentUserInfo.getName());
         currentUser.setUserAvatar(currentUserInfo.getAvatar());
 
-        //生成token
+        // 生成token
         if (ObjectUtil.equal(UserType.OPERATION, currentUserInfo.getUserType())) {
             return TokenHelper.generateTokenOfAdmin(appId, accessKeyId, accessKeySecret, currentUser);
         } else {
