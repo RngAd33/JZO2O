@@ -52,4 +52,21 @@ public class AddressBookServiceImpl extends ServiceImpl<AddressBookMapper, Addre
         }
         return BeanUtils.copyToList(addressBooks, AddressBookResDTO.class);
     }
+
+    @Override
+    public AddressBookResDTO findDefaultAddress() {
+        // 用户id  默认地址
+        // select * from address_book where user_id = 登录用户 and is_default = 1
+        AddressBook addressBook = this.lambdaQuery()
+                .eq(AddressBook::getUserId, UserContext.currentUserId())   //登录用户id
+                .eq(AddressBook::getIsDefault, 1)   //默认地址
+                .one();
+        if (ObjectUtil.isNull(addressBook)){
+            return null;
+        }
+
+        // 转换
+        return BeanUtil.copyProperties(addressBook,AddressBookResDTO.class);
+    }
+
 }

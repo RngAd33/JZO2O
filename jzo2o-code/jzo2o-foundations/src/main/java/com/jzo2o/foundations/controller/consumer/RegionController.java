@@ -1,6 +1,5 @@
 package com.jzo2o.foundations.controller.consumer;
 
-
 import com.jzo2o.api.foundations.dto.response.RegionSimpleResDTO;
 import com.jzo2o.foundations.service.IRegionService;
 import io.swagger.annotations.Api;
@@ -24,6 +23,7 @@ import java.util.List;
 @RequestMapping("/consumer/region")
 @Api(tags = "用户端 - 区域相关接口")
 public class RegionController {
+
     @Resource
     private IRegionService regionService;
 
