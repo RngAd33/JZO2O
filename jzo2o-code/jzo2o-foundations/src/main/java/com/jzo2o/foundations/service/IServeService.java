@@ -5,9 +5,7 @@ import com.jzo2o.common.model.PageResult;
 import com.jzo2o.foundations.model.domain.Serve;
 import com.jzo2o.foundations.model.dto.request.ServePageQueryReqDTO;
 import com.jzo2o.foundations.model.dto.request.ServeUpsertReqDTO;
-import com.jzo2o.foundations.model.dto.response.RegionSimpleResDTO;
-import com.jzo2o.foundations.model.dto.response.ServeCategoryResDTO;
-import com.jzo2o.foundations.model.dto.response.ServeResDTO;
+import com.jzo2o.foundations.model.dto.response.*;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -60,5 +58,21 @@ public interface IServeService extends IService<Serve> {
      * @return
      */
     List<ServeCategoryResDTO> firstPageServeList(Long regionId);
+
+    /**
+     * 精选推荐
+     *
+     * @param regionId
+     * @return
+     */
+    List<ServeAggregationSimpleResDTO> hotServeList(Long regionId);
+
+    /**
+     * 查询当前区域下上架服务对应的分类
+     *
+     * @param regionId
+     * @return
+     */
+    List<ServeAggregationTypeSimpleResDTO> serveTypeList(Long regionId);
 
 }

@@ -18,10 +18,7 @@ import com.jzo2o.foundations.model.domain.Serve;
 import com.jzo2o.foundations.model.domain.ServeItem;
 import com.jzo2o.foundations.model.dto.request.ServePageQueryReqDTO;
 import com.jzo2o.foundations.model.dto.request.ServeUpsertReqDTO;
-import com.jzo2o.foundations.model.dto.response.RegionResDTO;
-import com.jzo2o.foundations.model.dto.response.RegionSimpleResDTO;
-import com.jzo2o.foundations.model.dto.response.ServeCategoryResDTO;
-import com.jzo2o.foundations.model.dto.response.ServeResDTO;
+import com.jzo2o.foundations.model.dto.response.*;
 import com.jzo2o.foundations.service.IServeService;
 import com.jzo2o.mysql.utils.PageHelperUtils;
 import com.jzo2o.mysql.utils.PageUtils;
@@ -142,9 +139,33 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
         List<ServeCategoryResDTO> dtoList = serveMapper.findListByRegionId(regionId);
         if (CollUtil.isEmpty(dtoList)) {
             return Collections.emptyList();
+        } else {
+            return dtoList;
+        }
+    }
+
+    @Override
+    public List<ServeAggregationSimpleResDTO> hotServeList(Long regionId) {
+        // 区域校验
+        Region region = regionMapper.selectById(regionId);
+        if (ObjUtil.isNull(region) || region.getActiveStatus() != FoundationStatusEnum.ENABLE.getStatus()) {
+            return Collections.emptyList();
         }
 
-        return List.of();
+        // 查询指定区域下上架且热门的服务项目信息
+        return serveMapper.findServeListByRegionId(regionId);
+    }
+
+    @Override
+    public List<ServeAggregationTypeSimpleResDTO> serveTypeList(Long regionId) {
+        // 区域校验
+        Region region = regionMapper.selectById(regionId);
+        if (ObjUtil.isNull(region) || region.getActiveStatus() != FoundationStatusEnum.ENABLE.getStatus()) {
+            return Collections.emptyList();
+        }
+
+        // 查询当前区域下上架服务对应的分类
+        return serveMapper.findServeTypeListByRegionId(regionId);
     }
 
 }

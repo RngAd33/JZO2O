@@ -1,5 +1,7 @@
 package com.jzo2o.foundations.controller.consumer;
 
+import com.jzo2o.foundations.model.dto.response.ServeAggregationSimpleResDTO;
+import com.jzo2o.foundations.model.dto.response.ServeAggregationTypeSimpleResDTO;
 import com.jzo2o.foundations.model.dto.response.ServeCategoryResDTO;
 import com.jzo2o.foundations.service.IServeService;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +24,18 @@ public class ServeController {
     @ApiOperation("首页服务分类及项目")
     public List<ServeCategoryResDTO> firstPageServeList(@RequestParam("regionId") Long regionId) {
         return serveService.firstPageServeList(regionId);
+    }
+
+    @GetMapping("/hotServeList")
+    @ApiOperation("精选推荐")
+    public List<ServeAggregationSimpleResDTO> hotServeList(Long regionId) {
+        return serveService.hotServeList(regionId);
+    }
+
+    @GetMapping("/serveTypeList")
+    @ApiOperation("查询当前区域下上架服务对应的分类")
+    public List<ServeAggregationTypeSimpleResDTO> serveTypeList(Long regionId) {
+        return serveService.serveTypeList(regionId);
     }
 
 }
