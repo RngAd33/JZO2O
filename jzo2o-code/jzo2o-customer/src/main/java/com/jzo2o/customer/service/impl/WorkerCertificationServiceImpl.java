@@ -25,9 +25,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class WorkerCertificationServiceImpl extends ServiceImpl<WorkerCertificationMapper, WorkerCertification> implements IWorkerCertificationService {
 
-
-
-
     /**
      * 根据服务人员id更新
      *
@@ -46,4 +43,5 @@ public class WorkerCertificationServiceImpl extends ServiceImpl<WorkerCertificat
                 .set(ObjectUtil.isNotEmpty(workerCertificationUpdateDTO.getCertificationTime()), WorkerCertification::getCertificationTime, workerCertificationUpdateDTO.getCertificationTime());
         super.update(updateWrapper);
     }
+
 }
