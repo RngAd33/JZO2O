@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jzo2o.api.foundations.dto.response.RegionSimpleResDTO;
 import com.jzo2o.common.expcetions.ForbiddenOperationException;
 import com.jzo2o.common.model.PageResult;
+import com.jzo2o.foundations.constants.RedisConstants;
 import com.jzo2o.foundations.enums.FoundationStatusEnum;
 import com.jzo2o.foundations.mapper.CityDirectoryMapper;
 import com.jzo2o.foundations.mapper.RegionMapper;
@@ -29,6 +30,8 @@ import com.jzo2o.foundations.service.IConfigRegionService;
 import com.jzo2o.foundations.service.IRegionService;
 import com.jzo2o.foundations.service.IServeService;
 import com.jzo2o.mysql.utils.PageUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -145,6 +148,9 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
      * @return 区域列表
      */
     @Override
+    @Cacheable(value = RedisConstants.CacheName.JZ_CACHE,
+            key = "'ACTIVE_REGIONS'",   // 当 key 用一个固定字符串时需要在双引号中用单引号括起来
+            cacheManager = RedisConstants.CacheManager.FOREVER)
     public List<RegionSimpleResDTO> queryActiveRegionList() {
         LambdaQueryWrapper<Region> queryWrapper = Wrappers.<Region>lambdaQuery()
                 .eq(Region::getActiveStatus, FoundationStatusEnum.ENABLE.getStatus())
@@ -159,6 +165,8 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
      * @param id 区域id
      */
     @Override
+    // 区域启用后，当前启用区域列表就发生变更，需要清空已启用的区域列表
+    @CacheEvict(value = RedisConstants.CacheName.JZ_CACHE, key = "'ACTIVE_REGIONS'")
     public void active(Long id) {
         // 区域信息
         Region region = baseMapper.selectById(id);
@@ -193,6 +201,8 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
      * @param id 区域id
      */
     @Override
+    // 禁用区域后, 当前启用区域列表就发生变更，需要清空已启用的区域列表
+    @CacheEvict(value = RedisConstants.CacheName.JZ_CACHE, key = "'ACTIVE_REGIONS'")
     public void deactivate(Long id) {
         // 区域信息
         Region region = baseMapper.selectById(id);
