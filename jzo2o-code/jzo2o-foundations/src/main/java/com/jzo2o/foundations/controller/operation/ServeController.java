@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * 区域服务接口
  */
-@RestController
+@RestController("operationServeController")
 @RequestMapping("/operation/serve")
 public class ServeController {
 

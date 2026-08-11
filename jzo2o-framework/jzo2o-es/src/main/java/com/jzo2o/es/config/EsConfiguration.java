@@ -38,7 +38,6 @@ public class EsConfiguration {
         javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(dateTimeFormatter));
         javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(dateTimeFormatter));
         MAPPER.registerModule(javaTimeModule);
-
     }
 
     @Bean
@@ -47,7 +46,6 @@ public class EsConfiguration {
         // Create the transport with a Jackson mapper
         // 使用自定义json序列化
         JacksonJsonpMapper jacksonJsonpMapper = new JacksonJsonpMapper(MAPPER);
-
         ElasticsearchTransport transport = new RestClientTransport(restClient, jacksonJsonpMapper);
         // And create the API client
         return new ElasticsearchClient(transport);
@@ -57,4 +55,5 @@ public class EsConfiguration {
     public ElasticSearchTemplate template(ElasticsearchClient elasticsearchClient) {
         return new ElasticSearchTemplateImpl(elasticsearchClient);
     }
+
 }

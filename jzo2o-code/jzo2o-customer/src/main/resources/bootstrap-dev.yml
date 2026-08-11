@@ -1,15 +1,27 @@
 spring:
+  datasource:
+    host: localhost
+    port: 3306
+    database: jzo2o_customer
+    username: root
+    password: yxbsyx666
   cloud:
     nacos:
       username: nacos
       password: nacos
-      server-addr: 192.168.101.68:8848
+      server-addr: 192.168.101.1:8848
       config:
         namespace: 75a593f5-33e6-4c65-b2a0-18c403d20f63
         file-extension: yaml
       discovery:
         namespace: 75a593f5-33e6-4c65-b2a0-18c403d20f63
-        ip: ${ACCESS_IP:}
+
+#################     项目配置     #################
+jzo2o:
+  jwtKey: jzo2o-secret-key-for-jwt-token
+  es:
+    host: localhost
+    port: 9200
 
 #################     日志配置     #################
 logging:

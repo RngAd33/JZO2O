@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 区域服务接口
  */
-@RestController
+@RestController("consumerServeController")
 @RequestMapping("/customer/serve")
 public class ServeController {
 

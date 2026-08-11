@@ -16,6 +16,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class FoundationsApplication {
     public static void main(String[] args) {
         SpringApplication.run(FoundationsApplication.class, args);
-        System.out.println("家政服务-运营基础服务启动 >>>");
+        System.out.println("家政服务-运营基础服务已启动 >>>");
     }
 }

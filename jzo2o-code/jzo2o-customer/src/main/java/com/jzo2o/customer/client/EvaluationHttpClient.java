@@ -150,7 +150,6 @@ public class EvaluationHttpClient {
 
         //校验http响应结果
         checkResult(result);
-
         return result;
     }
 
@@ -217,7 +216,7 @@ public class EvaluationHttpClient {
     /**
      * 拼接请求参数
      *
-     * @param url        请求路径
+     * @param url 请求路径
      * @param parameters 参数
      * @return 完整请求地址
      */

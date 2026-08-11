@@ -10,6 +10,7 @@ import java.util.Base64;
 import java.util.Date;
 
 public class JwtTool {
+
     // 便于联调token有效期设置一个月 todo
     private static final Duration JWT_TOKEN_TTL = Duration.ofMinutes(24 * 60 * 30);
     private static final String PAYLOAD_USER_KEY = "user";

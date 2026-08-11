@@ -41,7 +41,7 @@
         <spring-boot.version>2.7.10</spring-boot.version>
         <gateway.version>3.1.1</gateway.version>
         <spring-cloud.version>2021.0.4</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
+        <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <swagger.version>3.0.3</swagger.version>
         <swagger-annotations.version>1.5.22</swagger-annotations.version>
         <reddsion.version>3.17.7</reddsion.version>
@@ -94,13 +94,13 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>2021.0.4.0</version>
+                <version>2021.0.5.0</version>
             </dependency>
 
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-                <version>2021.0.4.0</version>
+                <version>2021.0.5.0</version>
             </dependency>
 
             <!--mybatis-plus 相关依赖-->
