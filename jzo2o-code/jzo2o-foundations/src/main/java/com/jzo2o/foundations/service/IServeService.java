@@ -5,6 +5,8 @@ import com.jzo2o.common.model.PageResult;
 import com.jzo2o.foundations.model.domain.Serve;
 import com.jzo2o.foundations.model.dto.request.ServePageQueryReqDTO;
 import com.jzo2o.foundations.model.dto.request.ServeUpsertReqDTO;
+import com.jzo2o.foundations.model.dto.response.RegionSimpleResDTO;
+import com.jzo2o.foundations.model.dto.response.ServeCategoryResDTO;
 import com.jzo2o.foundations.model.dto.response.ServeResDTO;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -50,5 +52,13 @@ public interface IServeService extends IService<Serve> {
      * @param id
      */
     void offSale(Long id);
+
+    /**
+     * 首页服务分类及项目
+     *
+     * @param regionId
+     * @return
+     */
+    List<ServeCategoryResDTO> firstPageServeList(Long regionId);
 
 }

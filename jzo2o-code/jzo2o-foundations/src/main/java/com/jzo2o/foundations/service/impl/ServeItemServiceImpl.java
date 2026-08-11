@@ -251,7 +251,6 @@ public class ServeItemServiceImpl extends ServiceImpl<ServeItemMapper, ServeItem
         return BeanUtil.copyToList(list, ServeItemSimpleResDTO.class);
     }
 
-
     /**
      * 查询启用状态的服务项目录
      *

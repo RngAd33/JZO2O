@@ -37,6 +37,11 @@ public class ServeCategoryResDTO {
      */
     @ApiModelProperty("服务类型图标")
     private String serveTypeIcon;
+
+    /**
+     * 城市编码
+     */
+    @ApiModelProperty("城市编码")
     private String cityCode;
 
     /**
@@ -50,4 +55,5 @@ public class ServeCategoryResDTO {
      */
     @ApiModelProperty("服务项图标列表")
     private List<ServeSimpleResDTO> serveResDTOList;
+
 }

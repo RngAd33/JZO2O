@@ -18,6 +18,8 @@ import com.jzo2o.foundations.model.domain.ServeItem;
 import com.jzo2o.foundations.model.dto.request.ServePageQueryReqDTO;
 import com.jzo2o.foundations.model.dto.request.ServeUpsertReqDTO;
 import com.jzo2o.foundations.model.dto.response.RegionResDTO;
+import com.jzo2o.foundations.model.dto.response.RegionSimpleResDTO;
+import com.jzo2o.foundations.model.dto.response.ServeCategoryResDTO;
 import com.jzo2o.foundations.model.dto.response.ServeResDTO;
 import com.jzo2o.foundations.service.IServeService;
 import com.jzo2o.mysql.utils.PageHelperUtils;
@@ -26,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -124,6 +127,20 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
 
         serve.setSaleStatus(FoundationStatusEnum.DISABLE.getStatus());
         this.updateById(serve);
+    }
+
+    @Override
+    public List<ServeCategoryResDTO> firstPageServeList(Long regionId) {
+        // 区域校验
+        Region region = regionMapper.selectById(regionId);
+        if (ObjUtil.isNull(region) || region.getActiveStatus() != FoundationStatusEnum.ENABLE.getStatus()) {
+            return Collections.emptyList();
+        }
+
+        // 查询指定区域下上架的服务分类及项目信息
+        List<ServeCategoryResDTO> dtoList = serveMapper.findListByRegionId(regionId);
+
+        return List.of();
     }
 
 }
