@@ -158,13 +158,18 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
     }
 
     @Override
+    @Caching(cacheable = {
+            @Cacheable(value = RedisConstants.CacheName.HOT_SERVE, key = "#regionId",
+                    unless = "#result.size() > 0", cacheManager = RedisConstants.CacheManager.THIRTY_MINUTES),
+            @Cacheable(value = RedisConstants.CacheName.HOT_SERVE, key = "#regionId",
+                    unless = "#result.size() == 0", cacheManager = RedisConstants.CacheManager.FOREVER)
+    })
     public List<ServeAggregationSimpleResDTO> hotServeList(Long regionId) {
         // 区域校验
         Region region = regionMapper.selectById(regionId);
         if (ObjUtil.isNull(region) || region.getActiveStatus() != FoundationStatusEnum.ENABLE.getStatus()) {
             return Collections.emptyList();
         }
-
         // 查询指定区域下上架且热门的服务项目信息
         return serveMapper.findServeListByRegionId(regionId);
     }

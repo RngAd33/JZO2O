@@ -1,6 +1,5 @@
 package com.jzo2o.foundations.model.dto.response;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
