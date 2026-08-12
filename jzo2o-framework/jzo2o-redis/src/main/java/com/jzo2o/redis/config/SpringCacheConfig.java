@@ -38,7 +38,7 @@ import java.util.Random;
 public class SpringCacheConfig {
 
     /**
-     * 缓存时间30分钟
+     * 缓存时间 30 分钟
      *
      * @param connectionFactory redis连接工厂
      * @return redis缓存管理器

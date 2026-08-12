@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jzo2o.common.expcetions.ForbiddenOperationException;
 import com.jzo2o.common.model.PageResult;
+import com.jzo2o.foundations.constants.RedisConstants;
 import com.jzo2o.foundations.enums.FoundationStatusEnum;
 import com.jzo2o.foundations.mapper.RegionMapper;
 import com.jzo2o.foundations.mapper.ServeItemMapper;
@@ -22,6 +23,8 @@ import com.jzo2o.foundations.model.dto.response.*;
 import com.jzo2o.foundations.service.IServeService;
 import com.jzo2o.mysql.utils.PageHelperUtils;
 import com.jzo2o.mysql.utils.PageUtils;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -128,6 +131,16 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
     }
 
     @Override
+    @Caching(
+            cacheable = {
+                    // 缓存未命中，则缓存空值 30 分钟，这样可以避免缓存穿透
+                    @Cacheable(value = RedisConstants.CacheName.SERVE_ICON, key ="#regionId" ,
+                            unless ="#result.size() > 0",cacheManager = RedisConstants.CacheManager.THIRTY_MINUTES),
+                    // 缓存命中，则永久缓存数据
+                    @Cacheable(value = RedisConstants.CacheName.SERVE_ICON, key ="#regionId" ,
+                            unless ="#result.size() == 0",cacheManager = RedisConstants.CacheManager.FOREVER)
+            }
+    )
     public List<ServeCategoryResDTO> firstPageServeList(Long regionId) {
         // 区域校验
         Region region = regionMapper.selectById(regionId);

@@ -38,6 +38,16 @@ public class RedisConstants {
          * 服务
          */
         public static final String SERVE = "JZ_CACHE:SERVE_RECORD";
+
+    }
+
+    public static final class CacheKey {
+
+        /**
+         * 缓存key前缀
+         */
+        public static final String ACTIVE_REGIONS = "ACTIVE_REGIONS";
+
     }
 
     public static final class CacheManager {
@@ -55,13 +65,15 @@ public class RedisConstants {
          * 缓存时间1天
          */
         public static final String ONE_DAY = "cacheManagerOneDay";
+
     }
 
     public static final class Ttl {
         /**
-         * 缓存时间30分钟
+         * 缓存时间 30 分钟
          */
         public static final int THIRTY = 30;
+
     }
 
 }

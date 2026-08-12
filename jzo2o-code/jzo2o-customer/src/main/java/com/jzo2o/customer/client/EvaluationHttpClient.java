@@ -260,4 +260,5 @@ public class EvaluationHttpClient {
             return TokenHelper.generateTokenOfUser(appId, accessKeyId, accessKeySecret, currentUser);
         }
     }
+
 }
