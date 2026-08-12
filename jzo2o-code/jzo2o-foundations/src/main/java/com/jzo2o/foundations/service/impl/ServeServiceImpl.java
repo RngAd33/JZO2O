@@ -134,11 +134,11 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
     @Caching(
             cacheable = {
                     // 缓存未命中，则缓存空值 30 分钟，这样可以避免缓存穿透
-                    @Cacheable(value = RedisConstants.CacheName.SERVE_ICON, key ="#regionId" ,
-                            unless ="#result.size() > 0",cacheManager = RedisConstants.CacheManager.THIRTY_MINUTES),
+                    @Cacheable(value = RedisConstants.CacheName.SERVE_ICON, key = "#regionId" ,
+                            unless = "#result.size() > 0", cacheManager = RedisConstants.CacheManager.THIRTY_MINUTES),
                     // 缓存命中，则永久缓存数据
-                    @Cacheable(value = RedisConstants.CacheName.SERVE_ICON, key ="#regionId" ,
-                            unless ="#result.size() == 0",cacheManager = RedisConstants.CacheManager.FOREVER)
+                    @Cacheable(value = RedisConstants.CacheName.SERVE_ICON, key = "#regionId" ,
+                            unless = "#result.size() == 0", cacheManager = RedisConstants.CacheManager.FOREVER)
             }
     )
     public List<ServeCategoryResDTO> firstPageServeList(Long regionId) {
