@@ -193,6 +193,7 @@ CREATE TABLE `xxl_job_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `i_username` (`username`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+INSERT INTO `xxl_job_user` VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1, "管理员");
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
