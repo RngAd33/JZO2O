@@ -33,4 +33,6 @@ public interface OrdersServeApi {
      */
     @GetMapping("/countByInstitutionStaffId")
     InstitutionStaffServeCountResDTO countByInstitutionStaffId(@RequestParam("institutionStaffId") Long institutionStaffId);
+
+
 }

@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.jzo2o.api.foundations.dto.response.ServeAggregationResDTO;
 import com.jzo2o.common.expcetions.ForbiddenOperationException;
 import com.jzo2o.common.model.PageResult;
 import com.jzo2o.foundations.constants.RedisConstants;
@@ -243,6 +244,12 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
         }
     }
 
+    @Override
+    public ServeAggregationResDTO findServeDetailById(Long id) {
+
+        return null;
+    }
+
     /**
      * 新增服务同步数据
      *
@@ -253,14 +260,14 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
         Region region = regionMapper.selectById(serve.getRegionId());
         ServeItem serveItem = serveItemMapper.selectById(serve.getServeItemId());
         ServeType serveType = serveTypeMapper.selectById(serveItem.getServeTypeId());
-
+        // serve
         ServeSync serveSync = new ServeSync();
         serveSync.setServeTypeId(serveType.getId());
         serveSync.setServeTypeName(serveType.getName());
         serveSync.setServeTypeIcon(serveType.getServeTypeIcon());
         serveSync.setServeTypeImg(serveType.getImg());
         serveSync.setServeTypeSortNum(serveType.getSortNum());
-
+        // item
         serveSync.setServeItemId(serveItem.getId());
         serveSync.setServeItemIcon(serveItem.getServeItemIcon());
         serveSync.setServeItemName(serveItem.getName());
@@ -269,7 +276,7 @@ public class ServeServiceImpl extends ServiceImpl<ServeMapper, Serve> implements
         serveSync.setUnit(serveItem.getUnit());
         serveSync.setDetailImg(serveItem.getDetailImg());
         serveSync.setPrice(serve.getPrice());
-
+        // etc
         serveSync.setCityCode(region.getCityCode());
         serveSync.setId(serve.getId());
         serveSync.setIsHot(serve.getIsHot());

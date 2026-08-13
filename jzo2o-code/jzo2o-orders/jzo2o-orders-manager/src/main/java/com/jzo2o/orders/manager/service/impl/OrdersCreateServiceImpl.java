@@ -46,9 +46,9 @@ public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
 
     @Override
     public PlaceOrderResDTO placeOrder(PlaceOrderReqDTO placeOrderReqDTO) {
+        // 查询服务地址和服务信息
         Long serveId = placeOrderReqDTO.getServeId();
         Long addressBookId = placeOrderReqDTO.getAddressBookId();
-
         AddressBookResDTO addressDto = addressBookApi.detail(addressBookId);
         if (ObjUtil.isNull(addressDto)) {
             throw new ForbiddenOperationException("服务地址有误");
@@ -57,13 +57,12 @@ public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
         if (ObjUtil.isNull(serveDto)) {
             throw new ForbiddenOperationException("服务信息有误");
         }
-
+        // 封装信息
         Orders orders = new Orders();
         orders.setId(generateOrderId());   // 订单id
         orders.setUserId(UserContext.currentUserId());   // 下单人id
         orders.setServeId(placeOrderReqDTO.getServeId());   // 服务id
-
-        // 运营数据微服务
+        // - 运营数据微服务
         orders.setServeTypeId(serveDto.getServeTypeId());   // 服务类型id
         orders.setServeTypeName(serveDto.getServeTypeName());   // 服务类型名称
         orders.setServeItemId(serveDto.getServeItemId());   // 服务项id
@@ -72,26 +71,25 @@ public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
         orders.setUnit(serveDto.getUnit());   // 服务单位
         orders.setPrice(serveDto.getPrice());   // 服务单价
         orders.setCityCode(serveDto.getCityCode());   // 城市编码
-
+        // - 状态
         orders.setOrdersStatus(0);   // 订单状态: 待支付
         orders.setPayStatus(2);   // 支付状态: 待支付
-
+        // - 金额
         orders.setPurNum(placeOrderReqDTO.getPurNum());   // 购买数量
         orders.setTotalAmount(serveDto.getPrice().multiply(new BigDecimal(placeOrderReqDTO.getPurNum())));   // 总金额: 价格 * 购买数量
         orders.setDiscountAmount(new BigDecimal(0));   // 优惠金额
-        orders.setRealPayAmount(orders.getTotalAmount().subtract(orders.getDiscountAmount()));   //实付金额 订单总金额 - 优惠金额
-
-        // 地址
-        orders.setServeAddress(addressDto.getAddress());//服务详细地址
-        orders.setContactsPhone(addressDto.getPhone());//联系人手机号
-        orders.setContactsName(addressDto.getName());//联系人名字
-        orders.setLon(addressDto.getLon());//经度
-        orders.setLat(addressDto.getLat());//纬度
-
+        orders.setRealPayAmount(orders.getTotalAmount().subtract(orders.getDiscountAmount()));   // 实付金额 订单总金额 - 优惠金额
+        // - 地址
+        orders.setServeAddress(addressDto.getAddress());   // 服务详细地址
+        orders.setContactsPhone(addressDto.getPhone());   // 联系人手机号
+        orders.setContactsName(addressDto.getName());   // 联系人名字
+        orders.setLon(addressDto.getLon());   // 经度
+        orders.setLat(addressDto.getLat());   // 纬度
+        // - 时间
         orders.setServeStartTime(placeOrderReqDTO.getServeStartTime());//服务开始时间
-        orders.setDisplay(1);//用户端是否展示 1 展示
-        orders.setSortBy(DateUtils.toEpochMilli(placeOrderReqDTO.getServeStartTime()) + orders.getId() % 100000);//排序字段
-
+        orders.setDisplay(1);   // 用户端是否展示 1 展示
+        orders.setSortBy(DateUtils.toEpochMilli(placeOrderReqDTO.getServeStartTime()) + orders.getId() % 100000);   // 排序字段
+        // 保存
         this.save(orders);
         return new PlaceOrderResDTO(orders.getId());
     }
@@ -99,7 +97,7 @@ public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
     /**
      * 生成订单 id
      *
-     * @return 订单id 19位：2位年+2位月+2位日+13位序号(自增)
+     * @return 订单id 19位：2位年 + 2位月 + 2位日 + 13位序号（自增）
      */
     private Long generateOrderId() {
         // 2位年 + 2位月 + 2位日
