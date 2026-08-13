@@ -55,5 +55,12 @@ public interface IOrdersCreateService extends IService<Orders> {
      */
     OrdersPayResDTO pay(Long id, OrdersPayReqDTO ordersPayReqDTO);
 
+    /**
+     * 查询订单支付结果
+     *
+     * @param id
+     * @return
+     */
+    OrdersPayResDTO getPayResultFromTradServer(Long id);
 
 }

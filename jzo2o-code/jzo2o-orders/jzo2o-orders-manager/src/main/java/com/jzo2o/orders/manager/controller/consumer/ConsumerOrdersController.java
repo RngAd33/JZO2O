@@ -69,4 +69,10 @@ public class ConsumerOrdersController {
         return ordersPayResDTO;
     }
 
+    @ApiOperation("查询订单支付结果")
+    @GetMapping("/pay/{id}/result")
+    public OrdersPayResDTO payResult(@PathVariable("id") Long id) {
+        return ordersCreateService.getPayResultFromTradServer(id);
+    }
+
 }

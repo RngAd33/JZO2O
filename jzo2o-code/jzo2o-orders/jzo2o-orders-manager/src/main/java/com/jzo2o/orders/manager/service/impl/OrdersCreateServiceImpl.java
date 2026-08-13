@@ -9,13 +9,19 @@ import com.jzo2o.api.customer.dto.response.AddressBookResDTO;
 import com.jzo2o.api.foundations.ServeApi;
 import com.jzo2o.api.foundations.dto.response.ServeAggregationResDTO;
 import com.jzo2o.api.trade.NativePayApi;
+import com.jzo2o.api.trade.TradingApi;
 import com.jzo2o.api.trade.dto.request.NativePayReqDTO;
 import com.jzo2o.api.trade.dto.response.NativePayResDTO;
+import com.jzo2o.api.trade.dto.response.TradingResDTO;
 import com.jzo2o.api.trade.enums.PayChannelEnum;
+import com.jzo2o.api.trade.enums.TradingStateEnum;
+import com.jzo2o.common.expcetions.CommonException;
 import com.jzo2o.common.expcetions.ForbiddenOperationException;
 import com.jzo2o.common.utils.DateUtils;
 import com.jzo2o.mvc.utils.UserContext;
 import com.jzo2o.orders.base.constants.RedisConstants;
+import com.jzo2o.orders.base.enums.OrderPayStatusEnum;
+import com.jzo2o.orders.base.enums.OrderStatusEnum;
 import com.jzo2o.orders.base.mapper.OrdersMapper;
 import com.jzo2o.orders.base.model.domain.Orders;
 import com.jzo2o.orders.manager.model.dto.request.OrdersPayReqDTO;
@@ -33,6 +39,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -58,6 +65,9 @@ public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
 
     @Resource
     private ServeApi serveApi;
+
+    @Resource
+    private TradingApi tradingApi;
 
     @Resource
     private TradeProperties tradeProperties;
@@ -164,6 +174,45 @@ public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
         // 封装返回结果
         OrdersPayResDTO ordersPayResDTO = BeanUtil.copyProperties(nativePayResDTO, OrdersPayResDTO.class, "payStatus");
         ordersPayResDTO.setPayStatus(2);
+        return ordersPayResDTO;
+    }
+
+    @Override
+    public OrdersPayResDTO getPayResultFromTradServer(Long id) {
+        Orders orders = this.getById(id);
+        if (ObjUtil.isNull(orders)) {
+            throw new ForbiddenOperationException("订单不存在");
+        }
+        // 如果订单的支付状态是待支付，并且支付服务交易单号不为空，调用支付服务查询订单支付状态
+        if (Objects.equals(orders.getPayStatus(), TradingStateEnum.FKZ.getCode()) && orders.getTradingOrderNo() != null) {
+            TradingResDTO tradingResDTO = tradingApi.findTradResultByTradingOrderNo(orders.getTradingOrderNo());
+            // 根据支付服务返回的状态修改订单表中字段(订单状态、支付状态、第三方支付交易号)
+            TradingStateEnum tradingState = tradingResDTO.getTradingState();
+            boolean update = this.lambdaUpdate()
+                    //交易状态: 4-已结算  订单状态:派单中
+                    .set(ObjUtil.equal(tradingState, TradingStateEnum.YJS), Orders::getOrdersStatus, OrderStatusEnum.DISPATCHING.getStatus())
+                    //交易状态: 3-付款失败  订单状态:已关闭
+                    .set(ObjUtil.equal(tradingState, TradingStateEnum.FKSB), Orders::getOrdersStatus, OrderStatusEnum.CLOSED.getStatus())
+                    //交易状态: 5-取消订单  订单状态:已取消
+                    .set(ObjUtil.equal(tradingState, TradingStateEnum.QXDD), Orders::getOrdersStatus, OrderStatusEnum.CANCELED.getStatus())
+                    //交易状态: 4-已结算  支付状态:支付成功
+                    .set(ObjUtil.equal(tradingState, TradingStateEnum.YJS), Orders::getPayStatus, OrderPayStatusEnum.PAY_SUCCESS.getStatus())
+                    //第三方支付交易单号
+                    .set(ObjUtil.isNotEmpty(tradingResDTO.getTransactionId()), Orders::getTransactionId, tradingResDTO.getTransactionId())
+                    //根据订单id更新
+                    .eq(Orders::getId, id)
+                    .update();
+            if (!update) {
+                log.info("更新订单:{}状态失败", orders.getId());
+                throw new CommonException("更新订单" + orders.getId() + "状态失败");
+            }
+        }
+        // 返回封装结果
+        OrdersPayResDTO ordersPayResDTO = new OrdersPayResDTO();
+        ordersPayResDTO.setProductOrderNo(orders.getId());   // 业务系统订单号
+        ordersPayResDTO.setTradingOrderNo(orders.getTradingOrderNo());   // 交易系统订单号
+        ordersPayResDTO.setTradingChannel(orders.getTradingChannel());   // 支付渠道
+        ordersPayResDTO.setPayStatus(orders.getPayStatus());   // 支付状态
         return ordersPayResDTO;
     }
 
