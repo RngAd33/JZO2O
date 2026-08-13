@@ -7,10 +7,8 @@ import com.jzo2o.market.enums.ActivityTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.checkerframework.checker.units.qual.Length;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
