@@ -189,17 +189,17 @@ public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
             // 根据支付服务返回的状态修改订单表中字段(订单状态、支付状态、第三方支付交易号)
             TradingStateEnum tradingState = tradingResDTO.getTradingState();
             boolean update = this.lambdaUpdate()
-                    //交易状态: 4-已结算  订单状态:派单中
+                    // 交易状态: 4-已结算  订单状态:派单中
                     .set(ObjUtil.equal(tradingState, TradingStateEnum.YJS), Orders::getOrdersStatus, OrderStatusEnum.DISPATCHING.getStatus())
-                    //交易状态: 3-付款失败  订单状态:已关闭
+                    // 交易状态: 3-付款失败  订单状态:已关闭
                     .set(ObjUtil.equal(tradingState, TradingStateEnum.FKSB), Orders::getOrdersStatus, OrderStatusEnum.CLOSED.getStatus())
-                    //交易状态: 5-取消订单  订单状态:已取消
+                    // 交易状态: 5-取消订单  订单状态:已取消
                     .set(ObjUtil.equal(tradingState, TradingStateEnum.QXDD), Orders::getOrdersStatus, OrderStatusEnum.CANCELED.getStatus())
-                    //交易状态: 4-已结算  支付状态:支付成功
+                    // 交易状态: 4-已结算  支付状态:支付成功
                     .set(ObjUtil.equal(tradingState, TradingStateEnum.YJS), Orders::getPayStatus, OrderPayStatusEnum.PAY_SUCCESS.getStatus())
-                    //第三方支付交易单号
+                    // 第三方支付交易单号
                     .set(ObjUtil.isNotEmpty(tradingResDTO.getTransactionId()), Orders::getTransactionId, tradingResDTO.getTransactionId())
-                    //根据订单id更新
+                    // 根据订单id更新
                     .eq(Orders::getId, id)
                     .update();
             if (!update) {
