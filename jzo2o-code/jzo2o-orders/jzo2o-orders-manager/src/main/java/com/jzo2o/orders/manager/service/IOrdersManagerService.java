@@ -47,7 +47,6 @@ public interface IOrdersManagerService extends IService<Orders> {
      */
     List<OrderSimpleResDTO> consumerQueryList(Long currentUserId, Integer ordersStatus, Long sortBy);
 
-
     /**
      * 根据订单id查询
      *
@@ -61,5 +60,26 @@ public interface IOrdersManagerService extends IService<Orders> {
      * @param ordersId 订单id
      */
     void evaluationOrder(Long ordersId);
+
+    /**
+     * 取消订单
+     *
+     * @param orderCancelDTO 取消订单参数
+     */
+    void cancel(OrderCancelDTO orderCancelDTO);
+
+    /**
+     * 取消待支付订单
+     *
+     * @param orderCancelDTO 取消订单对象
+     */
+    void cancelByNoPay(OrderCancelDTO orderCancelDTO);
+
+    /**
+     * 取消派单中订单
+     *
+     * @param orderCancelDTO 取消订单对象
+     */
+    void cancelByDispatching(OrderCancelDTO orderCancelDTO);
 
 }
