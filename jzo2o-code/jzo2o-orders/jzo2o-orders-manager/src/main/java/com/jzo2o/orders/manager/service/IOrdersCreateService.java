@@ -29,5 +29,12 @@ import java.util.List;
  */
 public interface IOrdersCreateService extends IService<Orders> {
 
+    /**
+     * 下单
+     *
+     * @param placeOrderReqDTO
+     * @return
+     */
+    PlaceOrderResDTO placeOrder(PlaceOrderReqDTO placeOrderReqDTO);
 
 }

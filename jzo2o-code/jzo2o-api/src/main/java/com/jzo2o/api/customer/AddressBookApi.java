@@ -17,4 +17,5 @@ public interface AddressBookApi {
      */
     @GetMapping("/{id}")
     AddressBookResDTO detail(@PathVariable("id") Long id);
+
 }
