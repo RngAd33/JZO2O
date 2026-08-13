@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 @ApiModel("活动保存请求模型")
 @Validated
 public class ActivitySaveReqDTO {
+
     @ApiModelProperty(value = "活动id,新增时不填，修改时必填",required = false)
     private Long id;
 
@@ -56,7 +57,7 @@ public class ActivitySaveReqDTO {
     private Integer validityDays;
 
     public void check() {
-        if(ActivityTypeEnum.AMOUNT_DISCOUNT.equals(type)) {
+        if (ActivityTypeEnum.AMOUNT_DISCOUNT.equals(type)) {
             // 满减
             //discountAmount字段不能为空，且值为正数
             if(ObjectUtils.isNull(discountAmount)) {
@@ -64,21 +65,21 @@ public class ActivitySaveReqDTO {
             }else if(discountAmount.compareTo(BigDecimal.ZERO) <0){
                 throw new BadRequestException("折扣金额请输入大于0的整数");
             }
-        }else if(ActivityTypeEnum.RATE_DISCOUNT.equals(type)) {
+        } else if(ActivityTypeEnum.RATE_DISCOUNT.equals(type)) {
             // 折扣
             if(ObjectUtils.isNull(discountRate)) {
                 throw new BadRequestException("折扣比例为空，请输入折扣比例");
             }else if(discountRate.compareTo(0) < 0 || discountRate.compareTo(100) > 0) {
                 throw new BadRequestException("折扣比例请输入大于0，小于10的整数");
             }
-        }else {
+        } else {
             throw new BadRequestException("优惠券类型不存在");
         }
         // 发放时间
-        if(distributeStartTime.isAfter(distributeEndTime)){
+        if (distributeStartTime.isAfter(distributeEndTime)){
             throw new BadRequestException("结束时间不能早于开始时间");
         }
-        if(distributeEndTime.isBefore(DateUtils.now())) {
+        if (distributeEndTime.isBefore(DateUtils.now())) {
             throw new BadRequestException("发放时间已过期");
         }
     }
