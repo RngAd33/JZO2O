@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * 支付结果的通知
+ * 支付结果回调
  */
 @RestController("openNotifyController")
 @Api(tags = "白名单接口 - 支付通知")
@@ -39,19 +39,19 @@ public class NotifyController {
     @PostMapping("wx/{enterpriseId}")
     public ResponseEntity<Object> wxPayNotify(HttpEntity<String> httpEntity, @PathVariable("enterpriseId") Long enterpriseId) {
         try {
-            //获取请求头
+            // 获取请求头
             HttpHeaders headers = httpEntity.getHeaders();
 
-            //构建微信请求数据对象
+            // 构建微信请求数据对象
             NotificationRequest request = new NotificationRequest.Builder()
-                    .withSerialNumber(headers.getFirst("Wechatpay-Serial")) //证书序列号（微信平台）
-                    .withNonce(headers.getFirst("Wechatpay-Nonce"))  //随机串
-                    .withTimestamp(headers.getFirst("Wechatpay-Timestamp")) //时间戳
-                    .withSignature(headers.getFirst("Wechatpay-Signature")) //签名字符串
+                    .withSerialNumber(headers.getFirst("Wechatpay-Serial"))   // 证书序列号（微信平台）
+                    .withNonce(headers.getFirst("Wechatpay-Nonce"))   // 随机串
+                    .withTimestamp(headers.getFirst("Wechatpay-Timestamp"))   // 时间戳
+                    .withSignature(headers.getFirst("Wechatpay-Signature"))   // 签名字符串
                     .withBody(httpEntity.getBody())
                     .build();
 
-            //微信通知的业务处理
+            // 微信通知的业务处理
             this.notifyService.wxPayNotify(request, enterpriseId);
 
         } catch (CommonException e) {
@@ -59,7 +59,7 @@ public class NotifyController {
                     .put("code", "FAIL")
                     .put("message", e.getMessage())
                     .build();
-            //响应500
+            // 响应500
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
         }
         return ResponseEntity.ok(null);
@@ -72,13 +72,12 @@ public class NotifyController {
      * @return 正常响应200，否则响应500
      */
     @PostMapping("alipay/{enterpriseId}")
-    public ResponseEntity<String> aliPayNotify(HttpServletRequest request,
-                                               @PathVariable("enterpriseId") Long enterpriseId) {
+    public ResponseEntity<String> aliPayNotify(HttpServletRequest request, @PathVariable("enterpriseId") Long enterpriseId) {
         try {
-            //支付宝通知的业务处理
+            // 支付宝通知的业务处理
             this.notifyService.aliPayNotify(request, enterpriseId);
         } catch (CommonException e) {
-            //响应500
+            // 响应500
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
         return ResponseEntity.ok("success");

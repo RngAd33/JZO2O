@@ -11,8 +11,10 @@ public class NativePayReqDTO {
 
     @ApiModelProperty(value = "商户号", required = true)
     private Long enterpriseId;
+
     @ApiModelProperty(value = "业务系统标识", required = true)
     private String productAppId;
+
     @ApiModelProperty(value = "业务系统订单号", required = true)
     private Long productOrderNo;
 

@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 
 /**
- * 基础支付控制器
+ * 退款
  *
  * @author itcast
  */

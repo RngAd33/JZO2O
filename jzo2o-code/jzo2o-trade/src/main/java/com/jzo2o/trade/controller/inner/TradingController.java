@@ -21,6 +21,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
+ * 交易流水查询
+ *
  * @author zzj
  * @version 1.0
  */
@@ -31,6 +33,7 @@ public class TradingController implements TradingApi {
 
     @Resource
     private TradingService tradingService;
+
     @Resource
     private BasicPayService basicPayService;
 

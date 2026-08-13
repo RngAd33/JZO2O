@@ -16,7 +16,9 @@ import javax.validation.constraints.NotNull;
 @Data
 @ApiModel("订单支付请求体")
 public class OrdersPayReqDTO {
+
     @ApiModelProperty(value = "支付渠道", required = true)
     @NotNull(message = "支付渠道不能为空")
     private PayChannelEnum tradingChannel;
+
 }

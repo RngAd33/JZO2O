@@ -1,11 +1,17 @@
 package com.jzo2o.orders.manager.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jzo2o.api.customer.AddressBookApi;
 import com.jzo2o.api.customer.dto.response.AddressBookResDTO;
 import com.jzo2o.api.foundations.ServeApi;
 import com.jzo2o.api.foundations.dto.response.ServeAggregationResDTO;
+import com.jzo2o.api.trade.NativePayApi;
+import com.jzo2o.api.trade.dto.request.NativePayReqDTO;
+import com.jzo2o.api.trade.dto.response.NativePayResDTO;
+import com.jzo2o.api.trade.enums.PayChannelEnum;
 import com.jzo2o.common.expcetions.ForbiddenOperationException;
 import com.jzo2o.common.utils.DateUtils;
 import com.jzo2o.mvc.utils.UserContext;
@@ -16,6 +22,7 @@ import com.jzo2o.orders.manager.model.dto.request.OrdersPayReqDTO;
 import com.jzo2o.orders.manager.model.dto.request.PlaceOrderReqDTO;
 import com.jzo2o.orders.manager.model.dto.response.OrdersPayResDTO;
 import com.jzo2o.orders.manager.model.dto.response.PlaceOrderResDTO;
+import com.jzo2o.orders.manager.porperties.TradeProperties;
 import com.jzo2o.orders.manager.service.IOrdersCreateService;
 import com.jzo2o.redis.annotations.Lock;
 import lombok.extern.slf4j.Slf4j;
@@ -47,13 +54,16 @@ public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
     private AddressBookApi addressBookApi;
 
     @Resource
+    private NativePayApi nativePayApi;
+
+    @Resource
     private ServeApi serveApi;
 
     @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+    private TradeProperties tradeProperties;
 
     @Resource
-    private RedissonClient redissonClient;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public PlaceOrderResDTO placeOrder(PlaceOrderReqDTO placeOrderReqDTO) {
@@ -114,8 +124,47 @@ public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
 
     @Override
     public OrdersPayResDTO pay(Long id, OrdersPayReqDTO ordersPayReqDTO) {
+        // 查询订单
+        Orders orders = this.getById(id);
+        if (ObjUtil.isNull(orders)) {
+            throw new ForbiddenOperationException("订单不存在");
+        }
 
-        return null;
+        // 校验状态
+        Integer payStatus = orders.getPayStatus();
+        String transactionId = orders.getTransactionId();
+        if (payStatus == 4 && StrUtil.isNotBlank(transactionId)) {
+            throw new ForbiddenOperationException("订单已经支付了");
+        }
+
+        // 调用支付API，生成支付二维码
+        NativePayReqDTO nativePayReqDTO = new NativePayReqDTO();
+        nativePayReqDTO.setProductAppId("jzo2o.orders");
+        nativePayReqDTO.setProductOrderNo(id);
+        nativePayReqDTO.setTradingChannel(ordersPayReqDTO.getTradingChannel());
+        nativePayReqDTO.setTradingAmount(orders.getRealPayAmount());
+        nativePayReqDTO.setMemo(orders.getServeItemName());
+        nativePayApi.createDownLineTrading(nativePayReqDTO);
+        // - 根据交易渠道设置商户号
+        if (ObjUtil.equal(ordersPayReqDTO.getTradingChannel(), PayChannelEnum.WECHAT_PAY)) {
+            nativePayReqDTO.setEnterpriseId(tradeProperties.getWechatEnterpriseId());   // 微信商户号
+        } else if (ObjUtil.equal(ordersPayReqDTO.getTradingChannel(), PayChannelEnum.ALI_PAY)) {
+            nativePayReqDTO.setEnterpriseId(tradeProperties.getAliEnterpriseId());   // 阿里商户号
+        }
+        // - 如果原有的交易渠道不为空，而且跟刚刚传入交易渠道不一样，就改变交易渠道
+        nativePayReqDTO.setChangeChannel(StrUtil.isNotBlank(orders.getTradingChannel())
+                && !StrUtil.equals(orders.getTradingChannel(), ordersPayReqDTO.getTradingChannel().toString()));
+
+        // 更新订单表数据(支付服务交易单号、支付渠道)
+        NativePayResDTO nativePayResDTO = nativePayApi.createDownLineTrading(nativePayReqDTO);
+        orders.setTradingOrderNo(nativePayResDTO.getTradingOrderNo());
+        orders.setTradingChannel(nativePayResDTO.getTradingChannel());
+        this.updateById(orders);
+
+        // 封装返回结果
+        OrdersPayResDTO ordersPayResDTO = BeanUtil.copyProperties(nativePayResDTO, OrdersPayResDTO.class, "payStatus");
+        ordersPayResDTO.setPayStatus(2);
+        return ordersPayResDTO;
     }
 
     /**
