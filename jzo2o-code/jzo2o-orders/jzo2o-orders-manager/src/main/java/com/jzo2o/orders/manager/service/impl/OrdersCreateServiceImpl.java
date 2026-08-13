@@ -12,16 +12,21 @@ import com.jzo2o.mvc.utils.UserContext;
 import com.jzo2o.orders.base.constants.RedisConstants;
 import com.jzo2o.orders.base.mapper.OrdersMapper;
 import com.jzo2o.orders.base.model.domain.Orders;
+import com.jzo2o.orders.manager.model.dto.request.OrdersPayReqDTO;
 import com.jzo2o.orders.manager.model.dto.request.PlaceOrderReqDTO;
+import com.jzo2o.orders.manager.model.dto.response.OrdersPayResDTO;
 import com.jzo2o.orders.manager.model.dto.response.PlaceOrderResDTO;
 import com.jzo2o.orders.manager.service.IOrdersCreateService;
+import com.jzo2o.redis.annotations.Lock;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RedissonClient;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -36,6 +41,9 @@ import java.time.LocalDateTime;
 public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> implements IOrdersCreateService {
 
     @Resource
+    private IOrdersCreateService owner;
+
+    @Resource
     private AddressBookApi addressBookApi;
 
     @Resource
@@ -44,8 +52,18 @@ public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
+    @Resource
+    private RedissonClient redissonClient;
+
     @Override
     public PlaceOrderResDTO placeOrder(PlaceOrderReqDTO placeOrderReqDTO) {
+        // 先注册对象再调用接口，防止事务失效
+        return owner.placeOrder(UserContext.currentUserId(), placeOrderReqDTO);
+    }
+
+    @Override
+    @Lock(formatter = "ORDERS:CREATE:LOCK:#{userId}:#{placeOrderReqDTO.serveId}", time = 30, waitTime = 1, unlock = false)
+    public PlaceOrderResDTO placeOrder(Long userId, PlaceOrderReqDTO placeOrderReqDTO) {
         // 查询服务地址和服务信息
         Long serveId = placeOrderReqDTO.getServeId();
         Long addressBookId = placeOrderReqDTO.getAddressBookId();
@@ -92,6 +110,12 @@ public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
         // 保存
         this.save(orders);
         return new PlaceOrderResDTO(orders.getId());
+    }
+
+    @Override
+    public OrdersPayResDTO pay(Long id, OrdersPayReqDTO ordersPayReqDTO) {
+
+        return null;
     }
 
     /**

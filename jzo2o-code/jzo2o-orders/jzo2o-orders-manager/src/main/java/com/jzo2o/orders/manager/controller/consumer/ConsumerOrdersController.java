@@ -62,6 +62,11 @@ public class ConsumerOrdersController {
         return ordersCreateService.placeOrder(placeOrderReqDTO);
     }
 
-
+    @ApiOperation("订单支付")
+    @PutMapping("/pay/{id}")
+    public OrdersPayResDTO pay(@PathVariable("id") Long id, @RequestBody OrdersPayReqDTO ordersPayReqDTO) {
+        OrdersPayResDTO ordersPayResDTO = ordersCreateService.pay(id, ordersPayReqDTO);
+        return ordersPayResDTO;
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.jzo2o.orders.base.constants;
 
 public class RedisConstants {
+
     public static final class RedisFormatter {
         /**
          * 抢单用户锁模板，格式：ORDERS:SEIZE_#{serveProviderId}
@@ -25,6 +26,7 @@ public class RedisConstants {
 
         public static final String ORDERS_SERVE_TIMEOUT = "ORDERS:SEVER_TIMEOUT:#{ordersServe.id}";
     }
+
     public static final class RedisKey {
         /**
          * 抢单id列表redis key模板：ORDERS:SEIZE:IDS_{服务人员id或机构id}_{citycode}
@@ -138,6 +140,7 @@ public class RedisConstants {
         public static final String ORDERS_SHARD_KEY_ID_GENERATOR = "ORDERS:SHARD_KEY:GENERATOR";
 
     }
+
     public static class Ttl {
         /**
          * 订单抢单缓存 60s
@@ -155,7 +158,6 @@ public class RedisConstants {
          */
         public static final long ORDERS_PAGE_TTL = 600;
 
-
         /**
          * 抢单派单处理超时时间单位s
          */
@@ -165,5 +167,6 @@ public class RedisConstants {
          * 派单锁定，10分钟内不能再次派单
          */
         public static final long PROVIDER_DISPATCH_LOCK_TTL = 600;
+
     }
 }

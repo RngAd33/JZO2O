@@ -37,4 +37,23 @@ public interface IOrdersCreateService extends IService<Orders> {
      */
     PlaceOrderResDTO placeOrder(PlaceOrderReqDTO placeOrderReqDTO);
 
+    /**
+     * 下单
+     *
+     * @param userId 登录用户id
+     * @param placeOrderReqDTO 订单参数
+     * @return 订单id
+     */
+    PlaceOrderResDTO placeOrder(Long userId, PlaceOrderReqDTO placeOrderReqDTO);
+
+    /**
+     * 支付
+     *
+     * @param id
+     * @param ordersPayReqDTO
+     * @return
+     */
+    OrdersPayResDTO pay(Long id, OrdersPayReqDTO ordersPayReqDTO);
+
+
 }
