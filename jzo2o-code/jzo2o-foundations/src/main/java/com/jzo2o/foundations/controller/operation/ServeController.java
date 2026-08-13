@@ -10,6 +10,7 @@ import com.jzo2o.foundations.model.dto.request.ServePageQueryReqDTO;
 import com.jzo2o.foundations.model.dto.request.ServeUpsertReqDTO;
 import com.jzo2o.foundations.model.dto.response.RegionResDTO;
 import com.jzo2o.foundations.model.dto.response.ServeResDTO;
+import com.jzo2o.foundations.model.dto.response.ServeSimpleResDTO;
 import com.jzo2o.foundations.service.IServeService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -110,6 +111,12 @@ public class ServeController {
         serve.setId(id);
         serve.setIsHot(FoundationStatusEnum.DISABLE.getStatus());
         serveService.updateById(serve);
+    }
+
+    @GetMapping("/search")
+    @ApiOperation("服务搜索")
+    public List<ServeSimpleResDTO> search(String cityCode, String keyword, Long serveTypeId) {
+        return serveService.search(cityCode, keyword, serveTypeId);
     }
 
 }

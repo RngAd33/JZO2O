@@ -60,9 +60,6 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
     @Resource
     private CityDirectoryMapper cityDirectoryMapper;
 
-    @Resource
-    private RedisTemplate<String, Object> redisTemplate;
-
     /**
      * 区域新增
      *
@@ -192,8 +189,7 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
                 .set(Region::getActiveStatus, FoundationStatusEnum.ENABLE.getStatus());
         this.update(updateWrapper);
 
-        // todo 3.如果是启用操作，刷新缓存：启用区域列表、首页图标、热门服务、服务类型
-
+        // todo 如果是启用操作，刷新缓存：启用区域列表、首页图标、热门服务、服务类型
     }
 
     /**
@@ -208,7 +204,7 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
                     @CacheEvict(value = RedisConstants.CacheName.JZ_CACHE, key = RedisConstants.CacheKey.ACTIVE_REGIONS),
                     // 删除首页服务列表
                     @CacheEvict(value = RedisConstants.CacheName.SERVE_ICON, key = "#id"),
-                    //删除热门服务列表
+                    // 删除热门服务列表
                     @CacheEvict(value = RedisConstants.CacheName.HOT_SERVE, key = "#id")
             }
     )
@@ -243,8 +239,7 @@ public class RegionServiceImpl extends ServiceImpl<RegionMapper, Region> impleme
      * @return 区域简略列表
      */
     @Override
-    @Cacheable(value = RedisConstants.CacheName.JZ_CACHE,
-            key = RedisConstants.CacheKey.ACTIVE_REGIONS,
+    @Cacheable(value = RedisConstants.CacheName.JZ_CACHE, key = RedisConstants.CacheKey.ACTIVE_REGIONS,
             cacheManager = RedisConstants.CacheManager.FOREVER)
     public List<RegionSimpleResDTO> queryActiveRegionListCache() {
         return this.queryActiveRegionList();

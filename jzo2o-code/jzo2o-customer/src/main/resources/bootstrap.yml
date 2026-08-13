@@ -10,7 +10,6 @@ server:
     context-path: /customer
 
 #################     spring公共配置     #################
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -71,7 +70,6 @@ swagger:
   contact-url: http://www.itcast.cn/
   contact-email: yjy@itcast.cn
   version: v1.0
-
 
 #################     日志配置     #################
 logging:
