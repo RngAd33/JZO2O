@@ -1,4 +1,4 @@
-import { request } from '../../utils/request';
+import {request} from '../../utils/request';
 
 // 获取服务分类
 export const getServeCategory = (params) => {

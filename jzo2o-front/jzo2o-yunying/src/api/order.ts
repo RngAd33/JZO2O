@@ -1,4 +1,4 @@
-import { request } from '@/utils/request'
+import {request} from '@/utils/request'
 
 // 根据订单id查询
 export function getOrderById(id) {

@@ -30,8 +30,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { UNIT } from '@/constants'
+import {ref, watch} from 'vue'
+import {UNIT} from '@/constants'
 
 const props = defineProps({
   previewData: {

@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex';
+import {useStore} from 'vuex';
 
 const store = useStore(); //存储获取数据
 // 返回首页

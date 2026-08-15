@@ -40,12 +40,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { baseUrl } from '../../utils/env';
-import { startServe, finishServe } from '../api/order.js';
-import { onLoad } from '@dcloudio/uni-app';
+import {ref} from 'vue';
+import {baseUrl} from '../../utils/env';
+import {finishServe, startServe} from '../api/order.js';
+import {onLoad} from '@dcloudio/uni-app';
 // 导航组件
 import UniNav from '@/components/uni-nav/index.vue';
+
 const title = ref('开始服务');
 const remark = ref(''); //补充说明
 const orderId = ref(''); //订单id

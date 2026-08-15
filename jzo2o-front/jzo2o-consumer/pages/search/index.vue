@@ -85,10 +85,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { onLoad, onShow } from '@dcloudio/uni-app';
+import {ref} from 'vue';
+import {onLoad, onShow} from '@dcloudio/uni-app';
 // 接口
-import { getServeSearch } from '@/pages/api/index.js';
+import {getServeSearch} from '@/pages/api/index.js';
 // 列表
 import List from './components/List.vue';
 // 删除历史记录确认框组件

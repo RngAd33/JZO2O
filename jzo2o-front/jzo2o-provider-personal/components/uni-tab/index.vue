@@ -40,8 +40,8 @@
   </scroll-view>
 </template>
 <script setup>
-import { ref, reactive, onMounted, watchEffect } from 'vue';
-import { useStore } from 'vuex';
+import {reactive, ref, watchEffect} from 'vue';
+import {useStore} from 'vuex';
 // 获取父组件数据
 const props = defineProps({
   tabBars: {

@@ -1,7 +1,7 @@
 package com.jzo2o.market.mapper;
 
-import com.jzo2o.market.model.domain.CouponUseBack;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.jzo2o.market.model.domain.CouponUseBack;
 
 /**
  * <p>

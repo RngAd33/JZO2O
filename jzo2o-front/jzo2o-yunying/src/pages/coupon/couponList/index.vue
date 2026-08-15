@@ -46,20 +46,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, watchEffect } from 'vue'
-import {
-  getCouponList,
-  getCouponRecordList,
-  deleteCoupon,
-  getCouponDetail
-} from '@/api/coupon'
-import { useRoute } from 'vue-router'
-import { MessagePlugin } from 'tdesign-vue-next'
+import {ref, watch, watchEffect} from 'vue'
+import {deleteCoupon, getCouponDetail, getCouponList, getCouponRecordList} from '@/api/coupon'
+import {useRoute} from 'vue-router'
+import {MessagePlugin} from 'tdesign-vue-next'
 
 import tableList from './components/TableList.vue' // 表格
 import Delete from '@/components/Delete/index.vue' // 删除弹层
 import searchFormBox from './components/SearchForm.vue' // 搜索框表单
 import assignDialog from './components/assignDialog.vue'
+
 const url = ref('') // 当前路由
 
 const visible = ref(false) // 新增，编辑弹窗

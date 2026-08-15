@@ -2,13 +2,7 @@ package com.jzo2o.orders.manager.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jzo2o.api.orders.dto.response.InstitutionStaffServeCountResDTO;
-import com.jzo2o.common.model.PageResult;
 import com.jzo2o.orders.base.model.domain.OrdersServe;
-import com.jzo2o.orders.manager.model.dto.request.*;
-import com.jzo2o.orders.manager.model.dto.response.OrdersServeDetailResDTO;
-import com.jzo2o.orders.manager.model.dto.response.OrdersServeResDTO;
-import com.jzo2o.orders.manager.model.dto.response.OrdersServeStatusNumResDTO;
-import com.jzo2o.orders.manager.model.dto.response.ServeProviderServeResDTO;
 
 import java.util.List;
 

@@ -56,11 +56,10 @@
 	 * @event {Function} change 点击页码按钮时触发 ,e={type,current} current为当前页，type值为：next/prev，表示点击的是上一页还是下一个
 	 */
 
-	import {
-		initVueI18n
-	} from '@dcloudio/uni-i18n'
-	import messages from './i18n/index.js'
-	const {
+  import {initVueI18n} from '@dcloudio/uni-i18n'
+  import messages from './i18n/index.js'
+
+  const {
 		t
 	} = initVueI18n(messages)
 	export default {

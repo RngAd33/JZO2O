@@ -2,8 +2,8 @@ package com.jzo2o.gateway.config;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.jzo2o.common.utils.JwtTool;
-import com.jzo2o.gateway.properties.ApplicationProperties;
 import com.jzo2o.gateway.constants.UserConstants;
+import com.jzo2o.gateway.properties.ApplicationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;

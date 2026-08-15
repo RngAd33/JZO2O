@@ -117,15 +117,12 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { useRoute, useRouter } from 'vue-router'
-import {
-  validateNumber100,
-  validateNumber1440,
-} from '@/utils/validate'
-import { ValidateResultContext } from 'tdesign-vue-next'
-import { saveCoupon, getCouponDetail } from '@/api/coupon'
+import {onMounted, ref, watch} from 'vue'
+import {MessagePlugin, ValidateResultContext} from 'tdesign-vue-next'
+import {useRoute, useRouter} from 'vue-router'
+import {validateNumber100, validateNumber1440,} from '@/utils/validate'
+import {getCouponDetail, saveCoupon} from '@/api/coupon'
+
 const route = useRoute()
 const router = useRouter()
 const { id } = route.params

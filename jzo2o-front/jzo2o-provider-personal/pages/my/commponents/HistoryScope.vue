@@ -13,7 +13,6 @@
   </view>
 </template>
 <script setup>
-import { useStore } from 'vuex';
 // ------定义方法------
 // 账户设置
 const handleAccount = () => {

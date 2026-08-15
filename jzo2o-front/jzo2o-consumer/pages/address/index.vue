@@ -145,9 +145,10 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
-import { onLoad, onPullDownRefresh } from '@dcloudio/uni-app';
-import { getAddressBook, setDefaultAddress, deleteAddressBook } from '../api/address';
+import {onMounted, reactive, ref} from 'vue';
+import {onLoad, onPullDownRefresh} from '@dcloudio/uni-app';
+import {deleteAddressBook, getAddressBook, setDefaultAddress} from '../api/address';
+
 let scrollHeight = ref('');
 let popup = ref(null);
 let isAllSelect = ref(false); //是否全选

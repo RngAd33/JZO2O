@@ -83,10 +83,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { CaretDownSmallIcon } from 'tdesign-icons-vue-next'
-import { COLUMNS } from '../constants'
-import { formatDateTimeToDateTimeString } from '@/utils/date'
+import {ref, watch} from 'vue'
+import {CaretDownSmallIcon} from 'tdesign-icons-vue-next'
+import {COLUMNS} from '../constants'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
 import NoData from '@/components/noData/index.vue'
 import switchBar from '@/components/switchBar/switchBar.vue'
 // 接收父组件传递的值

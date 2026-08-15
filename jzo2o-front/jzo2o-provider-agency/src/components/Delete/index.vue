@@ -31,7 +31,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import {ref, watch} from 'vue'
 // 获取父组件值、方法
 const props = defineProps({
   // 弹层隐藏显示

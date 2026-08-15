@@ -1,7 +1,6 @@
 package com.jzo2o.orders.manager.controller.consumer;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.jzo2o.api.market.dto.response.AvailableCouponsResDTO;
 import com.jzo2o.api.orders.dto.request.OrderCancelReqDTO;
 import com.jzo2o.api.orders.dto.response.OrderResDTO;
 import com.jzo2o.api.orders.dto.response.OrderSimpleResDTO;
@@ -48,7 +47,8 @@ public class ConsumerOrdersController {
     @GetMapping("/consumerQueryList")
     @ApiOperation("订单滚动分页查询")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "ordersStatus", value = "订单状态，0：待支付，100：派单中，200：待服务，300：服务中，400：待评价，500：订单完成，600：订单取消，700：已关闭", required = false, dataTypeClass = Integer.class),
+            @ApiImplicitParam(name = "ordersStatus", value = "订单状态，0：待支付，100：派单中，200：待服务，300：服务中，400：待评价，500：订单完成，600：订单取消，700：已关闭",
+                    required = false, dataTypeClass = Integer.class),
             @ApiImplicitParam(name = "sortBy", value = "排序字段", required = false, dataTypeClass = Long.class)
     })
     public List<OrderSimpleResDTO> consumerQueryList(@RequestParam(value = "ordersStatus", required = false) Integer ordersStatus,
@@ -65,8 +65,7 @@ public class ConsumerOrdersController {
     @ApiOperation("订单支付")
     @PutMapping("/pay/{id}")
     public OrdersPayResDTO pay(@PathVariable("id") Long id, @RequestBody OrdersPayReqDTO ordersPayReqDTO) {
-        OrdersPayResDTO ordersPayResDTO = ordersCreateService.pay(id, ordersPayReqDTO);
-        return ordersPayResDTO;
+        return ordersCreateService.pay(id, ordersPayReqDTO);
     }
 
     @ApiOperation("查询订单支付结果")
@@ -80,9 +79,9 @@ public class ConsumerOrdersController {
     public void cancel(@RequestBody OrderCancelReqDTO orderCancelReqDTO) {
         OrderCancelDTO orderCancelDTO = BeanUtil.toBean(orderCancelReqDTO, OrderCancelDTO.class);
         CurrentUserInfo currentUserInfo = UserContext.currentUser();
-        orderCancelDTO.setCurrentUserId(currentUserInfo.getId()); //当前登录用户id
-        orderCancelDTO.setCurrentUserName(currentUserInfo.getName());//当前登录用户名称
-        orderCancelDTO.setCurrentUserType(currentUserInfo.getUserType());//当前登录用户类型
+        orderCancelDTO.setCurrentUserId(currentUserInfo.getId());   // 当前登录用户id
+        orderCancelDTO.setCurrentUserName(currentUserInfo.getName());   // 当前登录用户名称
+        orderCancelDTO.setCurrentUserType(currentUserInfo.getUserType());   // 当前登录用户类型
         ordersManagerService.cancel(orderCancelDTO);
     }
 

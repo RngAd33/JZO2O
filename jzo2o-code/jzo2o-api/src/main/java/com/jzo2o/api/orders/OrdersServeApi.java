@@ -2,16 +2,10 @@ package com.jzo2o.api.orders;
 
 import com.jzo2o.api.orders.dto.response.InstitutionStaffServeCountResDTO;
 import com.jzo2o.api.orders.dto.response.ServeProviderIdResDTO;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
-import java.util.Map;
 
 @FeignClient(contextId = "jzo2o-orders-manager", value = "jzo2o-orders-manager", path = "/orders-manager/inner/orders-serve")
 public interface OrdersServeApi {

@@ -1,12 +1,12 @@
 package com.jzo2o.mysql.config;
 
-import com.jzo2o.common.handler.UserInfoHandler;
-import com.jzo2o.mysql.interceptor.MyBatisAutoFillInterceptor;
-import com.jzo2o.mysql.properties.MybatisPlusProperties;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.DynamicTableNameInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.jzo2o.common.handler.UserInfoHandler;
+import com.jzo2o.mysql.interceptor.MyBatisAutoFillInterceptor;
+import com.jzo2o.mysql.properties.MybatisPlusProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

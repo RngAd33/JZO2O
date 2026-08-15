@@ -52,22 +52,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watchEffect, watch } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { useRoute } from 'vue-router'
+import {onMounted, ref, watch, watchEffect} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {useRoute} from 'vue-router'
 import {
   getServiceTypeList,
   serviceTypeActiveStatus,
-  serviceTypeInactiveStatus,
   serviceTypeAdd,
+  serviceTypeDelete,
   serviceTypeEdit,
-  serviceTypeDelete
+  serviceTypeInactiveStatus
 } from '@/api/service'
 import Confirm from '@/components/Confirm/index.vue' // 确认弹层
 import DialogForm from './components/DialogForm.vue' // 新增,编辑弹窗.
 import tableList from './components/TableList.vue' // 表格
 import Delete from '@/components/Delete/index.vue' // 删除弹层
-import { forEach } from 'lodash'
+import {forEach} from 'lodash'
 
 const visible = ref(false) // 新增，编辑弹窗
 const listData = ref([]) // 列表数据

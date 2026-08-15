@@ -251,9 +251,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { MessagePlugin, ValidateResultContext } from 'tdesign-vue-next'
-import { useRoute, useRouter } from 'vue-router'
+import {onMounted, ref} from 'vue'
+import {ValidateResultContext} from 'tdesign-vue-next'
+import {useRoute, useRouter} from 'vue-router'
 // import {
 //   getCommentsDetail,
 //   replayComments,
@@ -263,10 +263,10 @@ import { useRoute, useRouter } from 'vue-router'
 //   deleteReply
 // } from '@/api/detail'
 // import { useValidateStore, useObjectTypeStore } from '@/store'
-import { ImgList } from '@/utils/emoji/index'
+import {ImgList} from '@/utils/emoji/index'
 import Confirm from '@/components/Confirm/index.vue' // 确认弹层
 import Delete from '@/components/Delete/index.vue' // 删除弹层
-import { DetailDataType } from './type'
+import {DetailDataType} from './type'
 
 const route = useRoute()
 const router = useRouter()

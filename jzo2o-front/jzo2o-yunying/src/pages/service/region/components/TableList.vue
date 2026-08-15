@@ -74,12 +74,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
-import { CaretDownSmallIcon } from 'tdesign-icons-vue-next'
-import { COLUMNS } from '../constants'
+import {ref, watch} from 'vue'
+import {useRouter} from 'vue-router'
+import {CaretDownSmallIcon} from 'tdesign-icons-vue-next'
+import {COLUMNS} from '../constants'
 import NoData from '@/components/noData/index.vue'
-import { formatDateTimeToDateTimeString } from '@/utils/date'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
 // 接收父组件传递的值
 const props = defineProps({
   listData: {

@@ -1,4 +1,4 @@
-import { request } from '../../utils/request.js';
+import {request} from '../../utils/request.js';
 
 // 用户端抢券列表分页接口
 export const getCouponList = (params) =>

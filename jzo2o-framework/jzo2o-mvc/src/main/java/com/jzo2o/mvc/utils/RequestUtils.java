@@ -4,7 +4,6 @@ import com.jzo2o.common.utils.CollUtils;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.List;
 
 /**

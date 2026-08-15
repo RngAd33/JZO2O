@@ -86,11 +86,9 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
-import {
-  formatDateTimeToDateString,
-  convertDiscountPercentageToNumber,
-} from '@/utils/index.js';
+import {ref, watch} from 'vue';
+import {convertDiscountPercentageToNumber, formatDateTimeToDateString,} from '@/utils/index.js';
+
 const emits = defineEmits(['handleSelectCoupon']);
 const popup = ref();
 const itemData = ref([]);

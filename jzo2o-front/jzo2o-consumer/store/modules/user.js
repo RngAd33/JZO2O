@@ -1,6 +1,4 @@
-import {
-	getUserInfo
-} from '@/pages/api/user.js';
+import {getUserInfo} from '@/pages/api/user.js';
 // 用户信息模块(局部模块)
 export default {
 	namespaced: true, // 开启命名空间

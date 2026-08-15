@@ -30,10 +30,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { cancelOrder, rejectOrder } from '../api/order';
-import { onLoad } from '@dcloudio/uni-app';
-import { cancelData } from '@/utils/commonData.js';
+import {ref} from 'vue';
+import {cancelOrder, rejectOrder} from '../api/order';
+import {onLoad} from '@dcloudio/uni-app';
+import {cancelData} from '@/utils/commonData.js';
 // 导入组件
 // 导航组件
 import UniNav from '@/components/uni-nav/index.vue';

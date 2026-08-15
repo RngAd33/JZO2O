@@ -1,10 +1,11 @@
 // vite.config.ts
-import { loadEnv } from "vite";
-import { viteMockServe } from "vite-plugin-mock";
+import {loadEnv} from "vite";
+import {viteMockServe} from "vite-plugin-mock";
 import createVuePlugin from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import svgLoader from "vite-svg-loader";
 import path from "path";
+
 var CWD = process.cwd();
 var vite_config_default = ({ mode }) => {
   const { VITE_BASE_URL } = loadEnv(mode, CWD);

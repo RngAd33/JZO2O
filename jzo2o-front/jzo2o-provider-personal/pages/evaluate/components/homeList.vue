@@ -108,10 +108,11 @@
 </template>
 
 <script setup>
-import { ref, reactive, watchEffect } from 'vue';
-import { formatDateTimeToDateTimeString } from '../../utils';
+import {reactive, ref, watchEffect} from 'vue';
+import {formatDateTimeToDateTimeString} from '../../utils';
 // 基本数据(订单状态)
-import { ImgList } from '@/utils/commonData.js';
+import {ImgList} from '@/utils/commonData.js';
+
 const emit = defineEmits(['refresh']); //子组件向父组件事件传递
 const alertDialog = ref(null);
 const emojiShow = ref(false);

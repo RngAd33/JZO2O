@@ -132,12 +132,9 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
-import {
-  formatDateTimeToDateString,
-  convertDiscountPercentageToNumber,
-} from '@/utils/index.js';
-import { onReachBottom, onLoad } from '@dcloudio/uni-app';
+import {ref, watch} from 'vue';
+import {convertDiscountPercentageToNumber, formatDateTimeToDateString,} from '@/utils/index.js';
+import {onLoad, onReachBottom} from '@dcloudio/uni-app';
 // 组件
 // 无数据
 import EmptyPage from '@/components/EmptyPage/index.vue';

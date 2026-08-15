@@ -95,33 +95,32 @@
 	</view>
 </template>
 <script>
-	/**
-	 * DatetimePicker 时间选择器
-	 * @description 同时支持 PC 和移动端使用日历选择日期和日期范围
-	 * @tutorial https://ext.dcloud.net.cn/plugin?id=3962
-	 * @property {String} type 选择器类型
-	 * @property {String|Number|Array|Date} value 绑定值
-	 * @property {String} placeholder 单选择时的占位内容
-	 * @property {String} start 起始时间
-	 * @property {String} end 终止时间
-	 * @property {String} start-placeholder 范围选择时开始日期的占位内容
-	 * @property {String} end-placeholder 范围选择时结束日期的占位内容
-	 * @property {String} range-separator 选择范围时的分隔符
-	 * @property {Boolean} border = [true|false] 是否有边框
-	 * @property {Boolean} disabled = [true|false] 是否禁用
-	 * @property {Boolean} clearIcon = [true|false] 是否显示清除按钮（仅PC端适用）
-	 * @event {Function} change 确定日期时触发的事件
-	 * @event {Function} show 打开弹出层
-	 * @event {Function} close 关闭弹出层
-	 * @event {Function} clear 清除上次选中的状态和值
-	 **/
-	import calendar from './calendar.vue'
-	import timePicker from './time-picker.vue'
-	import {
-		initVueI18n
-	} from '@dcloudio/uni-i18n'
-	import messages from './i18n/index.js'
-	const {
+/**
+ * DatetimePicker 时间选择器
+ * @description 同时支持 PC 和移动端使用日历选择日期和日期范围
+ * @tutorial https://ext.dcloud.net.cn/plugin?id=3962
+ * @property {String} type 选择器类型
+ * @property {String|Number|Array|Date} value 绑定值
+ * @property {String} placeholder 单选择时的占位内容
+ * @property {String} start 起始时间
+ * @property {String} end 终止时间
+ * @property {String} start-placeholder 范围选择时开始日期的占位内容
+ * @property {String} end-placeholder 范围选择时结束日期的占位内容
+ * @property {String} range-separator 选择范围时的分隔符
+ * @property {Boolean} border = [true|false] 是否有边框
+ * @property {Boolean} disabled = [true|false] 是否禁用
+ * @property {Boolean} clearIcon = [true|false] 是否显示清除按钮（仅PC端适用）
+ * @event {Function} change 确定日期时触发的事件
+ * @event {Function} show 打开弹出层
+ * @event {Function} close 关闭弹出层
+ * @event {Function} clear 清除上次选中的状态和值
+ **/
+import calendar from './calendar.vue'
+import timePicker from './time-picker.vue'
+import {initVueI18n} from '@dcloudio/uni-i18n'
+import messages from './i18n/index.js'
+
+const {
 		t
 	} = initVueI18n(messages)
 

@@ -1,8 +1,8 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
-import { onLoad, onShow } from '@dcloudio/uni-app';
-import { useStore } from 'vuex';
-import { data } from './utils/h5Data.js'
+import {onMounted, ref} from 'vue';
+import {onShow} from '@dcloudio/uni-app';
+import {useStore} from 'vuex';
+import {data} from './utils/h5Data.js'
 // ------定义变量------
 const store = useStore(); //vuex获取储存数据
 const locationData = ref({});

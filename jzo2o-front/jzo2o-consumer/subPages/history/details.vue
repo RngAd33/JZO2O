@@ -275,15 +275,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { onLoad, onShow } from '@dcloudio/uni-app';
-import {
-  formatDateTimeToDateTimeString,
-  laterTime,
-} from '@/utils/index.js';
-import { deleteOrder,getHistoryOrderDetail } from '@/pages/api/order.js';
-import { useStore } from 'vuex';
-import { UNIT } from '@/utils/commonData.js';
+import {ref} from 'vue';
+import {onLoad, onShow} from '@dcloudio/uni-app';
+import {formatDateTimeToDateTimeString, laterTime,} from '@/utils/index.js';
+import {deleteOrder, getHistoryOrderDetail} from '@/pages/api/order.js';
+import {useStore} from 'vuex';
+import {UNIT} from '@/utils/commonData.js';
 // 组件
 // ------定义变量------
 const store = useStore(); //存储获取数据

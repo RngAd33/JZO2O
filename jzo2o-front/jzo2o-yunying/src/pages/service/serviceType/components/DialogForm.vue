@@ -91,10 +91,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { ValidateResultContext } from 'tdesign-vue-next'
-import { validateNum, validateText5 } from '@/utils/validate'
-import { MessagePlugin } from 'tdesign-vue-next'
+import {ref, watch} from 'vue'
+import {MessagePlugin, ValidateResultContext} from 'tdesign-vue-next'
+import {validateNum, validateText5} from '@/utils/validate'
 
 const props = defineProps({
   visible: {

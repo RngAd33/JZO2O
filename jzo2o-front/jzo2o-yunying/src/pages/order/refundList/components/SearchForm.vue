@@ -61,10 +61,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
-import { ORDER_STATUS } from '@/constants'
+import {ref} from 'vue'
+import {ORDER_STATUS} from '@/constants'
 import dayjs from 'dayjs'
-import { forEach } from 'lodash'
 // 表单数据
 const formData = ref({
   ordersCode: '',

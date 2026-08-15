@@ -1,7 +1,4 @@
-import {
-  baseUrl,
-  notToLoginApiUrl
-} from './env'
+import {baseUrl, notToLoginApiUrl} from './env'
 // 参数： url:请求地址  param：请求参数  method：请求方式 callBack：回调函数
 const requestQueue = [];
 export function request ({

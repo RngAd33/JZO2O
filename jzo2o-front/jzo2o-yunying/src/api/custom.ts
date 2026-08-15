@@ -1,5 +1,5 @@
-import { request } from '@/utils/request'
-import type { customListRequest, customFreezeRequest } from '@/api/model/customModel'
+import {request} from '@/utils/request'
+import type {customFreezeRequest, customListRequest} from '@/api/model/customModel'
 
 // 普通用户分页查询
 export function getCustomList(data: customListRequest) {

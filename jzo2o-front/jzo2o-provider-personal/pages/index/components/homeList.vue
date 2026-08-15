@@ -47,8 +47,9 @@
 </template>
 
 <script setup>
-import { ref, reactive, watchEffect } from 'vue';
-import { robOrder } from '../../api/order.js';
+import {reactive, ref, watchEffect} from 'vue';
+import {robOrder} from '../../api/order.js';
+
 const emit = defineEmits(['refresh']); //子组件向父组件事件传递
 // 获取父组件值、方法
 const props = defineProps({

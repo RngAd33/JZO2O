@@ -60,14 +60,14 @@
 </template>
 
 <script setup>
-import { ref, onUnmounted } from 'vue';
-import { getNow, getTime } from '@/utils/index.js';
-import { onReachBottom,onShow,onLoad } from "@dcloudio/uni-app";
+import {onUnmounted, ref} from 'vue';
+import {getNow, getTime} from '@/utils/index.js';
+import {onLoad, onReachBottom, onShow} from "@dcloudio/uni-app";
 // 组件
 // 无数据
 import EmptyPage from '@/components/EmptyPage/index.vue';
 // 基础数据
-import { listTabData } from '@/utils/commonData.js';
+import {listTabData} from '@/utils/commonData.js';
 // 获取父组件值、方法
 const props = defineProps({
 	itemData: {

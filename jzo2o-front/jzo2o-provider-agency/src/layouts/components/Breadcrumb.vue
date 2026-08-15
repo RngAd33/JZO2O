@@ -15,8 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue' // 从vue中引入computed
-import { useRoute } from 'vue-router' // 从vue-router中引入useRoute
+import {computed} from 'vue' // 从vue中引入computed
+import {useRoute} from 'vue-router' // 从vue-router中引入useRoute
 
 // 通过useRoute获取当前路由信息
 const crumbs = computed(() => {

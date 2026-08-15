@@ -1,16 +1,9 @@
 package com.jzo2o.es.core.operations;
 
 
-import co.elastic.clients.elasticsearch._types.Result;
-import com.jzo2o.common.expcetions.CommonException;
-import com.jzo2o.common.expcetions.ElasticSearchException;
-import com.jzo2o.common.model.PageResult;
-import com.jzo2o.common.model.dto.PageQueryDTO;
-import com.jzo2o.common.utils.*;
-import com.jzo2o.es.constants.FieldConstants;
-import com.jzo2o.es.utils.TermUtils;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.GeoDistanceType;
+import co.elastic.clients.elasticsearch._types.Result;
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch._types.WriteResponseBase;
 import co.elastic.clients.elasticsearch._types.query_dsl.FieldAndFormat;
@@ -18,6 +11,13 @@ import co.elastic.clients.elasticsearch._types.query_dsl.TermsQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.TermsQueryField;
 import co.elastic.clients.elasticsearch.core.*;
 import co.elastic.clients.elasticsearch.core.search.Hit;
+import com.jzo2o.common.expcetions.CommonException;
+import com.jzo2o.common.expcetions.ElasticSearchException;
+import com.jzo2o.common.model.PageResult;
+import com.jzo2o.common.model.dto.PageQueryDTO;
+import com.jzo2o.common.utils.*;
+import com.jzo2o.es.constants.FieldConstants;
+import com.jzo2o.es.utils.TermUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;

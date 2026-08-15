@@ -583,14 +583,15 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
-import { formatNumber } from '@/utils/index'
-import { getHistoryOrderById } from '@/api/order'
-import { ZoomInIcon } from 'tdesign-icons-vue-next'
-import { formatDateTimeToDateTimeString } from '@/utils/date'
-import { UNIT } from '@/constants'
-import { forEach } from 'lodash'
+import {onMounted, ref, watch} from 'vue'
+import {useRoute} from 'vue-router'
+import {formatNumber} from '@/utils/index'
+import {getHistoryOrderById} from '@/api/order'
+import {ZoomInIcon} from 'tdesign-icons-vue-next'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
+import {UNIT} from '@/constants'
+import {forEach} from 'lodash'
+
 const route = useRoute()
 const orderId = route.params.id
 const detailData = ref<any>({})

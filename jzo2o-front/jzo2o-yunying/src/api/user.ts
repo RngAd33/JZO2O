@@ -1,5 +1,5 @@
-import { request } from '@/utils/request'
-import type { loginResult, userInfoResult } from '@/api/model/userModel'
+import {request} from '@/utils/request'
+import type {loginResult, userInfoResult} from '@/api/model/userModel'
 
 // 登录
 // 账号登录

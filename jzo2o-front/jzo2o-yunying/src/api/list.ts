@@ -1,12 +1,12 @@
-import { request } from '@/utils/request'
+import {request} from '@/utils/request'
 import type {
-  CardListResult,
-  ListResult,
   addListParams,
+  CardListResult,
   deleteListParams,
+  ListCardsortResult,
   ListCollapseResult,
-  ListTransferModel,
-  ListCardsortResult
+  ListResult,
+  ListTransferModel
 } from '@/api/model/listModel'
 
 export function getList() {

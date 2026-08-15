@@ -46,8 +46,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
-import { SERVICE_STATUS } from '@/constants'
+import {ref, watchEffect} from 'vue'
+import {SERVICE_STATUS} from '@/constants'
+
 const props = defineProps({
   initSearch:{
     type: String || Number,

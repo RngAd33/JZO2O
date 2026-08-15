@@ -46,13 +46,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import {
-  onShow,
-  onLoad,
-} from '@dcloudio/uni-app';
+import {ref} from 'vue';
+import {onLoad, onShow,} from '@dcloudio/uni-app';
 // 接口api
-import { useStore } from 'vuex';
+import {useStore} from 'vuex';
 // 组件
 // 快速入口
 import FastMenu from './components/FastMenu.vue';

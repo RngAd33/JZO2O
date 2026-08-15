@@ -11,7 +11,6 @@ import com.jzo2o.common.constants.MqConstants;
 import com.jzo2o.common.expcetions.CommonException;
 import com.jzo2o.common.model.msg.TradeStatusMsg;
 import com.jzo2o.rabbitmq.client.RabbitClient;
-import com.jzo2o.trade.constant.TradingCacheConstant;
 import com.jzo2o.trade.constant.TradingConstant;
 import com.jzo2o.trade.enums.TradingStateEnum;
 import com.jzo2o.trade.handler.alipay.AlipayConfig;
@@ -25,7 +24,6 @@ import com.wechat.pay.contrib.apache.httpclient.notification.Notification;
 import com.wechat.pay.contrib.apache.httpclient.notification.NotificationHandler;
 import com.wechat.pay.contrib.apache.httpclient.notification.NotificationRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +33,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 支付成功的通知处理

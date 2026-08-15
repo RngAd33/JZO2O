@@ -1,10 +1,10 @@
 package com.jzo2o.mysql.interceptor;
 
+import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
 import com.jzo2o.common.handler.UserInfoHandler;
 import com.jzo2o.common.model.CurrentUserInfo;
 import com.jzo2o.common.utils.ObjectUtils;
 import com.jzo2o.common.utils.ReflectUtils;
-import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlCommandType;

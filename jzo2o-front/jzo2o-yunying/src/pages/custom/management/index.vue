@@ -43,10 +43,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { getCustomList, customFreeze } from '@/api/custom'
-import { useRoute } from 'vue-router'
+import {onMounted, ref, watch} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {customFreeze, getCustomList} from '@/api/custom'
+import {useRoute} from 'vue-router'
 import DialogForm from '../../institution/information/components/DialogForm.vue' // 新增,编辑弹窗.
 import tableList from './components/TableList.vue' // 表格
 import Delete from '@/components/Delete/index.vue' // 删除弹层

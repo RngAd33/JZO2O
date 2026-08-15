@@ -1,4 +1,4 @@
-import { PositionUpload } from '@/pages/api/index.js';
+import {PositionUpload} from '@/pages/api/index.js';
 // 获取年月时、分
 export const taskTimeFormat = (val) => {
   const times = getTimeDate(val);

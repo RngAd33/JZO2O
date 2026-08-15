@@ -1,9 +1,7 @@
 package com.jzo2o.trade.handler;
 
-import com.jzo2o.common.expcetions.CommonException;
 import com.jzo2o.trade.model.domain.RefundRecord;
 import com.jzo2o.trade.model.domain.Trading;
-import com.jzo2o.trade.model.dto.TradingDTO;
 
 import java.math.BigDecimal;
 

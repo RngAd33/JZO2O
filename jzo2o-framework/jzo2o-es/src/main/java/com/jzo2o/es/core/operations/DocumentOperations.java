@@ -1,14 +1,11 @@
 package com.jzo2o.es.core.operations;
 
-import com.jzo2o.common.model.PageResult;
-import com.jzo2o.common.model.dto.PageQueryDTO;
-import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
-import co.elastic.clients.util.ObjectBuilder;
+import com.jzo2o.common.model.PageResult;
+import com.jzo2o.common.model.dto.PageQueryDTO;
 
 import java.util.List;
-import java.util.function.Function;
 
 /**
  * @author itcast

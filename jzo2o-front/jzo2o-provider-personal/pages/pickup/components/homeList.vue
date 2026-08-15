@@ -65,9 +65,10 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, watch, watchEffect } from 'vue';
+import {onMounted, reactive, ref, watchEffect} from 'vue';
 // 基本数据(订单状态)
-import { orderStatus } from '@/utils/commonData.js';
+import {orderStatus} from '@/utils/commonData.js';
+
 const emit = defineEmits(['refresh']); //子组件向父组件事件传递
 // 获取父组件值、方法
 const props = defineProps({

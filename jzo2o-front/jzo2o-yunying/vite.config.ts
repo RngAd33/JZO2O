@@ -1,11 +1,10 @@
-import { ConfigEnv, UserConfig, loadEnv } from 'vite'
-import { viteMockServe } from 'vite-plugin-mock'
+import {ConfigEnv, loadEnv, UserConfig} from 'vite'
+import {viteMockServe} from 'vite-plugin-mock'
 import createVuePlugin from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import svgLoader from 'vite-svg-loader'
 
 import path from 'path'
-import { withScopeId } from 'vue'
 
 const CWD = process.cwd()
 

@@ -1,10 +1,8 @@
 package com.jzo2o.trade.controller.inner;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.ObjectUtil;
 import com.jzo2o.api.trade.TradingApi;
 import com.jzo2o.api.trade.dto.response.TradingResDTO;
-import com.jzo2o.trade.model.domain.Trading;
 import com.jzo2o.trade.model.dto.TradingDTO;
 import com.jzo2o.trade.service.BasicPayService;
 import com.jzo2o.trade.service.TradingService;
@@ -14,11 +12,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * 交易流水查询

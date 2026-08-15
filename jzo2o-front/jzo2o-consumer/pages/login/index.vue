@@ -57,12 +57,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { onLoad } from '@dcloudio/uni-app';
-import { useStore } from 'vuex';
-import { login } from '../api/login';
+import {ref} from 'vue';
+import {onLoad} from '@dcloudio/uni-app';
+import {useStore} from 'vuex';
+import {login} from '../api/login';
 import NavBar from '@/components/Navbar/index.vue';
-import { getAddress, getCityList } from '../api/address';
+import {getAddress, getCityList} from '../api/address';
 // ------定义变量------
 const store = useStore(); //vuex获取储存数据
 const list = ref([]); //城市列表

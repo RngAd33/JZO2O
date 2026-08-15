@@ -131,10 +131,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { onShow, onPullDownRefresh } from '@dcloudio/uni-app';
-import { getHomeService, getHotServe } from '../api/index.js';
+import {ref} from 'vue';
+import {onPullDownRefresh, onShow} from '@dcloudio/uni-app';
+import {getHomeService, getHotServe} from '../api/index.js';
 import ExpBall from '../../components/expBall/ExpBall.vue';
+
 const nickName = ref(''); //昵称
 const token = ref(''); //token
 const menuData = ref([]); //菜单数据

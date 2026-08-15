@@ -1,4 +1,4 @@
-import { request } from "../../utils/request"
+import {request} from "../../utils/request"
 
 // 首页服务图标
 export const getHomeService = (params) =>{

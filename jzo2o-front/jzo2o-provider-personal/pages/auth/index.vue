@@ -81,12 +81,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { baseUrl } from '../../utils/env';
+import {ref} from 'vue';
+import {baseUrl} from '../../utils/env';
 // 导入组件
 // 导航组件
 import UniNav from '@/components/uni-nav/index.vue';
-import { postAuth } from '../api/setting.js';
+import {postAuth} from '../api/setting.js';
+
 const title = ref('实名认证');
 const flag = ref(true);
 const formData = ref({

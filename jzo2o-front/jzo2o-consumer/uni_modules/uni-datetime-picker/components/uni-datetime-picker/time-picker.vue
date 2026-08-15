@@ -84,14 +84,13 @@
 </template>
 
 <script>
-	// #ifdef H5
-	import keypress from './keypress'
-	// #endif
-	import {
-		initVueI18n
-	} from '@dcloudio/uni-i18n'
-	import messages from './i18n/index.js'
-	const {	t	} = initVueI18n(messages)
+// #ifdef H5
+import keypress from './keypress'
+// #endif
+import {initVueI18n} from '@dcloudio/uni-i18n'
+import messages from './i18n/index.js'
+
+const {	t	} = initVueI18n(messages)
 
 	/**
 	 * DatetimePicker 时间选择器

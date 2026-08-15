@@ -55,12 +55,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { MessagePlugin } from 'tdesign-vue-next'
-import type { FormInstanceFunctions, FormRule } from 'tdesign-vue-next'
-import { useUserStore } from '@/store'
-import { userLogins } from '@/api/user'
+import {ref} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
+import type {FormInstanceFunctions, FormRule} from 'tdesign-vue-next'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {useUserStore} from '@/store'
+import {userLogins} from '@/api/user'
 // tab切换数据
 const userStore = useUserStore()
 // 登录loadding

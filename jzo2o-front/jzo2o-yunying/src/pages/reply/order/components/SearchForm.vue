@@ -44,9 +44,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import {onMounted, ref, watch} from 'vue'
 // import { forEach } from 'lodash'
-import { Score } from '@/constants'
+import {Score} from '@/constants'
 
 const props = defineProps({
   replyType: {

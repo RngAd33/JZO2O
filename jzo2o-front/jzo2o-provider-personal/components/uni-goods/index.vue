@@ -44,9 +44,9 @@
 </template>
 
 <script setup>
-import { ref, watch, nextTick } from 'vue';
+import {nextTick, ref, watch} from 'vue';
 // 接口
-import { calculateFreight } from '@/pages/api/freight.js';
+import {calculateFreight} from '@/pages/api/freight.js';
 // ------定义变量------
 const props = defineProps({
 	detailsData:{

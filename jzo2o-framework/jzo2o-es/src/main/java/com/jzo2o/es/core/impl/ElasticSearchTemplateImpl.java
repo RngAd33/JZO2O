@@ -1,11 +1,11 @@
 package com.jzo2o.es.core.impl;
 
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import com.jzo2o.es.core.ElasticSearchTemplate;
 import com.jzo2o.es.core.operations.DefaultDocumentOperations;
 import com.jzo2o.es.core.operations.DefaultIndexOperations;
 import com.jzo2o.es.core.operations.DocumentOperations;
 import com.jzo2o.es.core.operations.IndexOperations;
-import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -13,7 +13,7 @@
 	</scroll-view>
 </template>
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 // 获取父组件数据
 const props = defineProps({
 	tabBars:{

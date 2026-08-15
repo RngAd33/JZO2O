@@ -37,9 +37,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { onLoad } from '@dcloudio/uni-app';
-import { getServeCategory, getServeList } from '../api/service.js';
+import {ref} from 'vue';
+import {onLoad} from '@dcloudio/uni-app';
+import {getServeCategory, getServeList} from '../api/service.js';
 
 const serviceTypeData = ref([]); // 服务类型数据
 const activeId = ref(1); // 当前选中的id

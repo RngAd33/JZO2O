@@ -35,11 +35,11 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
-import { onShow, onLoad, onUnload } from '@dcloudio/uni-app';
-import { useStore } from 'vuex';
+import {reactive, ref} from 'vue';
+import {onLoad, onShow, onUnload} from '@dcloudio/uni-app';
+import {useStore} from 'vuex';
 // 接口
-import { getOrderScroll } from '@/pages/api/order.js';
+import {getOrderScroll} from '@/pages/api/order.js';
 // 组件
 // 取消弹层
 import DeletePopup from '@/components/Operate/index.vue';

@@ -24,10 +24,11 @@
 </template>
 
 <script>
-	import provinceData from './city-data/province.js';
-	import cityData from './city-data/city.js';
-	import areaData from './city-data/area.js';
-	export default {
+import provinceData from './city-data/province.js';
+import cityData from './city-data/city.js';
+import areaData from './city-data/area.js';
+
+export default {
 		data() {
 			return {
 				pickerValue: [0, 0, 0],

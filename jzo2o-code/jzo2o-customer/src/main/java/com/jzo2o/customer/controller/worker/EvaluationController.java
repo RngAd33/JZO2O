@@ -1,8 +1,6 @@
 package com.jzo2o.customer.controller.worker;
 
-import com.jzo2o.customer.model.dto.request.EvaluationPageByTargetReqDTO;
 import com.jzo2o.customer.model.dto.response.EvaluationAndOrdersResDTO;
-import com.jzo2o.customer.model.dto.response.EvaluationResDTO;
 import com.jzo2o.customer.service.EvaluationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

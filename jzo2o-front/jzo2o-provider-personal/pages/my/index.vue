@@ -26,10 +26,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useStore } from 'vuex';
+import {onMounted, ref} from 'vue';
+import {useStore} from 'vuex';
 // 时间处理
-import { getUserInfo } from '@/pages/api/user.js';
+import {getUserInfo} from '@/pages/api/user.js';
 // 导入组件
 // 底部导航
 import UniFooter from '@/components/uni-footer/index.vue';

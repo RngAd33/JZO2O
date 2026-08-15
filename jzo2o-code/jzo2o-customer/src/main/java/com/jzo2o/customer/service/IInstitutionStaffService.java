@@ -1,5 +1,6 @@
 package com.jzo2o.customer.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.jzo2o.api.customer.dto.request.InstitutionStaffAddReqDTO;
 import com.jzo2o.api.customer.dto.request.InstitutionStaffPageQueryReqDTO;
 import com.jzo2o.api.customer.dto.response.InstitutionStaffResDTO;
@@ -7,7 +8,6 @@ import com.jzo2o.common.model.PageResult;
 import com.jzo2o.customer.model.domain.InstitutionStaff;
 import com.jzo2o.customer.model.dto.request.InstitutionStaffUpsertReqDTO;
 import com.jzo2o.customer.model.dto.response.InstitutionStaffSimpleResDTO;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 

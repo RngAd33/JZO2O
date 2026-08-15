@@ -43,17 +43,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, watchEffect } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { useRoute, useRouter } from 'vue-router'
+import {ref, watch, watchEffect} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {useRoute, useRouter} from 'vue-router'
 import {
-  serviceTypeSimpleList,
-  serviceItemList,
   serviceItemActivateStatus,
   serviceItemDeactivateStatus,
-  serviceItemDelete
+  serviceItemDelete,
+  serviceItemList,
+  serviceTypeSimpleList
 } from '@/api/service'
-import { forEach } from 'lodash'
+import {forEach} from 'lodash'
 import tableList from './components/TableList.vue' // 表格
 import Delete from '@/components/Delete/index.vue' // 删除弹层
 import Confirm from '@/components/Confirm/index.vue' // 确认弹层
@@ -103,7 +103,7 @@ const resetData = ref({
   name: '',
   serveTypeId: '',
   activeStatus: null
-}) 
+})
 // 上禁用数据
 const setupContractData = ref({
   id: '',

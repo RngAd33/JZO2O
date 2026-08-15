@@ -1,23 +1,14 @@
 package com.jzo2o.customer.controller.operation;
 
-import com.jzo2o.api.customer.dto.request.EvaluationSubmitReqDTO;
-import com.jzo2o.common.model.CurrentUserInfo;
-import com.jzo2o.customer.model.dto.request.AuditReqDTO;
-import com.jzo2o.customer.model.dto.request.EvaluationPageByTargetReqDTO;
-import com.jzo2o.customer.model.dto.request.LikeOrCancelReqDTO;
-import com.jzo2o.customer.model.dto.response.EvaluationAndOrdersResDTO;
-import com.jzo2o.customer.model.dto.response.EvaluationResDTO;
 import com.jzo2o.customer.model.dto.response.EvaluationTokenDto;
 import com.jzo2o.customer.service.EvaluationService;
-import com.jzo2o.mvc.utils.UserContext;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * 评价相关接口

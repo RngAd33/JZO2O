@@ -92,10 +92,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, getCurrentInstance } from 'vue';
-import { getAddress, getCityList } from '../api/address';
+import {getCurrentInstance, onMounted, ref, watch} from 'vue';
+import {getAddress, getCityList} from '../api/address';
 import Popup from '@/components/Operate/index.vue';
-import { tostTip } from '../../utils';
+import {tostTip} from '../../utils';
+
 const customBar = ref('87px'); //导航栏高度
 const winHeight = ref(0); //屏幕高度
 const itemHeight = ref(0); //每个item的高度

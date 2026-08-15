@@ -2,7 +2,6 @@ package com.jzo2o.orders.manager.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjUtil;
-import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -21,7 +20,6 @@ import com.jzo2o.orders.base.mapper.OrdersRefundMapper;
 import com.jzo2o.orders.base.model.domain.Orders;
 import com.jzo2o.orders.base.model.domain.OrdersCanceled;
 import com.jzo2o.orders.base.model.domain.OrdersRefund;
-import com.jzo2o.orders.base.model.dto.OrderSnapshotDTO;
 import com.jzo2o.orders.base.model.dto.OrderUpdateStatusDTO;
 import com.jzo2o.orders.base.service.IOrdersCommonService;
 import com.jzo2o.orders.manager.model.dto.OrderCancelDTO;
@@ -29,9 +27,9 @@ import com.jzo2o.orders.manager.service.IOrdersManagerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -61,6 +59,8 @@ public class OrdersManagerServiceImpl extends ServiceImpl<OrdersMapper, Orders> 
     @Resource
     private OrdersRefundMapper ordersRefundMapper;
 
+    private TransactionTemplate transactionTemplate;
+
     @Override
     public List<Orders> batchQuery(List<Long> ids) {
         LambdaQueryWrapper<Orders> queryWrapper = Wrappers.<Orders>lambdaQuery().in(Orders::getId, ids).ge(Orders::getUserId, 0);
@@ -82,7 +82,7 @@ public class OrdersManagerServiceImpl extends ServiceImpl<OrdersMapper, Orders> 
      */
     @Override
     public List<OrderSimpleResDTO> consumerQueryList(Long currentUserId, Integer ordersStatus, Long sortBy) {
-        //1.构件查询条件
+        // 1.构件查询条件
         LambdaQueryWrapper<Orders> queryWrapper = Wrappers.<Orders>lambdaQuery()
                 .eq(ObjectUtils.isNotNull(ordersStatus), Orders::getOrdersStatus, ordersStatus)
                 .lt(ObjectUtils.isNotNull(sortBy), Orders::getSortBy, sortBy)
@@ -92,7 +92,7 @@ public class OrdersManagerServiceImpl extends ServiceImpl<OrdersMapper, Orders> 
         queryPage.addOrder(OrderItem.desc(SORT_BY));
         queryPage.setSearchCount(false);
 
-        //2.查询订单列表
+        // 2.查询订单列表
         Page<Orders> ordersPage = baseMapper.selectPage(queryPage, queryWrapper);
         List<Orders> records = ordersPage.getRecords();
         List<OrderSimpleResDTO> orderSimpleResDTOS = BeanUtil.copyToList(records, OrderSimpleResDTO.class);
@@ -143,16 +143,40 @@ public class OrdersManagerServiceImpl extends ServiceImpl<OrdersMapper, Orders> 
         BeanUtil.copyProperties(orders, orderCancelDTO);
         if (ObjUtil.equal(orders.getOrdersStatus(), OrderStatusEnum.NO_PAY.getStatus())) {
             // 取消待支付订单: 1) 更新订单状态为已取消  2) 保存取消订单记录
-            owner.cancelByNoPay(orderCancelDTO);
+//            owner.cancelByNoPay(orderCancelDTO);
+            transactionTemplate.execute(status -> {
+                OrderUpdateStatusDTO orderUpdateStatusDTO = OrderUpdateStatusDTO.builder()
+                        .id(orderCancelDTO.getId())   // 订单id
+                        .originStatus(OrderStatusEnum.NO_PAY.getStatus())   // 原始状态
+                        .targetStatus(OrderStatusEnum.CANCELED.getStatus())   // 目标状态
+                        .build();
+                this.saveCanceledOrderInfo(orderCancelDTO, orderUpdateStatusDTO);
+                return null;
+            });
         } else if (ObjUtil.equal(orders.getOrdersStatus(), OrderStatusEnum.DISPATCHING.getStatus())) {
             // 取消派单中订单: 1) 更新订单状态为已关闭  2) 保存取消订单记录  3) 保存待退款的记录
-            owner.cancelByDispatching(orderCancelDTO);
+//            owner.cancelByDispatching(orderCancelDTO);
+            transactionTemplate.execute(status -> {
+                // 更新订单状态为已关闭
+                OrderUpdateStatusDTO orderUpdateStatusDTO = OrderUpdateStatusDTO.builder()
+                        .id(orderCancelDTO.getId())   // 订单id
+                        .originStatus(OrderStatusEnum.DISPATCHING.getStatus())   // 原始状态
+                        .targetStatus(OrderStatusEnum.CLOSED.getStatus())   // 目标状态
+                        .refundStatus(OrderRefundStatusEnum.REFUNDING.getStatus())   // 退款状态
+                        .build();
+                this.saveCanceledOrderInfo(orderCancelDTO, orderUpdateStatusDTO);
+                // 保存待退款的记录
+                OrdersRefund ordersRefund =  BeanUtil.copyProperties(orderCancelDTO,OrdersRefund.class);
+                ordersRefundMapper.insert(ordersRefund);
+                return null;
+            });
         } else {
             throw new ForbiddenOperationException("当前状态订单暂不支持取消");
         }
     }
 
     @Override
+    @Deprecated
     @Transactional(rollbackFor = Exception.class)
     public void cancelByNoPay(OrderCancelDTO orderCancelDTO) {
         // 更新订单状态为已取消
@@ -165,6 +189,7 @@ public class OrdersManagerServiceImpl extends ServiceImpl<OrdersMapper, Orders> 
     }
 
     @Override
+    @Deprecated
     @Transactional(rollbackFor = Exception.class)
     public void cancelByDispatching(OrderCancelDTO orderCancelDTO) {
         // 更新订单状态为已关闭

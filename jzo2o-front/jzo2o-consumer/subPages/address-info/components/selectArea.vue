@@ -67,11 +67,11 @@
 </template>
 
 <script setup>
-import { ref, reactive, watch } from 'vue';
-import { defineProps, defineEmits, defineExpose } from 'vue';
-import { provinceData } from '../../../utils/address/province';
-import { cityData } from '../../../utils/address/city.js';
-import { areaData } from '../../../utils/address/area.js';
+import {defineEmits, defineExpose, defineProps, reactive, ref, watch} from 'vue';
+import {provinceData} from '../../../utils/address/province';
+import {cityData} from '../../../utils/address/city.js';
+import {areaData} from '../../../utils/address/area.js';
+
 const emits = defineEmits(['@getAreaData']);
 const popup = ref();
 let props = defineProps({

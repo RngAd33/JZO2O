@@ -2,8 +2,8 @@ package com.jzo2o.trade.handler;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.extra.spring.SpringUtil;
-import com.jzo2o.trade.annotation.PayChannel;
 import com.jzo2o.api.trade.enums.PayChannelEnum;
+import com.jzo2o.trade.annotation.PayChannel;
 
 import java.util.Map;
 

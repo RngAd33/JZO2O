@@ -1,4 +1,5 @@
-import { formatDateTimeToDateTimeString } from '@/utils/date'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
+
 export const COLUMNS = [
   {
     title: '订单编号',
@@ -14,7 +15,7 @@ export const COLUMNS = [
     colKey: 'createTime',
     sortType: 'all',
     cell: (h, { row }) => h('span',row.createTime ? formatDateTimeToDateTimeString(new Date(row.createTime)) : '-')
-  },  
+  },
   {
     title: '服务地址',
     colKey: 'serveAddress',
@@ -52,7 +53,7 @@ export const COLUMNS = [
         700: {
           label: '已关闭',
           },
-      }  
+      }
       let status = 0
       if(row.ordersStatus === 500 || row.ordersStatus === 600) {
         status = 2
@@ -73,7 +74,7 @@ export const COLUMNS = [
     minWidth: '180px',
     colKey: 'serveStartTime',
     sortType: 'all',
-  },  
+  },
   { title: '客户姓名', width: 150, minWidth: '150px', colKey: 'contactsName' },
   {
     title: '客户电话',
@@ -96,7 +97,7 @@ export const COLUMNS = [
         4: {
           label: '已支付',
           },
-      }  
+      }
       let status = 1
       if(row.payStatus === 4) {
         status = 2
@@ -126,7 +127,7 @@ export const COLUMNS = [
         1: {
           label: '退款中',
           },
-      }  
+      }
       let status = 2
       if(row.refundStatus === 3) {
         status = 1

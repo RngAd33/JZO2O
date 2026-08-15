@@ -1,4 +1,5 @@
-import { formatDateTimeToDateTimeString } from '@/utils/date'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
+
 export const COLUMNS = [
   {
     title: '订单编号',
@@ -114,7 +115,7 @@ export const COLUMNS = [
         4: {
           label: '已支付',
           },
-      }  
+      }
       let status = 1
       if(row.payStatus === 4) {
         status = 2
@@ -144,7 +145,7 @@ export const COLUMNS = [
         1: {
           label: '退款中',
           },
-      }  
+      }
       let status = 0
       if(row.refundStatus === 2) {
         status = 2

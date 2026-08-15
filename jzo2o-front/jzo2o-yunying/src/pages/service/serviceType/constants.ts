@@ -1,4 +1,5 @@
-import {formatDateTimeToDateTimeString } from '@/utils/date'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
+
 export const COLUMNS = [
   {
     title: '服务类型编号',
@@ -65,7 +66,7 @@ export const COLUMNS = [
         2: {
           label: '启用'
         },
-      }  
+      }
       // const status = row.isActive + 1
       return h(
         'span',

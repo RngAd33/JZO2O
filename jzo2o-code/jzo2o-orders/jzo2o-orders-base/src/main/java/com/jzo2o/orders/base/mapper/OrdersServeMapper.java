@@ -1,9 +1,7 @@
 package com.jzo2o.orders.base.mapper;
 
-import com.jzo2o.orders.base.model.domain.OrdersServe;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Param;
+import com.jzo2o.orders.base.model.domain.OrdersServe;
 
 /**
  * <p>

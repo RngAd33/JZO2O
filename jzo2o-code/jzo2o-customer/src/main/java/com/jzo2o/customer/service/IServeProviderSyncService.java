@@ -1,8 +1,7 @@
 package com.jzo2o.customer.service;
 
-import com.jzo2o.customer.model.domain.ServeProviderInfo;
-import com.jzo2o.customer.model.domain.ServeProviderSync;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jzo2o.customer.model.domain.ServeProviderSync;
 
 /**
  * <p>

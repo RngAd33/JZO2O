@@ -28,12 +28,12 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
-import { onShow, onLoad } from '@dcloudio/uni-app';
-import { useStore } from 'vuex';
+import {reactive, ref} from 'vue';
+import {onLoad, onShow} from '@dcloudio/uni-app';
+import {useStore} from 'vuex';
 // 接口
-import { getMyCouponList } from '@/pages/api/coupon.js';
-import { couponListTabData } from '@/utils/commonData.js';
+import {getMyCouponList} from '@/pages/api/coupon.js';
+import {couponListTabData} from '@/utils/commonData.js';
 // 组件
 // 列表
 import List from './components/list.vue';

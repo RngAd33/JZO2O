@@ -84,12 +84,12 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
-import { onShow } from '@dcloudio/uni-app';
-import { format } from 'date-fns';
+import {reactive, ref} from 'vue';
+import {onShow} from '@dcloudio/uni-app';
+import {format} from 'date-fns';
 
 //接口
-import { getHistoryOrder } from '@/pages/api/order.js';
+import {getHistoryOrder} from '@/pages/api/order.js';
 
 // 导入组件
 //空数据

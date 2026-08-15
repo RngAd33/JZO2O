@@ -1,9 +1,9 @@
 package com.jzo2o.mvc.serialize;
 
-import com.jzo2o.common.utils.DateUtils;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.jzo2o.common.utils.DateUtils;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

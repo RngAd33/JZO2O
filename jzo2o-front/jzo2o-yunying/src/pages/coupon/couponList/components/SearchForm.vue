@@ -57,8 +57,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { COUPON_TYPE, GRANT_STATUS } from '@/constants'
+import {ref} from 'vue'
+import {COUPON_TYPE, GRANT_STATUS} from '@/constants'
 // 表单数据
 const formData = ref({
   id: null,

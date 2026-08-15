@@ -1,6 +1,4 @@
-import {
-	request
-} from "../../utils/request.js"
+import {request} from "../../utils/request.js"
 
 // 获取相关消息
 export const getHomeInfo = (params) =>

@@ -2,7 +2,6 @@ package com.jzo2o.foundations.handler;
 
 import com.jzo2o.api.foundations.dto.response.RegionSimpleResDTO;
 import com.jzo2o.foundations.constants.RedisConstants;
-import com.jzo2o.foundations.model.dto.response.ServeAggregationSimpleResDTO;
 import com.jzo2o.foundations.service.IRegionService;
 import com.jzo2o.foundations.service.IServeService;
 import com.xxl.job.core.handler.annotation.XxlJob;

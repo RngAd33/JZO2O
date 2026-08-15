@@ -1,11 +1,8 @@
 package com.jzo2o.api.customer;
 
 import com.jzo2o.api.customer.dto.request.InstitutionStaffAddReqDTO;
-import com.jzo2o.api.customer.dto.request.InstitutionStaffPageQueryReqDTO;
 import com.jzo2o.api.customer.dto.response.InstitutionStaffResDTO;
-import com.jzo2o.common.model.PageResult;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -3,7 +3,6 @@ package com.jzo2o.customer.controller.agency;
 
 import com.jzo2o.api.customer.dto.request.InstitutionStaffPageQueryReqDTO;
 import com.jzo2o.api.customer.dto.response.InstitutionStaffResDTO;
-import com.jzo2o.common.model.CurrentUserInfo;
 import com.jzo2o.common.model.PageResult;
 import com.jzo2o.customer.model.dto.request.InstitutionStaffUpsertReqDTO;
 import com.jzo2o.customer.model.dto.response.InstitutionStaffSimpleResDTO;

@@ -113,20 +113,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
-import { useStore } from 'vuex';
-import {
-  getNow,
-  getTime,
-  decimalsReplenish,
-  formatDateTimeToDateTimeString,
-} from '@/utils/index.js';
-import { onReachBottom, onShow, onLoad } from '@dcloudio/uni-app';
+import {ref} from 'vue';
+import {useStore} from 'vuex';
+import {formatDateTimeToDateTimeString,} from '@/utils/index.js';
+import {onLoad, onReachBottom} from '@dcloudio/uni-app';
 // 组件
 // 无数据
 import EmptyPage from '@/components/EmptyPage/index.vue';
 // 基础数据
-import { orderTabData } from '@/utils/commonData.js';
+import {orderTabData} from '@/utils/commonData.js';
 // 获取父组件值、方法
 const props = defineProps({
   itemData: {

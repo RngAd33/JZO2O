@@ -191,14 +191,15 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
+import {reactive, ref} from 'vue';
 // 接口
-import { getOrderScroll, addComment } from '@/pages/api/order.js';
-import { useStore } from 'vuex';
+import {addComment, getOrderScroll} from '@/pages/api/order.js';
+import {useStore} from 'vuex';
 import Emoji from './emoji.vue';
-import { onLoad, onReachBottom } from '@dcloudio/uni-app';
-import { formatDateTimeToDateTimeString } from '@/utils/index.js';
-import { getEvaluate } from '../../../pages/api/service';
+import {onLoad, onReachBottom} from '@dcloudio/uni-app';
+import {formatDateTimeToDateTimeString} from '@/utils/index.js';
+import {getEvaluate} from '../../../pages/api/service';
+
 const edit = ref(true); //true评价 false评价完成页面
 const token = uni.getStorageSync('token');
 const title = ref('评价');

@@ -98,9 +98,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { getUserSetting, setPickUpStatus } from '../api/setting.js';
-import { onShow } from '@dcloudio/uni-app';
+import {onMounted, ref} from 'vue';
+import {getUserSetting, setPickUpStatus} from '../api/setting.js';
+import {onShow} from '@dcloudio/uni-app';
 
 const canPickUp = ref(false); //是否开启接单
 const settingsStatus = ref(false); //是否配置完成

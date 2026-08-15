@@ -34,14 +34,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watchEffect } from 'vue'
-import { useRoute } from 'vue-router'
-import { getHistoryOrderList } from '@/api/order'
+import {onMounted, ref, watchEffect} from 'vue'
+import {useRoute} from 'vue-router'
+import {getHistoryOrderList} from '@/api/order'
 import DialogForm from './components/DialogForm.vue' // 新增,编辑弹窗.
 import tableList from './components/TableList.vue' // 表格
 import searchFormBox from './components/SearchForm.vue' // 搜索框表单
-import { MessagePlugin } from 'tdesign-vue-next'
+import {MessagePlugin} from 'tdesign-vue-next'
 import dayjs from 'dayjs'
+
 const route = useRoute()
 const visible = ref(false) // 新增，编辑弹窗
 const listData = ref([]) // 列表数据

@@ -1,4 +1,5 @@
-import {formatDateTimeToDateTimeString } from '@/utils/date'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
+
 export const COLUMNS = [
   {
     title: '评价内容',

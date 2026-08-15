@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 // 组件
 // 无数据
 import EmptyPage from '@/components/EmptyPage/index.vue';

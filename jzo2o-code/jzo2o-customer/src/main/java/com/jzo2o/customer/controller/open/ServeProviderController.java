@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-
 @RestController("openServeProviderController")
 @RequestMapping("/open/serve-provider")
 @Api(tags = "白名单接口 - 服务人员或机构相关接口")

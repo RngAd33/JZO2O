@@ -22,8 +22,8 @@
   </view>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue';
-import { getUserSetting } from '../../api/setting.js';
+import {onMounted, ref} from 'vue';
+import {getUserSetting} from '../../api/setting.js';
 // 获取父组件数据
 const props = defineProps({
   baseData: {

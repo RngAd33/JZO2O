@@ -19,7 +19,8 @@
 </template>
 
 <script>
-	import dropdown from './filter-dropdown.vue'
+import dropdown from './filter-dropdown.vue'
+
 /**
  * Th 表头
  * @description 表格内的表头单元格组件

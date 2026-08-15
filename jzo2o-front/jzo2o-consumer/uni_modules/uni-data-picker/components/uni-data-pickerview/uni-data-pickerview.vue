@@ -33,9 +33,9 @@
 </template>
 
 <script>
-	import dataPicker from "./uni-data-picker.js"
+import dataPicker from "./uni-data-picker.js"
 
-	/**
+/**
 	 * DataPickerview
 	 * @description uni-data-pickerview
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=3796

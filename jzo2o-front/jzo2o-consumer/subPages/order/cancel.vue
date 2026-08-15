@@ -36,14 +36,14 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { onLoad } from '@dcloudio/uni-app';
+import {computed, ref} from 'vue';
+import {onLoad} from '@dcloudio/uni-app';
 // 基本数据
-import { cancelCauseData } from '@/utils/commonData.js';
-import { tostTip } from '@/utils/index.js';
+import {cancelCauseData} from '@/utils/commonData.js';
+import {tostTip} from '@/utils/index.js';
 // 接口
-import { cancelOrder } from '@/pages/api/order.js';
-import { useStore } from 'vuex';
+import {cancelOrder} from '@/pages/api/order.js';
+import {useStore} from 'vuex';
 // 组件
 // ------定义变量------
 const store = useStore(); //存储获取数据

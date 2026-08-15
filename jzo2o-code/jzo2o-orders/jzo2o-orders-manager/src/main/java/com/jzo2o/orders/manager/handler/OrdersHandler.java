@@ -46,8 +46,9 @@ public class OrdersHandler {
         // 遍历查询到的数据
         for (OrdersRefund ordersRefund : ordersRefundList) {
             // - 调用支付服务的退款接口
-            ExecutionResultResDTO executionResultResDTO
-                    = refundRecordApi.refundTrading(ordersRefund.getTradingOrderNo(), ordersRefund.getRealPayAmount());
+            ExecutionResultResDTO executionResultResDTO = refundRecordApi.refundTrading(
+                    ordersRefund.getTradingOrderNo(),ordersRefund.getRealPayAmount()
+            );
             if (ObjUtil.isNotNull(executionResultResDTO)) {
                 // - 根据退款接口的返回值做处理
                 if (executionResultResDTO.getRefundStatus() != OrderRefundStatusEnum.REFUNDING.getStatus()) {

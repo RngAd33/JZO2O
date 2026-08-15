@@ -1,6 +1,4 @@
-import {
-  request
-} from "../../utils/request.js"
+import {request} from "../../utils/request.js"
 
 // 手机号登录
 export const phoneLogins = (params) =>

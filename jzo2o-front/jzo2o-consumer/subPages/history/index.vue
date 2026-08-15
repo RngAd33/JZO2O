@@ -84,12 +84,12 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
-import { onShow } from '@dcloudio/uni-app';
-import { formatDateTimeToDateString } from '@/utils/index.js';
+import {reactive, ref} from 'vue';
+import {onShow} from '@dcloudio/uni-app';
+import {formatDateTimeToDateString} from '@/utils/index.js';
 
 //接口
-import { getHistoryOrder } from '@/pages/api/order.js';
+import {getHistoryOrder} from '@/pages/api/order.js';
 
 //订单列表
 import HomeList from '../order/components/list.vue';

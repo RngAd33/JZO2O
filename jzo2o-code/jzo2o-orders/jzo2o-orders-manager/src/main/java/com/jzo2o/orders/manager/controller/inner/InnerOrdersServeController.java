@@ -1,7 +1,6 @@
 package com.jzo2o.orders.manager.controller.inner;
 
 import com.jzo2o.api.orders.OrdersServeApi;
-//import com.jzo2o.api.orders.dto.response.InstitutionStaffServeCountResDTO;
 import com.jzo2o.api.orders.dto.response.InstitutionStaffServeCountResDTO;
 import com.jzo2o.api.orders.dto.response.ServeProviderIdResDTO;
 import com.jzo2o.orders.base.model.domain.OrdersServe;
@@ -13,8 +12,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @Api(tags = "内部接口 - 服务单相关接口")

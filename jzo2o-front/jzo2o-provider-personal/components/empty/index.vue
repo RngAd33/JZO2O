@@ -8,8 +8,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useStore } from 'vuex';
 // 获取父组件数据
 const props = defineProps({
   canPickUp: {

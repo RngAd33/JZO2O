@@ -1,7 +1,7 @@
 package com.jzo2o.customer.mapper;
 
-import com.jzo2o.customer.model.domain.AddressBook;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.jzo2o.customer.model.domain.AddressBook;
 
 /**
  * <p>

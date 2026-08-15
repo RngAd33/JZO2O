@@ -51,8 +51,9 @@
   </view>
 </template>
 <script setup>
-import { ref, watch } from 'vue';
-import { calendar } from './calendar';
+import {ref, watch} from 'vue';
+import {calendar} from './calendar';
+
 const showCalendar = ref(false);
 const type = ref('solar');
 const dateInfo = ref({});

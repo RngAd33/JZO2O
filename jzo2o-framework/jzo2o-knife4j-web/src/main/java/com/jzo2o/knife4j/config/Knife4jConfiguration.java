@@ -1,9 +1,9 @@
 package com.jzo2o.knife4j.config;
 
+import com.fasterxml.classmate.TypeResolver;
 import com.jzo2o.common.model.Result;
 import com.jzo2o.knife4j.filter.SwaggerFilter;
 import com.jzo2o.knife4j.properties.SwaggerProperties;
-import com.fasterxml.classmate.TypeResolver;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

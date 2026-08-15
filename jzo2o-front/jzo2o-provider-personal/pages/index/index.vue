@@ -46,11 +46,11 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
-import { onPullDownRefresh, onShow } from '@dcloudio/uni-app';
+import {onMounted, reactive, ref} from 'vue';
+import {onPullDownRefresh, onShow} from '@dcloudio/uni-app';
 // 导入接口
-import { getRobOrder, getHomeFilter } from '../api/order.js';
-import { getUserSetting } from '../api/setting';
+import {getHomeFilter, getRobOrder} from '../api/order.js';
+import {getUserSetting} from '../api/setting';
 // 导入组件
 // 导航
 import UniNav from '@/components/uni-home-nav/index.vue';
@@ -60,7 +60,7 @@ import UniFooter from '@/components/uni-footer/index.vue';
 import Empty from '@/components/empty/index.vue';
 import HomeFilter from './components/homeFilter';
 import HomeList from './components/homeList';
-import { useStore } from 'vuex';
+import {useStore} from 'vuex';
 
 // ------定义变量------
 const fixTop = ref(false);

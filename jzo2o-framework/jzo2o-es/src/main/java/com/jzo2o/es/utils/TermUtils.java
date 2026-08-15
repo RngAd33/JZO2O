@@ -1,7 +1,7 @@
 package com.jzo2o.es.utils;
 
-import com.jzo2o.common.utils.CollUtils;
 import co.elastic.clients.elasticsearch._types.FieldValue;
+import com.jzo2o.common.utils.CollUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -47,10 +47,11 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
-import { updateServiceSkill, getServiceSkillAll } from '../api/setting.js';
+import {onMounted, reactive, ref} from 'vue';
+import {getServiceSkillAll, updateServiceSkill} from '../api/setting.js';
 // 导航组件
 import UniNav from '@/components/uni-nav/index.vue';
+
 const activeId = ref(null); // 当前选中的id
 const activeIndex = ref(0); //左侧当前选中索引
 

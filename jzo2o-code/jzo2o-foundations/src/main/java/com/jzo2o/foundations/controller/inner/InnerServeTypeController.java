@@ -4,7 +4,6 @@ package com.jzo2o.foundations.controller.inner;
 import cn.hutool.core.bean.BeanUtil;
 import com.jzo2o.api.foundations.ServeTypeApi;
 import com.jzo2o.api.foundations.dto.response.ServeTypeSimpleResDTO;
-import com.jzo2o.foundations.enums.FoundationStatusEnum;
 import com.jzo2o.foundations.service.IServeTypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

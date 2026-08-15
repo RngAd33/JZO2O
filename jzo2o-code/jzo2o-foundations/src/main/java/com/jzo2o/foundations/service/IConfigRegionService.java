@@ -1,10 +1,10 @@
 package com.jzo2o.foundations.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.jzo2o.api.foundations.dto.response.ConfigRegionInnerResDTO;
 import com.jzo2o.foundations.model.domain.ConfigRegion;
 import com.jzo2o.foundations.model.dto.request.ConfigRegionSetReqDTO;
 import com.jzo2o.foundations.model.dto.response.ConfigRegionResDTO;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 

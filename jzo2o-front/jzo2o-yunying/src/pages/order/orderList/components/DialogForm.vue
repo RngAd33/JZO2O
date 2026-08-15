@@ -41,11 +41,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { ValidateResultContext } from 'tdesign-vue-next'
-import {
-  validateText,
-} from '@/utils/validate'
+import {ref, watch} from 'vue'
+import {ValidateResultContext} from 'tdesign-vue-next'
+import {validateText,} from '@/utils/validate'
 
 const props = defineProps({
   visible: {

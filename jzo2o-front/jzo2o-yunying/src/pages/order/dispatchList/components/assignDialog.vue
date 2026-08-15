@@ -111,8 +111,8 @@
 </template>
 
 <script setup lang="ts">
-import { MessagePlugin } from 'tdesign-vue-next'
-import { ref, watch } from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {ref, watch} from 'vue'
 import TableList from './TableList.vue'
 
 const props = defineProps({

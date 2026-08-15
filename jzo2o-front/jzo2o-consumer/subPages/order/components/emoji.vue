@@ -24,8 +24,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { ImgList, Icon } from './emoji.js';
+import {ref} from 'vue';
+import {Icon, ImgList} from './emoji.js';
+
 const pickerVisible = ref(false);
 // 获取父组件值、方法
 const props = defineProps({

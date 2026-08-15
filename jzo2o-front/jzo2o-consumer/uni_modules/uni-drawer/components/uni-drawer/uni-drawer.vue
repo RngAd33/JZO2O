@@ -11,9 +11,9 @@
 </template>
 
 <script>
-	// #ifdef H5
-	import keypress from './keypress.js'
-	// #endif
+// #ifdef H5
+import keypress from './keypress.js'
+// #endif
 	/**
 	 * Drawer 抽屉
 	 * @description 抽屉侧滑菜单

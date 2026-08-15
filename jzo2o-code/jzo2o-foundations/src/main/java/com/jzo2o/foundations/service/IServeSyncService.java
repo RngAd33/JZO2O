@@ -1,8 +1,8 @@
 package com.jzo2o.foundations.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.jzo2o.foundations.model.domain.ServeSync;
 import com.jzo2o.foundations.model.dto.request.ServeSyncUpdateReqDTO;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>

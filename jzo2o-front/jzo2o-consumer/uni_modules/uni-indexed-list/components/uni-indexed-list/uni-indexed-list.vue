@@ -33,8 +33,8 @@
 	</view>
 </template>
 <script>
-	import indexedListItem from './uni-indexed-list-item.vue'
-	// #ifdef APP-NVUE
+import indexedListItem from './uni-indexed-list-item.vue'
+// #ifdef APP-NVUE
 	const dom = weex.requireModule('dom');
 	// #endif
 	// #ifdef APP-PLUS

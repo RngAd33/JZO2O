@@ -56,8 +56,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { STATUS } from '@/constants'
+import {ref} from 'vue'
+import {STATUS} from '@/constants'
 // 表单数据
 const formData = ref({
   index: '',

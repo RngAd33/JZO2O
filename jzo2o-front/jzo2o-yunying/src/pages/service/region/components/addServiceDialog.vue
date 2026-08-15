@@ -85,11 +85,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { SearchIcon } from 'tdesign-icons-vue-next'
+import {ref, watch} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {SearchIcon} from 'tdesign-icons-vue-next'
 import NoData from '@/components/noData/index.vue'
-import { forEach } from 'lodash'
+import {forEach} from 'lodash'
+
 const props = defineProps({
   visible: {
     type: Boolean,

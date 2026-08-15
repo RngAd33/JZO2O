@@ -1,11 +1,8 @@
 package com.jzo2o.orders.manager.model.dto.response;
 
-import com.jzo2o.api.trade.enums.PayChannelEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * 订单支付响应体

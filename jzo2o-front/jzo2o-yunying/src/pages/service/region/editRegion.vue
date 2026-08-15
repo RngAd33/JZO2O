@@ -55,21 +55,21 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, watchEffect, watch } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { useRoute } from 'vue-router'
+import {onMounted, ref, watch} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {useRoute} from 'vue-router'
 import {
   regionById,
-  serviceList,
-  serviceTypeSimpleList,
-  serviceItemList,
-  serviceAdd,
-  serviceEdit,
-  serviceOnHot,
-  serviceOffHot,
-  serviceDelete,
   serviceActiveStatus,
-  serviceInactiveStatus
+  serviceAdd,
+  serviceDelete,
+  serviceEdit,
+  serviceInactiveStatus,
+  serviceItemList,
+  serviceList,
+  serviceOffHot,
+  serviceOnHot,
+  serviceTypeSimpleList
 } from '@/api/service'
 import regionTableList from './components/regionTableList.vue' // 服务列表
 import addServiceDialog from './components/addServiceDialog.vue'

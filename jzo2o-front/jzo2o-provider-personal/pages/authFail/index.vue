@@ -11,11 +11,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import {onMounted, ref} from 'vue';
 // 导入组件
 // 导航组件
 import UniNav from '@/components/uni-nav/index.vue';
-import { getAuthFail } from '../api/setting.js';
+import {getAuthFail} from '../api/setting.js';
+
 const title = ref('实名认证');
 const reason = ref('');
 onMounted(() => {

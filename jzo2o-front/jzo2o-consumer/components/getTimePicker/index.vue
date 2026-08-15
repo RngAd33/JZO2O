@@ -59,7 +59,8 @@
 </template>
 
 <script setup>
-import { ref, reactive, watch } from 'vue';
+import {reactive, ref, watch} from 'vue';
+
 const emits = defineEmits(['@getTime']);
 
 const props = defineProps({

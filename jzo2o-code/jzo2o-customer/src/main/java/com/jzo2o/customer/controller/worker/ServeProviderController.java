@@ -1,9 +1,7 @@
 package com.jzo2o.customer.controller.worker;
 
 import com.jzo2o.customer.model.dto.response.ServeProviderInfoResDTO;
-import com.jzo2o.customer.model.dto.response.ServeProviderSettingsGetResDTO;
 import com.jzo2o.customer.service.IServeProviderService;
-import com.jzo2o.customer.service.IServeProviderSettingsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;

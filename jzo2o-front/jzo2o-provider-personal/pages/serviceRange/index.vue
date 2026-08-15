@@ -45,13 +45,14 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
-import { useStore } from 'vuex';
-import { onShow } from '@dcloudio/uni-app';
-import { getSettingInfo, setServiceSetting } from '../api/setting.js';
-import { data } from '../../utils/h5Data.js';
+import {onMounted, reactive, ref} from 'vue';
+import {useStore} from 'vuex';
+import {onShow} from '@dcloudio/uni-app';
+import {getSettingInfo, setServiceSetting} from '../api/setting.js';
+import {data} from '../../utils/h5Data.js';
 // 导航组件
 import UniNav from '@/components/uni-nav/index.vue';
+
 const cityName = ref('请选择');
 const address = ref('请选择');
 const store = useStore(); //vuex获取、储存数据

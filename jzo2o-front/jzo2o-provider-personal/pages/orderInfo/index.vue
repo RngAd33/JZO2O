@@ -224,19 +224,14 @@
   </view>
 </template>
 <script setup>
-import { ref, reactive } from 'vue';
-import { onLoad } from '@dcloudio/uni-app';
+import {reactive, ref} from 'vue';
+import {onLoad} from '@dcloudio/uni-app';
 // 导航组件
 import UniNav from '@/components/uni-nav/index.vue';
 //接口
-import {
-  getOrderInfo,
-  getDispatchOrderInfo,
-  deleteOrder,
-  getHistoryOrderInfo,
-} from '@/pages/api/order.js';
+import {deleteOrder, getDispatchOrderInfo, getHistoryOrderInfo, getOrderInfo,} from '@/pages/api/order.js';
 // 基本数据(订单状态)
-import { orderStatus } from '@/utils/commonData.js';
+import {orderStatus} from '@/utils/commonData.js';
 // 获取父组件数据
 const props = defineProps({
   tabBars: {

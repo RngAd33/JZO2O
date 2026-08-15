@@ -55,18 +55,16 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router'
-import { ref, reactive, watchEffect } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import {useRoute, useRouter} from 'vue-router'
+import {reactive, ref, watchEffect} from 'vue'
 import moment from 'moment'
-import { getList } from '@/api/list'
 import DialogForm from '@/components/editDialog/index.vue' // 新增,编辑弹窗.
 import Delete from '@/components/Delete/index.vue' // 删除弹层
 import tableList from './components/TableList.vue' // 表格
 import searchFormBox from './components/SearchForm.vue' // 搜索框表单
 import switchBar from '@/components/switchBar/switchBartop.vue' // tab切换组件
 // import { deleteComments, replayComments } from '@/api/detail'
-import { DetailDataType } from './type'
+import {DetailDataType} from './type'
 
 const initSearchId = ref('') // 初始化搜索框的值
 const deleteData = ref({} as DetailDataType)

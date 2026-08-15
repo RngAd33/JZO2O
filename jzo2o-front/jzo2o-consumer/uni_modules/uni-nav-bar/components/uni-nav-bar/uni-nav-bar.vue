@@ -46,8 +46,9 @@
 </template>
 
 <script>
-	import statusBar from "./uni-status-bar.vue";
-	const getVal = (val) => typeof val === 'number' ? val + 'px' : val;
+import statusBar from "./uni-status-bar.vue";
+
+const getVal = (val) => typeof val === 'number' ? val + 'px' : val;
 
 	/**
 	 * NavBar 自定义导航栏

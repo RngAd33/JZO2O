@@ -1,4 +1,5 @@
-import { formatDateTimeToDateTimeString } from '@/utils/date'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
+
 export const COLUMNS = [
   {
     title: '订单编号',
@@ -14,7 +15,7 @@ export const COLUMNS = [
     colKey: 'createTime',
     sortType: 'all',
     cell: (h, { row }) => h('span',row.createTime ? formatDateTimeToDateTimeString(new Date(row.createTime)) : '-')
-  },  
+  },
   {
     title: '服务地址',
     colKey: 'serveAddress',
@@ -26,7 +27,7 @@ export const COLUMNS = [
     minWidth: '180px',
     colKey: 'updateTime',
     sortType: 'all',
-  },  
+  },
   {
     title: '指派超时',
     colKey: 'ordersStatus',
@@ -55,7 +56,7 @@ export const COLUMNS = [
         1: {
           label: '否',
           },
-      }  
+      }
       let status = 0
       if(row.ordersStatus === 100 || row.ordersStatus === 200 || row.ordersStatus === 300 || row.ordersStatus === 400 || row.ordersStatus === 500) {
         status = 0
@@ -114,7 +115,7 @@ export const PERSON_COLUMNS = [
     colKey: 'createTime',
     sortType: 'all',
     cell: (h, { row }) => h('span',formatDateTimeToDateTimeString(new Date(row.createTime)))
-  },  
+  },
   {
     title: '电话号码',
     colKey: 'contactsPhone',
@@ -152,7 +153,7 @@ export const PERSON_COLUMNS = [
         700: {
           label: '已关闭',
           },
-      }  
+      }
       let status = 0
       if(row.ordersStatus === 500 || row.ordersStatus === 600) {
         status = 2
@@ -181,7 +182,7 @@ export const PERSON_COLUMNS = [
         1: {
           label: '休息中',
           },
-      }  
+      }
       let status = 0
       if(row.ordersStatus === 100 || row.ordersStatus === 200 || row.ordersStatus === 300 || row.ordersStatus === 400 || row.ordersStatus === 500) {
         status = 0
@@ -205,7 +206,7 @@ export const PERSON_COLUMNS = [
     width: 104,
     colKey: 'ordersStatus',
     sortType: 'all',
-  },  
+  },
   {
     width: 48,
     minWidth: '48px',

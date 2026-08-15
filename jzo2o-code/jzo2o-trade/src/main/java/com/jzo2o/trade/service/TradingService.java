@@ -1,10 +1,8 @@
 package com.jzo2o.trade.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.jzo2o.api.trade.enums.PayChannelEnum;
 import com.jzo2o.trade.enums.TradingStateEnum;
 import com.jzo2o.trade.model.domain.Trading;
-import com.jzo2o.trade.model.dto.TradingDTO;
 
 import java.util.List;
 

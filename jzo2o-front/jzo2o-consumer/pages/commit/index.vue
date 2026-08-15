@@ -87,12 +87,13 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
-import { onLoad } from '@dcloudio/uni-app';
-import { getCommentList, deleteComment } from '@/pages/api/order.js';
-import { formatDateTimeToDateTimeString } from '@/utils/index.js';
+import {reactive, ref} from 'vue';
+import {onLoad} from '@dcloudio/uni-app';
+import {deleteComment, getCommentList} from '@/pages/api/order.js';
+import {formatDateTimeToDateTimeString} from '@/utils/index.js';
 // 删除弹层
 import DeletePopup from '@/components/Operate/index.vue';
+
 const deleteRef = ref(null); //定义取消弹层ref
 const errorTipText = ref({
   title: '确定要删除该评价么？',

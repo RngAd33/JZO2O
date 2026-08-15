@@ -1,6 +1,5 @@
-import {
-	request
-} from "../../utils/request.js"
+import {request} from "../../utils/request.js"
+
 // 获取订单列表
 export function getOrderList(params) {
   return request({

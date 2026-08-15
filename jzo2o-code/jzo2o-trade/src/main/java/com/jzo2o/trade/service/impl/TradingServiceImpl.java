@@ -1,19 +1,15 @@
 package com.jzo2o.trade.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.NumberUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.jzo2o.api.trade.enums.PayChannelEnum;
 import com.jzo2o.trade.constant.Constants;
 import com.jzo2o.trade.enums.TradingStateEnum;
 import com.jzo2o.trade.mapper.TradingMapper;
 import com.jzo2o.trade.model.domain.Trading;
-import com.jzo2o.trade.model.dto.TradingDTO;
 import com.jzo2o.trade.service.BasicPayService;
 import com.jzo2o.trade.service.TradingService;
-import io.swagger.annotations.ApiModelProperty;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

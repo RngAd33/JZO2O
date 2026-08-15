@@ -6,8 +6,8 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.extra.qrcode.QrCodeUtil;
 import cn.hutool.extra.qrcode.QrConfig;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.jzo2o.trade.config.QRCodeConfig;
 import com.jzo2o.api.trade.enums.PayChannelEnum;
+import com.jzo2o.trade.config.QRCodeConfig;
 import com.jzo2o.trade.service.QRCodeService;
 import org.springframework.stereotype.Service;
 

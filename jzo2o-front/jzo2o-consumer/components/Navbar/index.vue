@@ -21,8 +21,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { onLoad, onShow } from '@dcloudio/uni-app';
+import {ref} from 'vue';
+import {onLoad} from '@dcloudio/uni-app';
 // 获取父组件值、方法
 const props = defineProps({
   title: {

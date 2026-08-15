@@ -46,7 +46,8 @@
 </template>
 
 <script setup>
-import { ref, reactive, watch } from 'vue';
+import {reactive, ref, watch} from 'vue';
+
 const emit = defineEmits(['handleCanScroll', 'getList', 'tabChange']); //子组件向父组件事件传递
 // 获取父组件值、方法
 const props = defineProps({

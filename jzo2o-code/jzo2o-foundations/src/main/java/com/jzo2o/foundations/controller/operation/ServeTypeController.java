@@ -1,7 +1,6 @@
 package com.jzo2o.foundations.controller.operation;
 
 import com.jzo2o.api.foundations.dto.response.ServeTypeSimpleResDTO;
-import com.jzo2o.common.enums.EnableStatusEnum;
 import com.jzo2o.common.model.PageResult;
 import com.jzo2o.foundations.model.dto.request.ServeTypePageQueryReqDTO;
 import com.jzo2o.foundations.model.dto.request.ServeTypeUpsertReqDTO;

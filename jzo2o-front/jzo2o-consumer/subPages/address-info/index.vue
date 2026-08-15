@@ -96,20 +96,12 @@
 </template>
 
 <script setup>
-import {
-  ref,
-  onMounted,
-  computed,
-} from 'vue';
-import { onLoad } from '@dcloudio/uni-app';
+import {computed, onMounted, ref,} from 'vue';
+import {onLoad} from '@dcloudio/uni-app';
 import BtnFooter from '@/components/BtnFooter/index.vue';
 import SelectArea from './components/selectArea.vue';
-import {
-  addAddressBook,
-  getAddressBookInfo,
-  updateAddressBook,
-  getAddress,
-} from '@/pages/api/address.js';
+import {addAddressBook, getAddress, getAddressBookInfo, updateAddressBook,} from '@/pages/api/address.js';
+
 const formName = ref('');
 const formPhone = ref('');
 const formAddressInfo = ref('');

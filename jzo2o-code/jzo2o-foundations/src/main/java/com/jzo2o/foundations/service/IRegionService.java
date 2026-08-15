@@ -6,8 +6,6 @@ import com.jzo2o.common.model.PageResult;
 import com.jzo2o.foundations.model.domain.Region;
 import com.jzo2o.foundations.model.dto.request.RegionPageQueryReqDTO;
 import com.jzo2o.foundations.model.dto.request.RegionUpsertReqDTO;
-import com.jzo2o.foundations.model.dto.request.ServeUpsertReqDTO;
-import com.jzo2o.foundations.model.dto.response.RegionDisplayResDTO;
 import com.jzo2o.foundations.model.dto.response.RegionResDTO;
 
 import java.math.BigDecimal;

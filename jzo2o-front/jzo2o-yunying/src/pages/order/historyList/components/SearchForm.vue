@@ -103,9 +103,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { TRADE_STATUS } from '@/constants'
-import { MessagePlugin } from 'tdesign-vue-next'
+import {ref} from 'vue'
+import {TRADE_STATUS} from '@/constants'
+import {MessagePlugin} from 'tdesign-vue-next'
 import dayjs from 'dayjs'
 
 const props = defineProps({

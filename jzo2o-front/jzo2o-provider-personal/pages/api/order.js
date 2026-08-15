@@ -1,6 +1,4 @@
-import {
-  request
-} from "../../utils/request.js"
+import {request} from "../../utils/request.js"
 
 //拒单
 export const rejectOrder = (params) =>

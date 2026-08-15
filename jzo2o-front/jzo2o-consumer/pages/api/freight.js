@@ -1,6 +1,4 @@
-import {
-	request
-} from "../../utils/request.js"
+import {request} from "../../utils/request.js"
 
 // 计算运费
 export const calculateFreight = (params) =>

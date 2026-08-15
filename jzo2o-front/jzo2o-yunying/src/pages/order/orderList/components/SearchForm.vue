@@ -78,8 +78,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { ORDER_STATUS,TRADE_STATUS , REFUND_STATUS} from '@/constants'
+import {ref} from 'vue'
+import {ORDER_STATUS, REFUND_STATUS, TRADE_STATUS} from '@/constants'
 // 表单数据
 const formData = ref({
   id: '',

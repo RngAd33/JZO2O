@@ -1,6 +1,6 @@
 package com.jzo2o.orders.base.service.impl;
 
-import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.ObjUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -25,16 +25,16 @@ public class OrdersCommonServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
         LambdaUpdateWrapper<Orders> updateWrapper = Wrappers.<Orders>lambdaUpdate()
                 .eq(Orders::getId, orderUpdateStatusReqDTO.getId())
                 .gt(Orders::getUserId, 0)
-                .eq(ObjectUtil.isNotNull(orderUpdateStatusReqDTO.getOriginStatus()),Orders::getOrdersStatus,orderUpdateStatusReqDTO.getOriginStatus())
+                .eq(ObjUtil.isNotNull(orderUpdateStatusReqDTO.getOriginStatus()), Orders::getOrdersStatus,orderUpdateStatusReqDTO.getOriginStatus())
                 .set(Orders::getOrdersStatus, orderUpdateStatusReqDTO.getTargetStatus())
-                .set(ObjectUtil.isNotNull(orderUpdateStatusReqDTO.getPayStatus()),Orders::getPayStatus,orderUpdateStatusReqDTO.getPayStatus())
-                .set(ObjectUtil.isNotNull(orderUpdateStatusReqDTO.getPayTime()),Orders::getPayTime,orderUpdateStatusReqDTO.getPayTime())
-                .set(ObjectUtil.isNotNull(orderUpdateStatusReqDTO.getEvaluationTime()),Orders::getEvaluationTime,orderUpdateStatusReqDTO.getEvaluationTime())
-                .set(ObjectUtil.isNotNull(orderUpdateStatusReqDTO.getTradingOrderNo()),Orders::getTradingOrderNo,orderUpdateStatusReqDTO.getTradingOrderNo())
-                .set(ObjectUtil.isNotNull(orderUpdateStatusReqDTO.getTransactionId()),Orders::getTransactionId,orderUpdateStatusReqDTO.getTransactionId())
-                .set(ObjectUtil.isNotNull(orderUpdateStatusReqDTO.getTradingChannel()),Orders::getTradingChannel,orderUpdateStatusReqDTO.getTradingChannel())
-                .set(ObjectUtil.isNotNull(orderUpdateStatusReqDTO.getRefundStatus()),Orders::getRefundStatus,orderUpdateStatusReqDTO.getRefundStatus());
+                .set(ObjUtil.isNotNull(orderUpdateStatusReqDTO.getPayStatus()), Orders::getPayStatus,orderUpdateStatusReqDTO.getPayStatus())
+                .set(ObjUtil.isNotNull(orderUpdateStatusReqDTO.getPayTime()), Orders::getPayTime,orderUpdateStatusReqDTO.getPayTime())
+                .set(ObjUtil.isNotNull(orderUpdateStatusReqDTO.getEvaluationTime()), Orders::getEvaluationTime,orderUpdateStatusReqDTO.getEvaluationTime())
+                .set(ObjUtil.isNotNull(orderUpdateStatusReqDTO.getTradingOrderNo()), Orders::getTradingOrderNo,orderUpdateStatusReqDTO.getTradingOrderNo())
+                .set(ObjUtil.isNotNull(orderUpdateStatusReqDTO.getTransactionId()), Orders::getTransactionId,orderUpdateStatusReqDTO.getTransactionId())
+                .set(ObjUtil.isNotNull(orderUpdateStatusReqDTO.getTradingChannel()), Orders::getTradingChannel,orderUpdateStatusReqDTO.getTradingChannel())
+                .set(ObjUtil.isNotNull(orderUpdateStatusReqDTO.getRefundStatus()), Orders::getRefundStatus,orderUpdateStatusReqDTO.getRefundStatus());
         boolean update = super.update(updateWrapper);
-        return update?1:0;
+        return update ? 1 : 0;
     }
 }

@@ -1,4 +1,5 @@
-import { formatDateTimeToDateTimeString } from '@/utils/date'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
+
 export const COLUMNS = [
   {
     title: '服务编号',
@@ -78,7 +79,7 @@ export const COLUMNS = [
         1: {
           label: '禁用'
         },
-      }  
+      }
       // const status = row.activeStatus === 2 ? '1' : 0
       return h(
         'span',

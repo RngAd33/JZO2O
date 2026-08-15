@@ -80,15 +80,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { onLoad, onShow } from '@dcloudio/uni-app';
-import { useStore } from 'vuex';
+import {ref} from 'vue';
+import {onLoad, onShow} from '@dcloudio/uni-app';
+import {useStore} from 'vuex';
 // 基本数据
 // 接口
-import { payOrder, getOrderPayResult } from '@/pages/api/order.js';
-import {
-  formatDuringToTime,
-} from '@/utils/index.js';
+import {getOrderPayResult, payOrder} from '@/pages/api/order.js';
+import {formatDuringToTime,} from '@/utils/index.js';
 // ------定义变量------
 const store = useStore(); //存储获取数据
 const users = store.state.user; //获取存储数据

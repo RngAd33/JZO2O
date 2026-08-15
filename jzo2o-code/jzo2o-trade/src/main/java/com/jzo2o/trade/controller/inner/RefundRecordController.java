@@ -39,7 +39,7 @@ public class RefundRecordController implements RefundRecordApi {
      * @return
      */
     @Override
-    @PostMapping("refund")
+    @PostMapping("/refund")
     @ApiOperation(value = "统一收单交易退款", notes = "统一收单交易退款")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "tradingOrderNo", value = "交易单号", required = true),
@@ -47,7 +47,7 @@ public class RefundRecordController implements RefundRecordApi {
     })
     public ExecutionResultResDTO refundTrading(@RequestParam("tradingOrderNo") Long tradingOrderNo,
                                                @RequestParam("refundAmount") BigDecimal refundAmount) {
-        //todo 一分防误触
+        // todo 一分防误触
         refundAmount = new BigDecimal("0.01");
         RefundRecord refundRecord = this.basicPayService.refundTrading(tradingOrderNo, refundAmount);
         return BeanUtil.toBean(refundRecord,ExecutionResultResDTO.class);

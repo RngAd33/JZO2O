@@ -18,7 +18,7 @@
 	</uni-popup>
 </template>
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 // 获取父组件值、方法
 const props = defineProps({
 	// 选择的时间

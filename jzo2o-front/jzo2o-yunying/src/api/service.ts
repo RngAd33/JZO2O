@@ -1,13 +1,12 @@
-import { request } from '@/utils/request'
+import {request} from '@/utils/request'
 import type {
-  serviceTypeResult,
-  serviceTypeStatus,
-  serviceTypeAdd,
-  serviceTypeItemList,
-  serviceItemTypeAdd,
   regionTypeAdd,
   regionTypeEdit,
-  serviceListType
+  serviceItemTypeAdd,
+  serviceListType,
+  serviceTypeAdd,
+  serviceTypeItemList,
+  serviceTypeResult
 } from '@/api/model/serviceModel'
 
 // 获取服务类型列表数据

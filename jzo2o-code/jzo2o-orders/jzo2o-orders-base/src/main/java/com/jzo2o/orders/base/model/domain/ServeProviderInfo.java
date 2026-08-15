@@ -1,8 +1,6 @@
 package com.jzo2o.orders.base.model.domain;
 
 import com.jzo2o.common.model.Location;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.util.List;

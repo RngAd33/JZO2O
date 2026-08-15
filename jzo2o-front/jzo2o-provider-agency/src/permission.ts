@@ -1,8 +1,7 @@
-import { MessagePlugin } from 'tdesign-vue-next'
+import {MessagePlugin} from 'tdesign-vue-next'
 import NProgress from 'nprogress' // progress bar//每次刷新页面或者重新进入页面的时候最顶部的进度条
 import 'nprogress/nprogress.css' // progress bar style
-
-import { getPermissionStore, getUserStore } from '@/store'
+import {getPermissionStore, getUserStore} from '@/store'
 import router from '@/router'
 // 是否显示环形进度条
 NProgress.configure({ showSpinner: false })

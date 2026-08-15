@@ -12,8 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import {ref, watch} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
 
 const confirmBody = ref('this is a 消息通知')
 const confirmVisible = ref(false)

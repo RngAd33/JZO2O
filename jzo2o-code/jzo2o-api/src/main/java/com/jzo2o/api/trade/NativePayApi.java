@@ -2,12 +2,9 @@ package com.jzo2o.api.trade;
 
 import com.jzo2o.api.trade.dto.request.NativePayReqDTO;
 import com.jzo2o.api.trade.dto.response.NativePayResDTO;
-import com.jzo2o.api.trade.enums.PayChannelEnum;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author itcast

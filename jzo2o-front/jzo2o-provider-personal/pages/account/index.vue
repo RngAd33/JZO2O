@@ -118,13 +118,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { baseUrl } from '../../utils/env';
-import { postAccount, getAccountInfo } from '../api/setting.js';
+import {onMounted, ref} from 'vue';
+import {baseUrl} from '../../utils/env';
+import {getAccountInfo, postAccount} from '../api/setting.js';
 // 导入组件
 // 导航组件
 import SelectArea from './components/selectArea.vue';
 import UniNav from '@/components/uni-nav/index.vue';
+
 const title = ref('账户设置');
 const flag = ref(true);
 let bankIndex = ref(0);

@@ -1,7 +1,4 @@
-
-import {
-  request
-} from "../../utils/request.js"
+import {request} from "../../utils/request.js"
 
 //获取配置状态
 export const getUserSetting = (params) =>

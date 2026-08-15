@@ -8,6 +8,7 @@ import com.jzo2o.common.model.CurrentUserInfo;
  * @author itcast
  */
 public class UserContext {
+
     private static final ThreadLocal<CurrentUserInfo> THREAD_LOCAL_USER = new ThreadLocal<>();
 
     /**
@@ -19,12 +20,17 @@ public class UserContext {
         return THREAD_LOCAL_USER.get().getId();
     }
 
+    /**
+     * 获取当前用户信息
+     *
+     * @return
+     */
     public static CurrentUserInfo currentUser() {
         return THREAD_LOCAL_USER.get();
     }
 
     /**
-     * 设置当前用户id
+     * 设置当前用户 id
      *
      * @param currentUserInfo 当前用户信息
      */
@@ -38,4 +44,5 @@ public class UserContext {
     public static void clear(){
         THREAD_LOCAL_USER.remove();
     }
+
 }

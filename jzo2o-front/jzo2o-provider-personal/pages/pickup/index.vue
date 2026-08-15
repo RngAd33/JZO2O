@@ -32,14 +32,14 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
-import { onShow } from '@dcloudio/uni-app';
-import { useStore } from 'vuex';
+import {reactive, ref} from 'vue';
+import {onShow} from '@dcloudio/uni-app';
+import {useStore} from 'vuex';
 
 // 基本数据
-import { DeliveryData } from '@/utils/commonData.js';
+import {DeliveryData} from '@/utils/commonData.js';
 //接口
-import { getOrder, getOrderStatusNum } from '@/pages/api/order.js';
+import {getOrder, getOrderStatusNum} from '@/pages/api/order.js';
 
 // 导入组件
 //空数据

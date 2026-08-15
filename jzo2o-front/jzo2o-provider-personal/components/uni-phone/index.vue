@@ -10,8 +10,8 @@
   </view>
 </template>
 <script setup>
-import { ref } from "vue";
-import { call } from "@/utils/index.js";
+import {ref} from "vue";
+import {call} from "@/utils/index.js";
 
 // 获取父组件数据
 const props = defineProps({

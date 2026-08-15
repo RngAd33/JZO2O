@@ -1,11 +1,11 @@
 package com.jzo2o.customer.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.jzo2o.customer.model.domain.ServeProviderSettings;
 import com.jzo2o.customer.model.dto.request.ServePickUpReqDTO;
 import com.jzo2o.customer.model.dto.request.ServeScopeSetReqDTO;
 import com.jzo2o.customer.model.dto.response.ServeProviderSettingsGetResDTO;
 import com.jzo2o.customer.model.dto.response.ServeSettingsStatusResDTO;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 import java.util.Map;

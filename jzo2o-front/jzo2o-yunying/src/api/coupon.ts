@@ -1,4 +1,5 @@
-import { request } from '@/utils/request'
+import {request} from '@/utils/request'
+
 // 运营端分页查询活动优惠券
 export function getCouponList(data) {
   return request.get({

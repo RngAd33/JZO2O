@@ -91,15 +91,15 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, ref, computed, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { getSettingStatus, setPickUpStatus } from '@/api/setting'
-import { getUser } from '@/api/user'
-import { useSettingStore, useTabsRouterStore, useUserStore } from '@/store'
-import { prefix } from '@/config/global'
-import type { TRouterInfo } from '@/types/interface'
+import {computed, nextTick, onMounted, ref} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
+import {getSettingStatus, setPickUpStatus} from '@/api/setting'
+import {getUser} from '@/api/user'
+import {useSettingStore, useTabsRouterStore, useUserStore} from '@/store'
+import {prefix} from '@/config/global'
+import type {TRouterInfo} from '@/types/interface'
 
-import { MessagePlugin } from 'tdesign-vue-next'
+import {MessagePlugin} from 'tdesign-vue-next'
 import LContent from './Content.vue' //
 import LBreadcrumb from './Breadcrumb.vue'
 

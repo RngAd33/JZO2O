@@ -151,19 +151,15 @@
   />
 </template>
 <script setup lang="ts">
-import { ref, onMounted, reactive, computed } from 'vue'
-import {
-  serviceTypeSimpleList,
-  serviceItemAdd,
-  serviceItemById,
-  serviceItemEdit
-} from '@/api/service'
+import {computed, onMounted, reactive, ref} from 'vue'
+import {serviceItemAdd, serviceItemById, serviceItemEdit, serviceTypeSimpleList} from '@/api/service'
 import previewPopup from './components/previewPopup.vue'
-import { useRouter, useRoute } from 'vue-router'
-import { UNIT } from '@/constants'
+import {useRoute, useRouter} from 'vue-router'
+import {UNIT} from '@/constants'
 // 引用正则
-import { validateText5 } from '@/utils/validate'
-import { MessagePlugin } from 'tdesign-vue-next'
+import {validateText5} from '@/utils/validate'
+import {MessagePlugin} from 'tdesign-vue-next'
+
 const previewData = reactive({
   title: '',
   img:'',

@@ -46,8 +46,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { onLoad } from '@dcloudio/uni-app';
+import {ref} from 'vue';
+import {onLoad} from '@dcloudio/uni-app';
+
 const time = ref()
 const handleToLink = () => {
   uni.navigateBack({

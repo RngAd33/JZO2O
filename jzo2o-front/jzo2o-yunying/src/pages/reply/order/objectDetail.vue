@@ -315,9 +315,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { MessagePlugin, ValidateResultContext } from 'tdesign-vue-next'
+import {onMounted, ref} from 'vue'
+import {useRoute} from 'vue-router'
+import {ValidateResultContext} from 'tdesign-vue-next'
 import Delete from '@/components/Delete/index.vue' // 删除弹层
 import Confirm from '@/components/Confirm/index.vue' // 确认弹层
 // import { getEvaluationsList } from '@/api/list'
@@ -330,8 +330,8 @@ import Confirm from '@/components/Confirm/index.vue' // 确认弹层
 //   getEvaluateById,
 //   setEvaluateSwitch
 // } from '@/api/detail'
-import { ImgList } from '@/utils/emoji/index'
-import { loadDataType, MoreReplayDataType } from './type'
+import {ImgList} from '@/utils/emoji/index'
+import {loadDataType, MoreReplayDataType} from './type'
 
 const title = ref('评论详情')
 const data = ref({
@@ -457,7 +457,7 @@ const rules = {
     // {
     //   validator: (val) => {
     //     return (
-        
+
     //     )
     //   },
     //   message: `请输入至少2个字符,至多个字符`,

@@ -1,6 +1,4 @@
-import {
-  request
-} from "../../utils/request"
+import {request} from "../../utils/request"
 // 获取当前开通的城市列表
 export const getCityList = () =>
   request({

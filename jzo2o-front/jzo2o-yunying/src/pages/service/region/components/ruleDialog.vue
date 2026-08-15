@@ -22,7 +22,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import {computed, ref, watch} from 'vue'
+
 const isShowShadow = ref(false)
 const props = defineProps({
   visible: {

@@ -1,6 +1,5 @@
-import { MockMethod } from 'vite-plugin-mock'
+import {MockMethod} from 'vite-plugin-mock'
 import Mock from 'mockjs'
-import { List } from 'tdesign-vue-next'
 
 const BaseTag = '/api'
 export default [

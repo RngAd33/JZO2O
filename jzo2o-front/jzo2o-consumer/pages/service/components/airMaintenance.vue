@@ -282,18 +282,19 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { onLoad, onShow } from '@dcloudio/uni-app';
-import { getServeById, addOrder } from '../../api/service';
-import { getCommentListByObj, likeComment, setReport } from '../../api/order';
-import { formatDateTimeToDateTimeString } from '@/utils/index.js';
-import { getAddressBookDetail, getDefaultAddress } from '../../api/address';
-import { getOrderCouponList } from '../../api/coupon';
-import { UNIT, reportList } from '../../../utils/commonData';
+import {computed, ref} from 'vue';
+import {onLoad, onShow} from '@dcloudio/uni-app';
+import {addOrder, getServeById} from '../../api/service';
+import {getCommentListByObj, likeComment, setReport} from '../../api/order';
+import {formatDateTimeToDateTimeString} from '@/utils/index.js';
+import {getAddressBookDetail, getDefaultAddress} from '../../api/address';
+import {getOrderCouponList} from '../../api/coupon';
+import {reportList, UNIT} from '../../../utils/commonData';
 import GetTimePicker from '../../../components/GetTimePicker/index.vue';
 import CouponSelect from '../../../components/couponSelect/index.vue';
 // 无数据
 import EmptyPage from '@/components/EmptyPage/index.vue';
+
 const title = ref('全部服务');
 const activeId = ref(0); // 当前激活的tab
 const opacity = ref(0); // 透明度

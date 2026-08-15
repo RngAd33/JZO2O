@@ -5,9 +5,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { useSettingStore } from '@/store'
+import {computed, watch} from 'vue'
+import {useRoute} from 'vue-router'
+import {useSettingStore} from '@/store'
 import ExpBall from '@/components/expBall/ExpBall.vue'
 
 const route = useRoute()

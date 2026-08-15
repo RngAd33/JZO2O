@@ -61,12 +61,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import {  ValidateResultContext } from 'tdesign-vue-next'
-import {
-  validateText10,
-  validatePhone
-} from '@/utils/validate'
+import {ref, watch} from 'vue'
+import {ValidateResultContext} from 'tdesign-vue-next'
+import {validatePhone, validateText10} from '@/utils/validate'
+
 const props = defineProps({
   visible: {
     type: Boolean,

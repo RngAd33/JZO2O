@@ -1,6 +1,5 @@
 package com.jzo2o.trade.service;
 
-import com.jzo2o.api.trade.dto.response.ExecutionResultResDTO;
 import com.jzo2o.common.expcetions.CommonException;
 import com.jzo2o.trade.model.domain.RefundRecord;
 import com.jzo2o.trade.model.dto.RefundRecordDTO;

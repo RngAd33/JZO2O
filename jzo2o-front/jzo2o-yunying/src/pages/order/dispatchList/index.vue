@@ -48,12 +48,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
-import { getOrderList, refundOrder } from '@/api/order'
-import { forEach } from 'lodash'
-import { useRoute } from 'vue-router'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { serviceTypeSimpleList,regionOpenList } from '@/api/service'
+import {onMounted, ref, watch} from 'vue'
+import {getOrderList, refundOrder} from '@/api/order'
+import {forEach} from 'lodash'
+import {useRoute} from 'vue-router'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {regionOpenList, serviceTypeSimpleList} from '@/api/service'
 import DialogForm from './components/DialogForm.vue' // 新增,编辑弹窗.
 import tableList from './components/TableList.vue' // 表格
 import searchFormBox from './components/SearchForm.vue' // 搜索框表单

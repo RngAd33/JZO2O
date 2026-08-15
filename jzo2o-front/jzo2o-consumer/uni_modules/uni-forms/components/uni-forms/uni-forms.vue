@@ -7,9 +7,11 @@
 </template>
 
 <script>
-	// #ifndef VUE3
-	import Vue from 'vue';
-	Vue.prototype.binddata = function(name, value, formName) {
+// #ifndef VUE3
+import Vue from 'vue';
+import Validator from './validate.js';
+
+Vue.prototype.binddata = function(name, value, formName) {
 		if (formName) {
 			this.$refs[formName].setValue(name, value);
 		} else {
@@ -26,11 +28,7 @@
 		}
 	};
 	// #endif
-
-
-
-	import Validator from './validate.js';
-	/**
+/**
 	 * Forms 表单
 	 * @description 由输入框、选择器、单选框、多选框等控件组成，用以收集、校验、提交数据
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=2773

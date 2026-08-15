@@ -1,8 +1,4 @@
-<script setup>
-import { ref, reactive, onMounted } from 'vue';
-import { onLoad,onShow } from '@dcloudio/uni-app';
-import { useStore } from 'vuex';
-</script>
+<script setup></script>
 
 <style lang="scss">
 /*每个页面公共css */

@@ -7,7 +7,6 @@ import com.jzo2o.foundations.model.domain.Serve;
 import com.jzo2o.foundations.model.dto.request.ServePageQueryReqDTO;
 import com.jzo2o.foundations.model.dto.request.ServeUpsertReqDTO;
 import com.jzo2o.foundations.model.dto.response.*;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 

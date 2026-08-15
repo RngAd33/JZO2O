@@ -68,10 +68,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
-import { ZoomInIcon } from 'tdesign-icons-vue-next'
-import { formatDateTimeToDateTimeString } from '@/utils/date'
-import { UNIT } from '@/constants'
+import {ref, watch} from 'vue'
+
 const props = defineProps({
   visible: {
     type: Boolean,

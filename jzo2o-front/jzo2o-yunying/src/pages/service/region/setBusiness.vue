@@ -219,21 +219,21 @@
   <ruleDialog :visible="visible" @close="visible = false" />
 </template>
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { useRoute, useRouter } from 'vue-router'
-import { businessConfig } from './model'
+import {onMounted, ref, watch} from 'vue'
+import {MessagePlugin, ValidateResultContext} from 'tdesign-vue-next'
+import {useRoute, useRouter} from 'vue-router'
+import {businessConfig} from './model'
 import {
   validateNumber100,
-  validateNumber1440,
   validateNumber1000,
-  validateNumber20000,
-  validateNumber100s
+  validateNumber100s,
+  validateNumber1440,
+  validateNumber20000
 } from '@/utils/validate'
-import { cityList } from './city'
-import { ValidateResultContext } from 'tdesign-vue-next'
-import { servicePersonItemById, servicePersonItemEdit } from '@/api/service'
+import {cityList} from './city'
+import {servicePersonItemById, servicePersonItemEdit} from '@/api/service'
 import ruleDialog from './components/ruleDialog.vue'
+
 const route = useRoute()
 const router = useRouter()
 const { id } = route.params

@@ -67,11 +67,11 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
-import { useStore } from 'vuex';
+import {reactive, ref} from 'vue';
+import {useStore} from 'vuex';
 // 接口
-import { phoneLogins, getsmsCode } from '../api/user.js';
-import { getUserSetting } from '../api/setting.js';
+import {getsmsCode, phoneLogins} from '../api/user.js';
+import {getUserSetting} from '../api/setting.js';
 // ------定义变量------
 const store = useStore(); //vuex获取储存数据
 const customForm = ref(); //表单校验

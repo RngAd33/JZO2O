@@ -1,7 +1,5 @@
 package com.jzo2o.trade.service;
 
-import com.jzo2o.api.trade.dto.response.NativePayResDTO;
-import com.jzo2o.api.trade.enums.PayChannelEnum;
 import com.jzo2o.trade.model.domain.Trading;
 
 /**

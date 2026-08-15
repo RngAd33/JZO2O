@@ -5,16 +5,13 @@ import com.jzo2o.common.handler.RequestIdHandler;
 import com.jzo2o.common.handler.UserInfoHandler;
 import com.jzo2o.common.model.CurrentUserInfo;
 import com.jzo2o.common.utils.Base64Utils;
-import com.jzo2o.common.utils.CollUtils;
 import com.jzo2o.common.utils.JsonUtils;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
-/**
- * 向下一个服务传递参数，用户信息、访问来源、访问id
- */import static com.jzo2o.common.constants.HeaderConstants.*;
+import static com.jzo2o.common.constants.HeaderConstants.*;
 
 /**
  * @author itcast

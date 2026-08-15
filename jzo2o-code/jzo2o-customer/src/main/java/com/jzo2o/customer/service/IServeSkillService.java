@@ -1,11 +1,11 @@
 package com.jzo2o.customer.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.jzo2o.api.foundations.dto.response.ServeItemSimpleResDTO;
 import com.jzo2o.api.foundations.dto.response.ServeTypeSimpleResDTO;
 import com.jzo2o.customer.model.domain.ServeSkill;
 import com.jzo2o.customer.model.dto.request.ServeSkillAddReqDTO;
 import com.jzo2o.customer.model.dto.response.ServeSkillCategoryResDTO;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 

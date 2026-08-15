@@ -650,15 +650,15 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
-import { getOrderById } from '@/api/order'
-import { ZoomInIcon } from 'tdesign-icons-vue-next'
-import { formatDateTimeToDateTimeString } from '@/utils/date'
-import dayjs from 'dayjs'
-import { formatNumber } from '@/utils/index'
-import { UNIT } from '@/constants'
-import { forEach } from 'lodash'
+import {onMounted, ref, watch} from 'vue'
+import {useRoute} from 'vue-router'
+import {getOrderById} from '@/api/order'
+import {ZoomInIcon} from 'tdesign-icons-vue-next'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
+import {formatNumber} from '@/utils/index'
+import {UNIT} from '@/constants'
+import {forEach} from 'lodash'
+
 const route = useRoute()
 const orderId = route.params.id
 const detailData = ref<any>({})
@@ -688,7 +688,7 @@ const getStepsData = (val) => {
         dateTime: formatDateTimeToDateTimeString(new Date(item.dateTime)),
         value: 0
       })
-    } else if (item.status === 100 || val[i + 1]?.status === 100) { 
+    } else if (item.status === 100 || val[i + 1]?.status === 100) {
       if (val[Number(i) - 1]?.status === 100) {
         stepsData.value.push({
           status: '派单成功',

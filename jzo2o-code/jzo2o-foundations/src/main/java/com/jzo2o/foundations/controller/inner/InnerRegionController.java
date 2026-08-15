@@ -3,11 +3,9 @@ package com.jzo2o.foundations.controller.inner;
 
 import com.jzo2o.api.foundations.RegionApi;
 import com.jzo2o.api.foundations.dto.response.ConfigRegionInnerResDTO;
-import com.jzo2o.api.foundations.dto.response.RegionServeInfoResDTO;
 import com.jzo2o.common.utils.BeanUtils;
 import com.jzo2o.foundations.model.dto.response.ConfigRegionResDTO;
 import com.jzo2o.foundations.service.IConfigRegionService;
-import com.jzo2o.foundations.service.IRegionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

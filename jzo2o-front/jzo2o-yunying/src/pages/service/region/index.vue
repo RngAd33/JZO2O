@@ -40,19 +40,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { useRoute } from 'vue-router'
+import {ref, watchEffect} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {useRoute} from 'vue-router'
 import {
-  regionList,
-  regionAdd,
-  regionEdit,
-  regionDelete,
-  regionInactiveStatus,
   regionActiveStatus,
+  regionAdd,
+  regionDelete,
+  regionEdit,
+  regionInactiveStatus,
+  regionList,
   regionRefreshCache
 } from '@/api/service'
-import { cityList } from './city' // 城市列表
+import {cityList} from './city' // 城市列表
 import DialogForm from './components/DialogForm.vue' // 新增,编辑区域弹窗.
 import tableList from './components/TableList.vue' // 表格
 import Delete from '@/components/Delete/index.vue' // 删除弹层
