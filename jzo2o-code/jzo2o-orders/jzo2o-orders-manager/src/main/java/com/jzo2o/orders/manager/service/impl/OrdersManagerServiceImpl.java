@@ -24,6 +24,7 @@ import com.jzo2o.orders.base.model.dto.OrderUpdateStatusDTO;
 import com.jzo2o.orders.base.service.IOrdersCommonService;
 import com.jzo2o.orders.manager.model.dto.OrderCancelDTO;
 import com.jzo2o.orders.manager.service.IOrdersManagerService;
+import com.jzo2o.orders.manager.strategy.OrderCancelStrategyManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,7 +60,8 @@ public class OrdersManagerServiceImpl extends ServiceImpl<OrdersMapper, Orders> 
     @Resource
     private OrdersRefundMapper ordersRefundMapper;
 
-    private TransactionTemplate transactionTemplate;
+    @Resource
+    private OrderCancelStrategyManager orderCancelStrategyManager;
 
     @Override
     public List<Orders> batchQuery(List<Long> ids) {
@@ -134,48 +136,9 @@ public class OrdersManagerServiceImpl extends ServiceImpl<OrdersMapper, Orders> 
 
     @Override
     public void cancel(OrderCancelDTO orderCancelDTO) {
-        // 1. 根据订单id查询订单信息, 如果不存在, 直接报错
-        Orders orders = this.getById(orderCancelDTO.getId());
-        if (ObjectUtils.isNull(orders)) {
-            throw new ForbiddenOperationException("订单不存在");
-        }
-        // 2. 根据订单状态 去分别编写两种情况取消订单的逻辑
-        BeanUtil.copyProperties(orders, orderCancelDTO);
-        if (ObjUtil.equal(orders.getOrdersStatus(), OrderStatusEnum.NO_PAY.getStatus())) {
-            // 取消待支付订单: 1) 更新订单状态为已取消  2) 保存取消订单记录
-//            owner.cancelByNoPay(orderCancelDTO);
-            transactionTemplate.execute(status -> {
-                OrderUpdateStatusDTO orderUpdateStatusDTO = OrderUpdateStatusDTO.builder()
-                        .id(orderCancelDTO.getId())   // 订单id
-                        .originStatus(OrderStatusEnum.NO_PAY.getStatus())   // 原始状态
-                        .targetStatus(OrderStatusEnum.CANCELED.getStatus())   // 目标状态
-                        .build();
-                this.saveCanceledOrderInfo(orderCancelDTO, orderUpdateStatusDTO);
-                return null;
-            });
-        } else if (ObjUtil.equal(orders.getOrdersStatus(), OrderStatusEnum.DISPATCHING.getStatus())) {
-            // 取消派单中订单: 1) 更新订单状态为已关闭  2) 保存取消订单记录  3) 保存待退款的记录
-//            owner.cancelByDispatching(orderCancelDTO);
-            transactionTemplate.execute(status -> {
-                // 更新订单状态为已关闭
-                OrderUpdateStatusDTO orderUpdateStatusDTO = OrderUpdateStatusDTO.builder()
-                        .id(orderCancelDTO.getId())   // 订单id
-                        .originStatus(OrderStatusEnum.DISPATCHING.getStatus())   // 原始状态
-                        .targetStatus(OrderStatusEnum.CLOSED.getStatus())   // 目标状态
-                        .refundStatus(OrderRefundStatusEnum.REFUNDING.getStatus())   // 退款状态
-                        .build();
-                this.saveCanceledOrderInfo(orderCancelDTO, orderUpdateStatusDTO);
-                // 保存待退款的记录
-                OrdersRefund ordersRefund =  BeanUtil.copyProperties(orderCancelDTO,OrdersRefund.class);
-                ordersRefundMapper.insert(ordersRefund);
-                return null;
-            });
-        } else {
-            throw new ForbiddenOperationException("当前状态订单暂不支持取消");
-        }
+        orderCancelStrategyManager.cancel(orderCancelDTO);
     }
 
-    @Override
     @Deprecated
     @Transactional(rollbackFor = Exception.class)
     public void cancelByNoPay(OrderCancelDTO orderCancelDTO) {
@@ -188,7 +151,6 @@ public class OrdersManagerServiceImpl extends ServiceImpl<OrdersMapper, Orders> 
         this.saveCanceledOrderInfo(orderCancelDTO, orderUpdateStatusDTO);
     }
 
-    @Override
     @Deprecated
     @Transactional(rollbackFor = Exception.class)
     public void cancelByDispatching(OrderCancelDTO orderCancelDTO) {

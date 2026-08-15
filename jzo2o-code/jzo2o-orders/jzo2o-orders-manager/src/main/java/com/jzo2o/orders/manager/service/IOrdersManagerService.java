@@ -57,20 +57,4 @@ public interface IOrdersManagerService extends IService<Orders> {
      */
     void cancel(OrderCancelDTO orderCancelDTO);
 
-    /**
-     * 取消待支付订单
-     *
-     * @param orderCancelDTO 取消订单对象
-     */
-    @Deprecated
-    void cancelByNoPay(OrderCancelDTO orderCancelDTO);
-
-    /**
-     * 取消派单中订单
-     *
-     * @param orderCancelDTO 取消订单对象
-     */
-    @Deprecated
-    void cancelByDispatching(OrderCancelDTO orderCancelDTO);
-
 }

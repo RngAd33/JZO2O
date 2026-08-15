@@ -4,16 +4,22 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjUtil;
 import com.jzo2o.api.trade.RefundRecordApi;
 import com.jzo2o.api.trade.dto.response.ExecutionResultResDTO;
+import com.jzo2o.common.constants.UserType;
+import com.jzo2o.orders.base.enums.OrderPayStatusEnum;
 import com.jzo2o.orders.base.enums.OrderRefundStatusEnum;
+import com.jzo2o.orders.base.enums.OrderStatusEnum;
 import com.jzo2o.orders.base.model.domain.Orders;
 import com.jzo2o.orders.base.model.domain.OrdersRefund;
+import com.jzo2o.orders.manager.model.dto.OrderCancelDTO;
 import com.jzo2o.orders.manager.service.IOrdersManagerService;
 import com.jzo2o.orders.manager.service.IOrdersRefundService;
+import com.jzo2o.orders.manager.strategy.OrderCancelStrategyManager;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,6 +36,9 @@ public class OrdersHandler {
 
     @Resource
     private IOrdersManagerService ordersManagerService;
+
+    @Resource
+    private OrderCancelStrategyManager orderCancelStrategyManager;
 
     @Resource
     private OrdersHandler owner;
@@ -79,4 +88,32 @@ public class OrdersHandler {
             ordersRefundService.removeById(ordersRefund.getId());
         }
     }
+
+    /**
+     * 取消超时订单
+     */
+    @XxlJob("cancelOverTimePayOrder")
+    public void cancelOverTimePayOrder() {
+        // 查询超时未支付的订单
+        // select * from orders where orders_status = 0 and pay_status = 2 and create_time < current_time - 15分钟
+        List<Orders> list = ordersManagerService.lambdaQuery()
+                .eq(Orders::getOrdersStatus, OrderStatusEnum.NO_PAY.getStatus())
+                .eq(Orders::getPayStatus, OrderPayStatusEnum.NO_PAY.getStatus())
+                .lt(Orders::getCreateTime, LocalDateTime.now().minusMinutes(15))  //create_time < 当前时间 - 15分钟
+                .last("limit 100")   // 限制每次最多查100条
+                .list();
+        if (CollUtil.isEmpty(list)) return;
+
+        // 遍历集合, 依次取消
+        for (Orders orders : list) {
+            OrderCancelDTO orderCancelDTO = new OrderCancelDTO();
+            orderCancelDTO.setId(orders.getId());
+            orderCancelDTO.setCurrentUserId(0L);
+            orderCancelDTO.setCurrentUserName("系统定时任务");
+            orderCancelDTO.setCurrentUserType(UserType.SYSTEM);
+            orderCancelDTO.setCancelReason("超时未支付");
+            orderCancelStrategyManager.cancel(orderCancelDTO);
+        }
+    }
+
 }
