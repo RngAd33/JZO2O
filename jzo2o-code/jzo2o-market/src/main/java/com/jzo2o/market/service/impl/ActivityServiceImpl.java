@@ -4,11 +4,17 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jzo2o.common.expcetions.ForbiddenOperationException;
 import com.jzo2o.common.model.PageResult;
+import com.jzo2o.common.utils.BeanUtils;
+import com.jzo2o.common.utils.DateUtils;
+import com.jzo2o.common.utils.JsonUtils;
+import com.jzo2o.market.constants.RedisConstants;
 import com.jzo2o.market.enums.ActivityStatusEnum;
 import com.jzo2o.market.enums.CouponStatusEnum;
 import com.jzo2o.market.mapper.ActivityMapper;
@@ -20,6 +26,7 @@ import com.jzo2o.market.model.dto.request.ActivityQueryForPageReqDTO;
 import com.jzo2o.market.model.dto.request.ActivitySaveReqDTO;
 import com.jzo2o.market.model.dto.response.ActivityInfoResDTO;
 import com.jzo2o.market.model.dto.response.CountResDTO;
+import com.jzo2o.market.model.dto.response.SeizeCouponInfoResDTO;
 import com.jzo2o.market.service.IActivityService;
 import com.jzo2o.market.service.ICouponService;
 import com.jzo2o.market.service.ICouponWriteOffService;
@@ -30,6 +37,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -169,6 +178,80 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
                 .lt(Activity::getDistributeEndTime,LocalDateTime.now())
                 .set(Activity::getStatus, ActivityStatusEnum.LOSE_EFFICACY.getStatus())
                 .update();
+    }
+
+    @Override
+    public void preHeat() {
+        // 查询状态是待开始或者进行中，并且发放开始时间距离现在不足 1 个月的活动，按照开始时间升序排列
+        // select * from activity where status in (1,2) and distribute_start_time < 当前时间+1个月 order by distribute_start_time asc
+        List<Activity> list = this.lambdaQuery()
+                .in(Activity::getStatus, NO_DISTRIBUTE.getStatus(), ActivityStatusEnum.DISTRIBUTING.getStatus())
+                .lt(Activity::getDistributeStartTime, LocalDateTime.now().plusMonths(1))
+                .orderByAsc(Activity::getDistributeStartTime)
+                .list();
+        if (CollUtil.isEmpty(list)){
+            list = new ArrayList<>();   // - 缓存空值，防止缓存穿透
+        }
+        // 将查询到的数据封装到 List<SeizeCouponInfoResDTO>，再序列化
+        List<SeizeCouponInfoResDTO> seizeCouponInfoResDTOS = BeanUtils.copyToList(list, SeizeCouponInfoResDTO.class);
+        String jsonStr = JsonUtils.toJsonStr(seizeCouponInfoResDTOS);
+
+        // 将JSON字符串存入 Redis
+        redisTemplate.opsForValue().set(RedisConstants.RedisKey.ACTIVITY_CACHE_LIST, jsonStr);
+    }
+
+    @Override
+    public List<SeizeCouponInfoResDTO> queryForListFromCache(Integer tabType) {
+        // 从Redis中查询优惠券活动的数据
+        String jsonStr = (String) redisTemplate.opsForValue().get(RedisConstants.RedisKey.ACTIVITY_CACHE_LIST);
+        if (StrUtil.isBlank(jsonStr)) {
+            return List.of();
+        }
+        // 反序列化
+        List<SeizeCouponInfoResDTO> seizeCouponInfoResDTOS = JSON.parseArray(jsonStr, SeizeCouponInfoResDTO.class);
+        if (CollUtil.isEmpty(seizeCouponInfoResDTOS)) {
+            return List.of();
+        }
+        return seizeCouponInfoResDTOS.stream().filter(e -> {
+            int status = getStatus(e.getDistributeStartTime(), e.getDistributeEndTime(), e.getStatus());
+            if (tabType == 1) {
+                // - 筛选疯抢中的
+                return status == ActivityStatusEnum.DISTRIBUTING.getStatus();
+            } else {
+                // - 筛选即将开始的
+                return status == ActivityStatusEnum.NO_DISTRIBUTE.getStatus();
+            }
+        }).peek(e -> e.setRemainNum(e.getStockNum())).collect(Collectors.toList());
+//        .map(e -> {
+//            e.setRemainNum(e.getStockNum());
+//            return e;
+//        }).collect(Collectors.toList());
+    }
+
+    /**
+     * 根据活动的目前状态、开始、结束时间 对比当前时间来获取到活动的真实状态
+     * 1. 状态在待生效, 但是 活动开始时间 <=当前时间 < 活动结束时间  真实状态应该是 进行中
+     * 2. 状态在待生效, 但是 活动结束时间 < 当前时间               真实状态应该是 已结束
+     * 3. 状态在进行中, 但是 活动结束时间 < 当前时间               真实状态应该是 已结束
+     * 4. 其它情况, 当前状态就是真实状态
+     *
+     * @param distributeStartTime 活动开始时间
+     * @param distributeEndTime   活动结束时间
+     * @param status              当前状态
+     * @return 活动的真实状态
+     */
+    private int getStatus(LocalDateTime distributeStartTime, LocalDateTime distributeEndTime, Integer status) {
+        if (NO_DISTRIBUTE.getStatus() == status && distributeStartTime.isBefore(DateUtils.now()) && distributeEndTime.isAfter(LocalDateTime.now())) {
+            // 状态在待生效, 但是 活动开始时间<=当前时间<活动结束时间  真实状态应该是 进行中
+            return ActivityStatusEnum.DISTRIBUTING.getStatus();
+        } else if (NO_DISTRIBUTE.getStatus() == status && distributeEndTime.isBefore(LocalDateTime.now())) {
+            // 状态在待生效, 但是 活动结束时间 < 当前时间   真实状态应该是 已结束
+            return ActivityStatusEnum.LOSE_EFFICACY.getStatus();
+        } else if (ActivityStatusEnum.DISTRIBUTING.getStatus() == status && distributeEndTime.isBefore(LocalDateTime.now())) {
+            // 状态在进行中, 但是 活动结束时间 < 当前时间   真实状态应该是 已结束
+            return ActivityStatusEnum.LOSE_EFFICACY.getStatus();
+        }
+        return status;
     }
 
 }

@@ -6,6 +6,9 @@ import com.jzo2o.market.model.domain.Activity;
 import com.jzo2o.market.model.dto.request.ActivityQueryForPageReqDTO;
 import com.jzo2o.market.model.dto.request.ActivitySaveReqDTO;
 import com.jzo2o.market.model.dto.response.ActivityInfoResDTO;
+import com.jzo2o.market.model.dto.response.SeizeCouponInfoResDTO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -51,5 +54,18 @@ public interface IActivityService extends IService<Activity> {
      * 修改活动状态
      */
     void updateStatus();
+
+    /**
+     * 缓存预热(将满足条件的活动,同步到Redis中等待抢券)
+     */
+    void preHeat();
+
+    /**
+     * 用户端抢券列表分页查询活动信息
+     *
+     * @param tabType 挑选条件 1 疯抢中  2 即将开始
+     * @return 活动列表
+     */
+    List<SeizeCouponInfoResDTO> queryForListFromCache(Integer tabType);
 
 }
