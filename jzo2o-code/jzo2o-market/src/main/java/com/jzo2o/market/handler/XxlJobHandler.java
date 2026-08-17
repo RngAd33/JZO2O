@@ -14,20 +14,25 @@ import javax.annotation.Resource;
 public class XxlJobHandler {
 
     @Resource
-    private SyncManager syncManager;
-
-    @Resource
     private IActivityService activityService;
 
     @Resource
     private ICouponService couponService;
+
+    @Resource
+    private SyncManager syncManager;
 
     /**
      * 活动状态到期变更任务
      */
     @XxlJob("updateActivityStatus")
     public void updateActivityStatus() {
-
+        log.info("定时修改活动状态...");
+        try {
+            activityService.updateStatus();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -35,7 +40,12 @@ public class XxlJobHandler {
      */
     @XxlJob("processExpireCoupon")
     public void processExpireCoupon() {
-
+        log.info("已领取优惠券自动过期任务...");
+        try {
+            couponService.processExpireCoupon();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

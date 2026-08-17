@@ -56,6 +56,9 @@ public class ActivitySaveReqDTO {
     @Min(value = 0, message = "使用期限请输入大于0的整数")
     private Integer validityDays;
 
+    /**
+     * 校验参数
+     */
     public void check() {
         if (ActivityTypeEnum.AMOUNT_DISCOUNT.equals(type)) {
             // 满减
