@@ -45,10 +45,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watchEffect } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { useRoute, useRouter } from 'vue-router'
-import { servicePersonList, servicePersonStatus } from '@/api/service'
+import {onMounted, ref, watchEffect} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {useRoute, useRouter} from 'vue-router'
+import {servicePersonList, servicePersonStatus} from '@/api/service'
 import DialogForm from './components/DialogForm.vue' // 新增,编辑弹窗.
 import tableList from './components/TableList.vue' // 表格
 import Delete from '@/components/Delete/index.vue' // 删除弹层

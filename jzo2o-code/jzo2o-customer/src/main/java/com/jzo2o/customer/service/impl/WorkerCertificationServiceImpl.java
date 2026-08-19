@@ -1,16 +1,12 @@
 package com.jzo2o.customer.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.jzo2o.customer.enums.CertificationStatusEnum;
 import com.jzo2o.customer.mapper.WorkerCertificationMapper;
 import com.jzo2o.customer.model.domain.WorkerCertification;
 import com.jzo2o.customer.model.dto.WorkerCertificationUpdateDTO;
-import com.jzo2o.customer.model.dto.response.WorkerCertificationResDTO;
 import com.jzo2o.customer.service.IWorkerCertificationService;
 import org.springframework.stereotype.Service;
 

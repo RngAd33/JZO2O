@@ -1,9 +1,8 @@
 let mpMixins = {}
 let is_pc = null
 // #ifdef H5
-import {
-	isPC
-} from "./isPC"
+import {isPC} from "./isPC"
+
 is_pc = isPC()
 // #endif
 // #ifdef APP-VUE|| MP-WEIXIN || H5

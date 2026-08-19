@@ -1,9 +1,6 @@
-import Layout from '@/layouts/index.vue'
 // import LogoutIcon from '@/assets/test-img/assets-slide-logout.svg'
 // import PersonIcon from '@/assets/test-img/icon_menu_diaodu.svg'
 // import GrzxIcon from '@/assets/test-img/icon_menu_grzx.svg'
-import HomeIcon from '@/assets/test-img/icon_menu_diaodu.svg'
-import ModelIcon from '@/assets/test-img/icon_menu_zj.svg'
 
 export default [
   // {

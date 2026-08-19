@@ -46,8 +46,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { SERVICE_DISTANCE } from '@/constants'
+import {ref} from 'vue'
+import {SERVICE_DISTANCE} from '@/constants'
 // 表单数据
 const formData = ref({
   keyWord: null,
@@ -82,7 +82,7 @@ const presets = ref({
     new Date()
   ],
   近一天: [new Date(new Date().getTime() - 1 * 24 * 60 * 60 * 1000), new Date()]
-}) 
+})
 </script>
 
 <style lang="less" scoped>

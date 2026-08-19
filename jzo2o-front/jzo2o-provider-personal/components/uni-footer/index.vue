@@ -29,8 +29,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useStore } from 'vuex';
+import {ref} from 'vue';
+import {useStore} from 'vuex';
 // 获取父组件值、方法
 const props = defineProps({
   pagePath: {

@@ -25,10 +25,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import {onMounted, ref} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
 import searchFormBox from './components/SearchForm.vue' // 搜索框表单
-import { getRobOrderList, robOrder } from '@/api/detail'
+import {getRobOrderList, robOrder} from '@/api/detail'
 import tableList from './components/TableList.vue' // 表格
 import DialogForm from './components/DialogForm.vue' // 抢单结果弹窗
 

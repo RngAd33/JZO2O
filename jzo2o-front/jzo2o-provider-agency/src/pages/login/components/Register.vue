@@ -82,11 +82,11 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { useCounter } from '@/hooks'
-import { validatePhone } from '@/utils/validate'
-import { register } from '@/api/user'
+import {reactive, ref} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {useCounter} from '@/hooks'
+import {validatePhone} from '@/utils/validate'
+import {register} from '@/api/user'
 
 const FORM_RULES = {
   phone: [

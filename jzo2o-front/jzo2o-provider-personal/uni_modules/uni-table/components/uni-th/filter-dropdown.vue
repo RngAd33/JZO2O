@@ -60,9 +60,9 @@
 </template>
 
 <script>
-	import checkBox from '../uni-tr/table-checkbox.vue'
+import checkBox from '../uni-tr/table-checkbox.vue'
 
-	const resource = {
+const resource = {
 		"reset": "重置",
 		"search": "搜索",
 		"submit": "确定",

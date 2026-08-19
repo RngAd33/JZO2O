@@ -73,22 +73,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watchEffect, reactive } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { useRoute } from 'vue-router'
+import {onMounted, reactive, ref, watchEffect} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {useRoute} from 'vue-router'
 import {
-  servicePersonItemSkill,
-  serviceOrderList,
-  serviceOrderDetail,
-  serviceOrderStart,
-  serviceOrderEnd,
-  serviceOrderCancel,
-  servicePersonItemAllList,
   serviceOrderAssign,
+  serviceOrderAssignDelete,
+  serviceOrderCancel,
   serviceOrderCount,
-  serviceOrderAssignDelete
+  serviceOrderDetail,
+  serviceOrderEnd,
+  serviceOrderList,
+  serviceOrderStart,
+  servicePersonItemAllList,
+  servicePersonItemSkill
 } from '@/api/service'
-import { forEach } from 'lodash'
+import {forEach} from 'lodash'
 import Delete from '@/components/Delete/index.vue' // 删除弹层
 // 基础统计数据
 import DialogForm from './components/DialogForm.vue' // 新增,编辑弹窗.

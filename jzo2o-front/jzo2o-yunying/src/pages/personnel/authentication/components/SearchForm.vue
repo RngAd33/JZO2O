@@ -53,8 +53,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { AUTH_STATUS , AUDIT_STATUS } from '@/constants'
+import {ref} from 'vue'
+
 const props = defineProps({
   initSearch: {
     type: Number,

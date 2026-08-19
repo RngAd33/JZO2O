@@ -1,5 +1,5 @@
-import { formatDateTimeToDateTimeString } from '@/utils/date'
-import { formatNumber } from '@/utils/index'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
+import {formatNumber} from '@/utils/index'
 // 待分配
 export const allocationCOLUMNS = [
   {

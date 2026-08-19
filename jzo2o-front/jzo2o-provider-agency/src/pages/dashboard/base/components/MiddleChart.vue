@@ -52,29 +52,17 @@
 </template>
 
 <script setup lang="ts">
-import {
-  onMounted,
-  watch,
-  ref,
-  onUnmounted,
-  nextTick,
-  computed,
-  onDeactivated
-} from 'vue'
-import {  useRouter } from 'vue-router'
+import {computed, nextTick, onDeactivated, onMounted, onUnmounted, ref, watch} from 'vue'
+import {useRouter} from 'vue-router'
 import dayjs from 'dayjs'
 import * as echarts from 'echarts/core'
-import {
-  TooltipComponent,
-  LegendComponent,
-  GridComponent
-} from 'echarts/components'
-import { LineChart } from 'echarts/charts'
-import { CanvasRenderer } from 'echarts/renderers'
-import { useSettingStore } from '@/store'
-import { changeChartsTheme } from '@/utils/color'
+import {GridComponent, LegendComponent, TooltipComponent} from 'echarts/components'
+import {LineChart} from 'echarts/charts'
+import {CanvasRenderer} from 'echarts/renderers'
+import {useSettingStore} from '@/store'
+import {changeChartsTheme} from '@/utils/color'
 
-import { getLineChartDataSet } from '../index'
+import {getLineChartDataSet} from '../index'
 
 echarts.use([
   TooltipComponent,// 提示框组件

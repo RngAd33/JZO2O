@@ -272,11 +272,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
-import { ZoomInIcon } from 'tdesign-icons-vue-next'
-import { formatDateTimeToDateTimeString } from '@/utils/date'
-import { UNIT } from '@/constants'
-import { formatNumber } from '@/utils/index'
+import {computed, ref, watch} from 'vue'
+import {ZoomInIcon} from 'tdesign-icons-vue-next'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
+import {UNIT} from '@/constants'
+import {formatNumber} from '@/utils/index'
+
 const isShowShadow = ref(false) // 是否出现滚动条
 const props = defineProps({
   visible: {

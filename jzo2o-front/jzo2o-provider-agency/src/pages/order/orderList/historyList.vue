@@ -44,15 +44,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import {onMounted, ref} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
 import {
-  servicePersonItemSkill,
+  serviceOrderAssignDelete,
   serviceOrderAssignHistory,
   serviceOrderAssignHistoryDetail,
-  serviceOrderAssignDelete
+  servicePersonItemSkill
 } from '@/api/service'
-import { formatDateTimeToDateString } from '@/utils/date'
+import {formatDateTimeToDateString} from '@/utils/date'
 import Delete from '@/components/Delete/index.vue' // 删除弹层
 import detailDialog from './components/detailDialog.vue' // 订单信息弹窗.
 import tableList from './components/TableList.vue' // 表格

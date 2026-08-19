@@ -114,23 +114,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive } from 'vue'
-import { useRouter } from 'vue-router'
+import {onMounted, reactive, ref} from 'vue'
+import {useRouter} from 'vue-router'
 import serviceSkill from './components/serviceSkill.vue'
 import serviceRange from './components/serviceRange.vue'
 import Auth from './components/auth.vue'
 import {
-  getSettingStatus,
-  setPickUpStatus,
-  getServiceSkillAll,
-  updateServiceSkill,
   getOpenCity,
-  setServiceRanges,
+  getServiceSkillAll,
   getSettingInfo,
-  postAuth
+  getSettingStatus,
+  postAuth,
+  setPickUpStatus,
+  setServiceRanges,
+  updateServiceSkill
 } from '@/api/setting'
-import { useUserStore } from '@/store'
-import { MessagePlugin } from 'tdesign-vue-next'
+import {useUserStore} from '@/store'
+import {MessagePlugin} from 'tdesign-vue-next'
+
 const visible = ref(false) // 选择服务技能弹窗
 const rangeVisible = ref(false) // 选择服务范围弹窗
 const authVisible = ref(false) //资质认证弹窗

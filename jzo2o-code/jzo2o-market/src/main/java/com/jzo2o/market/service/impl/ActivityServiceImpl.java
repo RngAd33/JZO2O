@@ -4,7 +4,6 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -18,7 +17,6 @@ import com.jzo2o.market.constants.RedisConstants;
 import com.jzo2o.market.enums.ActivityStatusEnum;
 import com.jzo2o.market.enums.CouponStatusEnum;
 import com.jzo2o.market.mapper.ActivityMapper;
-import com.jzo2o.market.mapper.CouponMapper;
 import com.jzo2o.market.model.domain.Activity;
 import com.jzo2o.market.model.domain.Coupon;
 import com.jzo2o.market.model.domain.CouponWriteOff;
@@ -35,10 +33,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -146,9 +143,9 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         // 修改活动的状态  待生效或者进行中 ---> 作废
         // update activity set status = 4 where id = 活动id and status in(1,2)
         boolean flag = this.lambdaUpdate()
-                .eq(Activity::getId, id)//id = 活动id
-                .in(Activity::getStatus, NO_DISTRIBUTE.getStatus(), ActivityStatusEnum.DISTRIBUTING.getStatus())//status in(1,2)
-                .set(Activity::getStatus, ActivityStatusEnum.VOIDED.getStatus())//set status = 4
+                .eq(Activity::getId, id)
+                .in(Activity::getStatus, Arrays.asList(NO_DISTRIBUTE.getStatus(), ActivityStatusEnum.DISTRIBUTING.getStatus()))
+                .set(Activity::getStatus, ActivityStatusEnum.VOIDED.getStatus())
                 .update();
         // 修改优惠券的状态 未使用  --> 已作废
         // update coupon set status = 4 where activity_id = 活动id and status = 1
@@ -174,7 +171,7 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         // 对于待生效及进行中的活动到达发放结束时间状态改为已失效
         // update activity set status = 3 where status in (1,2) and  distribute_end_time < 当前时间
         this.lambdaUpdate()
-                .in(Activity::getStatus, NO_DISTRIBUTE.getStatus(), ActivityStatusEnum.DISTRIBUTING.getStatus())
+                .in(Activity::getStatus, Arrays.asList(NO_DISTRIBUTE.getStatus(), ActivityStatusEnum.DISTRIBUTING.getStatus()))
                 .lt(Activity::getDistributeEndTime,LocalDateTime.now())
                 .set(Activity::getStatus, ActivityStatusEnum.LOSE_EFFICACY.getStatus())
                 .update();
@@ -185,7 +182,7 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         // 查询状态是待开始或者进行中，并且发放开始时间距离现在不足 1 个月的活动，按照开始时间升序排列
         // select * from activity where status in (1,2) and distribute_start_time < 当前时间+1个月 order by distribute_start_time asc
         List<Activity> list = this.lambdaQuery()
-                .in(Activity::getStatus, NO_DISTRIBUTE.getStatus(), ActivityStatusEnum.DISTRIBUTING.getStatus())
+                .in(Activity::getStatus, Arrays.asList(NO_DISTRIBUTE.getStatus(), ActivityStatusEnum.DISTRIBUTING.getStatus()))
                 .lt(Activity::getDistributeStartTime, LocalDateTime.now().plusMonths(1))
                 .orderByAsc(Activity::getDistributeStartTime)
                 .list();

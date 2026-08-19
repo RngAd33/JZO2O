@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 // ------定义变量------
 let status = ref('noMore'); //loading 的状态 more(加载前)/loading(加载中)/noMore(没有更多数据)
 const contentText = ref({   //加载状态说明

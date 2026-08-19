@@ -254,23 +254,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive, watch } from 'vue'
+import {onMounted, reactive, ref, watch} from 'vue'
 import switchBar from '@/components/switchBar/switchBartop.vue'
-import { formatDateTimeToDateTimeString } from '@/utils/date'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
 import {
-  servicePersonDetail,
-  servicePersonItemList,
   serviceInstitutionAuditDetail,
   servicePersonBankDetail,
-  servicePersonData
+  servicePersonData,
+  servicePersonDetail,
+  servicePersonItemList
 } from '@/api/service'
-import { useRoute } from 'vue-router'
-import { ZoomInIcon } from 'tdesign-icons-vue-next'
+import {useRoute} from 'vue-router'
+import {ZoomInIcon} from 'tdesign-icons-vue-next'
 import tableList from './components/TableList.vue' // 表格
 // 引用正则
-import { MessagePlugin } from 'tdesign-vue-next'
-import { forEach } from 'lodash'
-import { Score } from '@/constants'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {forEach} from 'lodash'
+
 const isActive = ref() // 当前选中的tab
 const route = useRoute()
 const { id } = route.params
@@ -462,7 +462,7 @@ const changeId = (val) => {
 }
 const serviceData = async () => {
   await servicePersonData(requestServiceData.value).then((res) => {
-    
+
     if (res.code == 200) {
       listData.value = res.data.list
       pagination.total = res.data.total

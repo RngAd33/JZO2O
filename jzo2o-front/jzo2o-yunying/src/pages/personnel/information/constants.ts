@@ -1,6 +1,6 @@
 // 服务人员信息管理，表格列配置
 
-import { formatDateTimeToDateTimeString } from '@/utils/date'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
 // 服务人员信息列表
 export const COLUMNS = [
   { title: '真实姓名', width: 250, minWidth: '150px', colKey: 'name' },

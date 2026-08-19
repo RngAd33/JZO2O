@@ -1,14 +1,4 @@
-import { request } from '@/utils/request'
-import type {
-  serviceTypeResult,
-  serviceTypeStatus,
-  serviceTypeAdd,
-  serviceTypeItemList,
-  serviceItemTypeAdd,
-  regionTypeAdd,
-  regionTypeEdit,
-  serviceListType
-} from '@/api/model/serviceModel'
+import {request} from '@/utils/request'
 
 
 // 新增架构下属服务人员

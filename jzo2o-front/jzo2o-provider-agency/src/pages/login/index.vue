@@ -121,14 +121,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import {reactive, ref} from 'vue'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
-import { useCounter } from '@/hooks' // 倒计时
-import { MessagePlugin } from 'tdesign-vue-next'
-import { validatePhone } from '@/utils/validate'
-import { resetPwd } from '@/api/user'
-import type { FormRule } from 'tdesign-vue-next'
+import {useCounter} from '@/hooks' // 倒计时
+import type {FormRule} from 'tdesign-vue-next'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {validatePhone} from '@/utils/validate'
+import {resetPwd} from '@/api/user'
+
 const dialogVisible = ref(false) //账号冻结弹窗
 const forgetPwdDialog = ref(false)
 const frozenReason = ref('') //账号冻结原因

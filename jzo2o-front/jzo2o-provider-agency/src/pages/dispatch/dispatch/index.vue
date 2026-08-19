@@ -29,10 +29,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watchEffect } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { serviceOrderAssignPage, serviceOrderAssignReject, serviceOrderAssignReceive } from '@/api/service'
-import { forEach } from 'lodash'
+import {onMounted, ref, watchEffect} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {serviceOrderAssignPage, serviceOrderAssignReceive, serviceOrderAssignReject} from '@/api/service'
+import {forEach} from 'lodash'
 import DialogForm from './components/DialogForm.vue' // 新增,编辑弹窗.
 import tableList from './components/TableList.vue' // 表格
 

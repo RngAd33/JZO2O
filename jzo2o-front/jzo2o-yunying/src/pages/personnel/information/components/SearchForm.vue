@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref} from 'vue'
+import {ref} from 'vue'
 // 表单数据
 const formData = ref({
   phone: '',
@@ -75,7 +75,7 @@ const handleReset = () => {
   emit('handleSearch', formData.value)
 }
 // 搜索表单
-const handleSearch = () => {  
+const handleSearch = () => {
   emit('handleSearch', formData.value)
 }
 </script>

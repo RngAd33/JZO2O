@@ -93,14 +93,13 @@
 </template>
 
 <script>
-	import Calendar from './util.js';
-	import calendarItem from './calendar-item.vue'
-	import timePicker from './time-picker.vue'
-	import {
-		initVueI18n
-	} from '@dcloudio/uni-i18n'
-	import messages from './i18n/index.js'
-	const {
+import Calendar from './util.js';
+import calendarItem from './calendar-item.vue'
+import timePicker from './time-picker.vue'
+import {initVueI18n} from '@dcloudio/uni-i18n'
+import messages from './i18n/index.js'
+
+const {
 		t
 	} = initVueI18n(messages)
 	/**

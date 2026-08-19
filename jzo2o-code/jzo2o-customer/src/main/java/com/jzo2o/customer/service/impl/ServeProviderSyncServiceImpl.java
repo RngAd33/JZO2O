@@ -1,9 +1,9 @@
 package com.jzo2o.customer.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jzo2o.customer.mapper.ServeProviderSyncMapper;
 import com.jzo2o.customer.model.domain.ServeProviderSync;
 import com.jzo2o.customer.service.IServeProviderSyncService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

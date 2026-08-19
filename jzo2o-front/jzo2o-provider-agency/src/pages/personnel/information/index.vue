@@ -47,16 +47,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watchEffect } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { useRoute } from 'vue-router'
-import {
-  servicePersonItemAdd,
-  servicePersonItemDelete,
-  servicePersonItemEdit
-} from '@/api/service'
-import { getPersonnelDetailList } from '@/api/detail'
-import { forEach } from 'lodash'
+import {onMounted, ref, watchEffect} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {useRoute} from 'vue-router'
+import {servicePersonItemAdd, servicePersonItemDelete, servicePersonItemEdit} from '@/api/service'
+import {getPersonnelDetailList} from '@/api/detail'
+import {forEach} from 'lodash'
 import DialogForm from './components/DialogForm.vue' // 新增,编辑弹窗.
 import tableList from './components/TableList.vue' // 表格
 import Delete from '@/components/Delete/index.vue' // 删除弹层
@@ -117,7 +113,7 @@ const fetchData = async (val) => {
   await getPersonnelDetailList(val)
     .then((res) => {
       if (res.code === 200) {
-        listData.value = res.data.list        
+        listData.value = res.data.list
         pagination.value.total = Number(res.data.total)
         dataLoading.value = false
       }

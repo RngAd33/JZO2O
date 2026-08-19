@@ -1,4 +1,4 @@
-import { RouteRecordName, LocationQueryRaw } from 'vue-router'
+import {LocationQueryRaw, RouteRecordName} from 'vue-router'
 import STYLE_CONFIG from '@/config/style'
 
 // 菜单类型声明

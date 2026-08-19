@@ -92,10 +92,11 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, watch } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { SearchIcon } from 'tdesign-icons-vue-next'
+import {reactive, ref, watch} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {SearchIcon} from 'tdesign-icons-vue-next'
 import NoData from '@/components/noData/index.vue'
+
 const props = defineProps({
   visible: {
     type: Boolean,

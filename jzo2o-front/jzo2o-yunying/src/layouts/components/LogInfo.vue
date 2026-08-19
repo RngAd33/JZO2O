@@ -167,12 +167,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { PropType } from 'vue'
-import { useRouter } from 'vue-router'
-import { storeToRefs } from 'pinia'
-import { useSettingStore } from '@/store'
-import type { MenuRoute } from '@/types/interface'
+import type {PropType} from 'vue'
+import {ref} from 'vue'
+import {useRouter} from 'vue-router'
+import {storeToRefs} from 'pinia'
+import {useSettingStore} from '@/store'
+import type {MenuRoute} from '@/types/interface'
 
 const props = defineProps({
   theme: {

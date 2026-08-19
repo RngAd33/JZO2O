@@ -53,7 +53,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import {ref} from 'vue'
+
 const props = defineProps({
   initSearch: {
     type: Number,
@@ -91,7 +92,7 @@ const handleReset = () => {
   emit('handleSearch', formData.value)
 }
 // 搜索表单
-const handleSearch = () => {  
+const handleSearch = () => {
   emit('handleSearch', formData.value)
 }
 </script>

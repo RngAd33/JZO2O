@@ -40,19 +40,11 @@
 </template>
 
 <script>
-import {
-  chooseAndUploadFile,
-  uploadCloudFiles,
-} from './choose-and-upload-file.js';
-import {
-  get_file_ext,
-  get_extname,
-  get_files_and_is_max,
-  get_file_info,
-  get_file_data,
-} from './utils.js';
+import {chooseAndUploadFile, uploadCloudFiles,} from './choose-and-upload-file.js';
+import {get_extname, get_file_data, get_files_and_is_max,} from './utils.js';
 import uploadImage from './upload-image.vue';
 import uploadFile from './upload-file.vue';
+
 let fileInput = null;
 /**
  * FilePicker 文件选择上传

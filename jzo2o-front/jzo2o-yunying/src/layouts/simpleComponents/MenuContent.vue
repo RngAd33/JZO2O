@@ -66,13 +66,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import type { PropType } from 'vue'
+import type {PropType} from 'vue'
+import {computed} from 'vue'
 import isObject from 'lodash/isObject'
-import { serviceToken } from '@/api/service'
-import type { MenuRoute } from '@/types/interface'
-import { getActive } from '@/router'
-import { evaluationBaseUrl , evaluationBackUrl , evaluationUrlPrefix } from '@/config/configuration' // 评价系统的配置
+import {serviceToken} from '@/api/service'
+import type {MenuRoute} from '@/types/interface'
+import {getActive} from '@/router'
+import {evaluationBackUrl, evaluationBaseUrl, evaluationUrlPrefix} from '@/config/configuration' // 评价系统的配置
 const props = defineProps({
   navData: {
     type: Array as PropType<MenuRoute[]>,

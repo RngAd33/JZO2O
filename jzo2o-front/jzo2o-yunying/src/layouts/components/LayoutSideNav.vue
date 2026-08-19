@@ -10,9 +10,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { storeToRefs } from 'pinia'
-import { usePermissionStore, useSettingStore } from '@/store'
+import {computed} from 'vue'
+import {storeToRefs} from 'pinia'
+import {usePermissionStore, useSettingStore} from '@/store'
 import LSideNav from '../simpleComponents/SideNav.vue' // 侧边栏
 
 const permissionStore = usePermissionStore()

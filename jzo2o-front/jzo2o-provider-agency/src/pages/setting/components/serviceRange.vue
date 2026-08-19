@@ -77,9 +77,10 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, watch } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { toAMap, toBaiduMap } from '@/utils/index'
+import {reactive, ref, watch} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {toAMap, toBaiduMap} from '@/utils/index'
+
 const props = defineProps({
   visible: {
     type: Boolean,

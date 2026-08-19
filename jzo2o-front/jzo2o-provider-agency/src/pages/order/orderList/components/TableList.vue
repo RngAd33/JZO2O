@@ -91,20 +91,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { CaretDownSmallIcon } from 'tdesign-icons-vue-next'
-import {
-  allocationCOLUMNS,
-  doorCOLUMNS,
-  successCOLUMNS,
-  finishCOLUMNS,
-  allCOLUMNS,
-  historyCOLUMNS
-} from '../constants'
+import {ref, watch} from 'vue'
+import {CaretDownSmallIcon} from 'tdesign-icons-vue-next'
+import {allCOLUMNS, allocationCOLUMNS, doorCOLUMNS, finishCOLUMNS, historyCOLUMNS, successCOLUMNS} from '../constants'
 import NoData from '@/components/noData/index.vue'
 import switchBar from '@/components/switchBar/switchBar.vue'
 import router from '@/router'
-import { formatNumber } from '@/utils/index' // 格式化金额
+import {formatNumber} from '@/utils/index' // 格式化金额
 // 接收父组件传递的值
 const props = defineProps({
   listData: {
@@ -163,7 +156,7 @@ const emit = defineEmits([
 // 监听器赋值
 watch(props, () => {
   // 首页引用的表格
-  if (props.listName === 'base') {  
+  if (props.listName === 'base') {
     COLUMNS.value = props.COLUMNS ? props.COLUMNS : allocationCOLUMNS
     sort.value = props.sort
   }

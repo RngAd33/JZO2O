@@ -14,19 +14,15 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, onUnmounted, nextTick, computed, watch } from 'vue'
+import {computed, nextTick, onMounted, onUnmounted, ref, watch} from 'vue'
 
 import * as echarts from 'echarts/core'
-import {
-  TooltipComponent,
-  LegendComponent,
-  GridComponent
-} from 'echarts/components'
-import { LineChart } from 'echarts/charts'
-import { CanvasRenderer } from 'echarts/renderers'
-import { useSettingStore } from '@/store'
-import { dateTag } from '@/utils/charts'
-import { getLineChartDataSet } from '../index'
+import {GridComponent, LegendComponent, TooltipComponent} from 'echarts/components'
+import {LineChart} from 'echarts/charts'
+import {CanvasRenderer} from 'echarts/renderers'
+import {useSettingStore} from '@/store'
+import {dateTag} from '@/utils/charts'
+import {getLineChartDataSet} from '../index'
 
 echarts.use([
   TooltipComponent,

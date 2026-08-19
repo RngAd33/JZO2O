@@ -80,11 +80,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { ValidateResultContext } from 'tdesign-vue-next'
-import { validateIdCard, validatePhone } from '@/utils/validate'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { forEach } from 'lodash'
+import {ref, watch} from 'vue'
+import {MessagePlugin, ValidateResultContext} from 'tdesign-vue-next'
+import {validateIdCard, validatePhone} from '@/utils/validate'
+import {forEach} from 'lodash'
 
 const props = defineProps({
   visible: {
@@ -172,7 +171,7 @@ watch(
 
 // 字数限制
 const WordLimit: Function = (num: number,val) => {
-  if (val.length > num) { 
+  if (val.length > num) {
     formData.value.name = val.slice(0, num)
   }
 }

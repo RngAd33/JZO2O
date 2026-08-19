@@ -3,8 +3,9 @@
 </template>
 
 <script>
-	import {friendlyDate} from './date-format.js'
-	/**
+import {friendlyDate} from './date-format.js'
+
+/**
 	 * Dateformat 日期格式化
 	 * @description 日期格式化组件
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=3279

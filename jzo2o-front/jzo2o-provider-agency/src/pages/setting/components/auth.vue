@@ -102,9 +102,10 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, watch} from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { getAuthFail } from '@/api/setting'
+import {ref, watch} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {getAuthFail} from '@/api/setting'
+
 const props = defineProps({
   visible: {
     type: Boolean,
@@ -124,7 +125,7 @@ const handleResetAuth = () => {
 //图片上传成功
 const handleSuccess = (params) => {
   formData.value.businessLicense = [{ url: params.response.data.url, name: '' }]
-} 
+}
 // 触发父级事件
 const emit = defineEmits([
   'handleClose',

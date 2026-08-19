@@ -18,9 +18,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick } from 'vue' // 从vue中引入computed
-import { getCurrentInstance } from 'vue'
-import { useRoute, useRouter } from 'vue-router' // 从vue-router中引入useRoute
+import {computed, nextTick} from 'vue' // 从vue中引入computed
+import {useRoute, useRouter} from 'vue-router' // 从vue-router中引入useRoute
 const route = useRoute()
 const router = useRouter()
 // 通过useRoute获取当前路由信息

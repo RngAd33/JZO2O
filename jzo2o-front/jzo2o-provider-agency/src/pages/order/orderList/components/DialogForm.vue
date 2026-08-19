@@ -64,9 +64,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { MessagePlugin, ValidateResultContext } from 'tdesign-vue-next'
-import { forEach } from 'lodash'
+import {ref, watch} from 'vue'
+import {MessagePlugin, ValidateResultContext} from 'tdesign-vue-next'
+import {forEach} from 'lodash'
 
 const props = defineProps({
   visible: {

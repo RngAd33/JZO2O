@@ -101,11 +101,10 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, watch, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
-import { validateIdCard, validateCodeSocial } from '@/utils/validate'
-import { cityData, provinceData, areaData } from '@/utils/commonData'
-import { forEach } from 'lodash'
+import {onMounted, ref, watch} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {areaData, cityData, provinceData} from '@/utils/commonData'
+
 const props = defineProps({
   visible: {
     type: Boolean,

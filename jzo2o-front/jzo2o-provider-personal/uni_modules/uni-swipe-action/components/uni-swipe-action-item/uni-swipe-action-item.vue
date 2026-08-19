@@ -125,11 +125,11 @@
 	}
 </script>
 <script>
-	import mpwxs from './mpwxs'
-	import bindingx from './bindingx.js'
-	import mpother from './mpother'
+import mpwxs from './mpwxs'
+import bindingx from './bindingx.js'
+import mpother from './mpother'
 
-	/**
+/**
 	 * SwipeActionItem 滑动操作子组件
 	 * @description 通过滑动触发选项的容器
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=181

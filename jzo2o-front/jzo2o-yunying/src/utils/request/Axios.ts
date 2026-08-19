@@ -1,18 +1,13 @@
-import axios, {
-  AxiosRequestConfig,
-  AxiosInstance,
-  AxiosResponse,
-  AxiosError
-} from 'axios'
-import { stringify } from 'qs'
+import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios'
+import {stringify} from 'qs'
 import isFunction from 'lodash/isFunction'
 import cloneDeep from 'lodash/cloneDeep'
-import { toRaw } from 'vue'
-import { useSettingStore } from '@/store'
-import { CreateAxiosOptions } from './AxiosTransform'
-import { AxiosCanceler } from './AxiosCancel'
-import { AxiosRequestConfigRetry, RequestOptions, Result } from '@/types/axios'
-import { getUrlParams, uuid } from '@/utils/index'
+import {toRaw} from 'vue'
+import {useSettingStore} from '@/store'
+import {CreateAxiosOptions} from './AxiosTransform'
+import {AxiosCanceler} from './AxiosCancel'
+import {AxiosRequestConfigRetry, RequestOptions, Result} from '@/types/axios'
+import {getUrlParams, uuid} from '@/utils/index'
 
 // Axios模块
 export class VAxios {

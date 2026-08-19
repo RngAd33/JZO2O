@@ -3,9 +3,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch} from 'vue'
-import { useRoute } from 'vue-router'
-import { useSettingStore } from '@/store'
+import {computed, watch} from 'vue'
+import {useRoute} from 'vue-router'
+import {useSettingStore} from '@/store'
 
 const route = useRoute()
 const store = useSettingStore()

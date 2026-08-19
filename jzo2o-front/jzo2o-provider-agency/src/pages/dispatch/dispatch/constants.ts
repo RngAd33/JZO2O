@@ -1,5 +1,5 @@
-import { formatDateTimeToDateTimeString } from '@/utils/date'
-import { formatNumber } from '@/utils/index'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
+import {formatNumber} from '@/utils/index'
 // 服务人员列表
 export const COLUMNS = [
   {

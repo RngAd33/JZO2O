@@ -8,15 +8,16 @@
 </template>
 
 <script>
-	import icons from './icons.js';
-	const getVal = (val) => {
+import icons from './icons.js';
+import iconUrl from './uniicons.ttf'
+
+const getVal = (val) => {
 		const reg = /^[0-9]*$/g
 		return (typeof val === 'number' ||　reg.test(val) )? val + 'px' : val;
 	} 
 	// #ifdef APP-NVUE
 	var domModule = weex.requireModule('dom');
-	import iconUrl from './uniicons.ttf'
-	domModule.addRule('fontFace', {
+domModule.addRule('fontFace', {
 		'fontFamily': "uniicons",
 		'src': "url('"+iconUrl+"')"
 	});

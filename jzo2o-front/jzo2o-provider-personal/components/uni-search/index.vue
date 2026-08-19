@@ -30,8 +30,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useStore } from 'vuex';
+import {ref} from 'vue';
+import {useStore} from 'vuex';
+
 const store = useStore(); //vuex获取、储存数据
 const users = store.state.user;
 const props = defineProps({

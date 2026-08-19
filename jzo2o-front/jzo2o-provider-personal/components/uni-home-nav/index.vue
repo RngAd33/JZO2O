@@ -38,11 +38,12 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
-import { onShow } from '@dcloudio/uni-app';
-import { getSettingInfo } from '../../pages/api/setting';
-import { data } from '../../utils/h5Data.js';
-import { useStore } from 'vuex';
+import {reactive, ref} from 'vue';
+import {onShow} from '@dcloudio/uni-app';
+import {getSettingInfo} from '../../pages/api/setting';
+import {data} from '../../utils/h5Data.js';
+import {useStore} from 'vuex';
+
 const store = useStore(); //vuex获取储存数据
 const users = store.state.user;
 const workerCityCode = ref();

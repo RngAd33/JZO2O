@@ -40,10 +40,10 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import {onMounted, reactive, ref} from 'vue';
 // 接口pai
 // 公用接口
-import { getProvinces } from '@/pages/api/common.js';
+import {getProvinces} from '@/pages/api/common.js';
 // 获取父组件数据
 const props = defineProps({
 	type: {

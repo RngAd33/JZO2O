@@ -3,6 +3,10 @@ package com.jzo2o.customer.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jzo2o.api.customer.dto.request.InstitutionStaffAddReqDTO;
 import com.jzo2o.api.customer.dto.request.InstitutionStaffPageQueryReqDTO;
 import com.jzo2o.api.customer.dto.response.InstitutionStaffResDTO;
@@ -18,14 +22,9 @@ import com.jzo2o.customer.model.dto.response.InstitutionStaffSimpleResDTO;
 import com.jzo2o.customer.service.IInstitutionStaffService;
 import com.jzo2o.mvc.utils.UserContext;
 import com.jzo2o.mysql.utils.PageUtils;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

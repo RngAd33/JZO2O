@@ -1,4 +1,4 @@
-import { request } from '@/utils/request'
+import {request} from '@/utils/request'
 //获取配置状态
 export const getSettingStatus = () =>
   request.get<any>({

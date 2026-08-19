@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 // import { TChartColor } from '@/config/color'
-import { getChartListColor } from '@/utils/color'
-import { getRandomArray } from '@/utils/charts'
+import {getChartListColor} from '@/utils/color'
+import {getRandomArray} from '@/utils/charts'
 
 /** 首页 dashboard 折线图 */
 export function constructInitDashboardDataset(type: string) {

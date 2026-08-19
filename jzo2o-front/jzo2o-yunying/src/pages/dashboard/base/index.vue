@@ -107,16 +107,17 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import {onMounted, ref, watch} from 'vue'
+import {useRoute} from 'vue-router'
 import dayjs from 'dayjs'
-import { getDashBoardData, exportStatisticsData } from '@/api/detail'
+import {exportStatisticsData, getDashBoardData} from '@/api/detail'
 import TopPanel from './components/TopPanel.vue'
 import MiddleChart from './components/MiddleChart.vue'
 import OutputOverview from './components/OutputOverview.vue'
 import Operate from './components/operate.vue'
 
-import { MessagePlugin } from 'tdesign-vue-next'
+import {MessagePlugin} from 'tdesign-vue-next'
+
 const route = useRoute()
 // 当月时间1号到最后一天
 const nowMonthTime = ref([

@@ -74,9 +74,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { CaretDownSmallIcon, ZoomInIcon } from 'tdesign-icons-vue-next'
-import { COLUMNS } from '../constants'
+import {ref, watch} from 'vue'
+import {CaretDownSmallIcon, ZoomInIcon} from 'tdesign-icons-vue-next'
+import {COLUMNS} from '../constants'
 import NoData from '@/components/noData/index.vue'
 // 接收父组件传递的值
 const props = defineProps({
@@ -109,7 +109,7 @@ const emit = defineEmits([
 watch(props, () => {
   data.value = props.listData
   pagination.value = props.pagination
-  
+
   dataLoading.value = false
 })
 // 排序字段

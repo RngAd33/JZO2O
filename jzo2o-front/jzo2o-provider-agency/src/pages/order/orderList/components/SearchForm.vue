@@ -84,9 +84,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import {ref, watchEffect} from 'vue'
+import {MessagePlugin} from 'tdesign-vue-next'
 import dayjs from 'dayjs'
+
 const props = defineProps({
   initSearch: {
     type: Array,

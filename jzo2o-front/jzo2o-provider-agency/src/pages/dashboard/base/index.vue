@@ -64,33 +64,29 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, reactive } from 'vue'
+import {onMounted, ref} from 'vue'
 import TopPanel from './components/TopPanel.vue' // 顶部卡片
 import MiddleChart from './components/MiddleChart.vue' // 中部图表
-import { MessagePlugin } from 'tdesign-vue-next'
+import {MessagePlugin} from 'tdesign-vue-next'
 import {
-  serviceOrderList,
-  serviceOrderDetail,
-  serviceOrderStart,
-  serviceOrderEnd,
-  serviceOrderCancel,
-  servicePersonItemAllList,
   serviceOrderAssign,
+  serviceOrderCancel,
   serviceOrderCount,
-  serviceOrderAssignDelete
+  serviceOrderDetail,
+  serviceOrderEnd,
+  serviceOrderList,
+  serviceOrderStart,
+  servicePersonItemAllList
 } from '@/api/service'
-import { forEach } from 'lodash'
-import {
-  allocationCOLUMNS,
-  doorCOLUMNS,
-  successCOLUMNS
-} from '@/pages/order/orderList/constants' // 表格头部
+import {forEach} from 'lodash'
+import {allocationCOLUMNS, doorCOLUMNS, successCOLUMNS} from '@/pages/order/orderList/constants' // 表格头部
 // 基础统计数据
 import switchBar from '@/components/switchBar/switchBar.vue' // 切换tab
 import DialogForm from '@/pages/order/orderList/components/DialogForm.vue' // 新增,编辑弹窗.
 import detailDialog from '@/pages/order/orderList/components/detailDialog.vue' // 订单信息弹窗.
 import tableList from '@/pages/order/orderList/components/TableList.vue' // 表格
 import cancelDialog from '@/pages/order/orderList/components/cancelDialog.vue'
+
 const visible = ref(false) // 新增，编辑弹窗
 const listData = ref([]) // 列表数据
 const label = ref('') // 弹窗label

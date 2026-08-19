@@ -48,10 +48,10 @@
 </template>
 
 <script>
-	import dataPicker from "../uni-data-pickerview/uni-data-picker.js"
-	import DataPickerView from "../uni-data-pickerview/uni-data-pickerview.vue"
+import dataPicker from "../uni-data-pickerview/uni-data-picker.js"
+import DataPickerView from "../uni-data-pickerview/uni-data-pickerview.vue"
 
-	/**
+/**
 	 * DataPicker 级联选择
 	 * @description 支持单列、和多列级联选择。列数没有限制，如果屏幕显示不全，顶部tab区域会左右滚动。
 	 * @tutorial https://ext.dcloud.net.cn/plugin?id=3796

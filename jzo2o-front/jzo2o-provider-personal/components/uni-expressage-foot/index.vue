@@ -68,8 +68,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useStore } from "vuex";
+import {ref} from "vue";
+import {useStore} from "vuex";
 // 弹层
 import UniPopup from "@/components/uni-popup/index.vue";
 // ------定义变量------

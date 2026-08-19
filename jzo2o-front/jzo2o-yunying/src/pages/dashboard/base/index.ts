@@ -1,8 +1,7 @@
 import dayjs from 'dayjs'
 // import { TChartColor } from '@/config/color'
-import { getChartListColor } from '@/utils/color'
-import { getRandomArray } from '@/utils/charts'
-import { floor } from 'lodash'
+import {getChartListColor} from '@/utils/color'
+import {getRandomArray} from '@/utils/charts'
 
 /** 柱状图数据源 */
 export function constructInitDataset({

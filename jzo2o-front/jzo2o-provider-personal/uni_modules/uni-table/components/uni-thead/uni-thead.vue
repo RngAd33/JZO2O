@@ -16,6 +16,7 @@
 
 <script>
 import tableCheckbox from '../uni-tr/table-checkbox.vue'
+
 export default {
 	name: 'uniThead',
 	components: {

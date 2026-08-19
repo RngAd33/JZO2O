@@ -46,17 +46,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
-import type { PropType } from 'vue'
-import { useRouter } from 'vue-router'
+import type {PropType} from 'vue'
+import {computed, onMounted} from 'vue'
+import {useRouter} from 'vue-router'
 import union from 'lodash/union'
-import { storeToRefs } from 'pinia'
+import {storeToRefs} from 'pinia'
 import LogInfo from '../components/LogInfo.vue'
 
-import { useSettingStore } from '@/store'
-import { prefix } from '@/config/global'
-import type { MenuRoute } from '@/types/interface'
-import { getActive, getRoutesExpanded } from '@/router'
+import {useSettingStore} from '@/store'
+import {prefix} from '@/config/global'
+import type {MenuRoute} from '@/types/interface'
+import {getActive, getRoutesExpanded} from '@/router'
 
 import MenuContent from './MenuContent.vue'
 

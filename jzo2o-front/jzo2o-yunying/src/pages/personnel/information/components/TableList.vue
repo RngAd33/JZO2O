@@ -122,10 +122,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
-import { ZoomInIcon } from 'tdesign-icons-vue-next'
-import { COLUMNS, SERVE_DATA } from '../constants'
+import {ref, watch} from 'vue'
+import {useRouter} from 'vue-router'
+import {ZoomInIcon} from 'tdesign-icons-vue-next'
+import {COLUMNS, SERVE_DATA} from '../constants'
 import NoData from '@/components/noData/index.vue'
 // 接收父组件传递的值
 const props = defineProps({

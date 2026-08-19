@@ -1,8 +1,8 @@
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia'
 import keys from 'lodash/keys'
-import { LIGHT_CHART_COLORS, DARK_CHART_COLORS } from '@/utils/color'
+import {DARK_CHART_COLORS, LIGHT_CHART_COLORS} from '@/utils/color'
 import STYLE_CONFIG from '@/config/style'
-import { store } from '@/store'
+import {store} from '@/store'
 
 const state = {
   ...STYLE_CONFIG,

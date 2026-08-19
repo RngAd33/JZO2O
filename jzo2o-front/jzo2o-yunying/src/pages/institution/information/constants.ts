@@ -1,4 +1,4 @@
-import {formatDateTimeToDateTimeString } from '@/utils/date'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
 // 服务人员信息列表
 export const COLUMNS = [
   {
@@ -46,7 +46,7 @@ export const COLUMNS = [
         '-1': {
           label: '未设置'
         },
-      }  
+      }
       // const status = row.canPickUp === -1 ? 2 : row.canPickUp
       return h(
         'span',
@@ -84,7 +84,7 @@ export const COLUMNS = [
         1: {
           label: '冻结'
         },
-      }  
+      }
       const status = row.status === 0 ? '2' : 1
       return h(
         'span',
@@ -101,7 +101,7 @@ export const COLUMNS = [
     minWidth: '180px',
     colKey: 'certificationTime',
     cell: (h, { row }) => h('span',row.certificationTime ? formatDateTimeToDateTimeString(new Date(row.certificationTime)) : '-')
-  },  
+  },
   {
     align: 'left',
     fixed: 'right',
@@ -141,19 +141,19 @@ export const SERVE_DATA =  [
         return h('span','--')
       }
     }
-  }, 
+  },
   {
     title: '服务前照片',
     minWidth: '180px',
     colKey: 'serveBeforeImgs',
     sortType: 'all'
-  }, 
+  },
   {
     title: '服务后照片',
     minWidth: '180px',
     colKey: 'serveAfterImgs',
     sortType: 'all'
-  }, 
+  },
   {
     align: 'left',
     // fixed: 'right',
@@ -176,12 +176,12 @@ export const SERVE_COLUMNS =  [
     title: '身份证号',
     minWidth: '185px',
     colKey: 'idCardNo',
-  }, 
+  },
   {
     title: '证明资料',
     minWidth: '180px',
     colKey: 'certificationImgs',
-  }, 
+  },
   {
     title: '创建时间',
     minWidth: '180px',
@@ -196,7 +196,7 @@ export const SERVE_COLUMNS =  [
     }
   },
 ]
-  
+
 
 
 

@@ -1,6 +1,6 @@
 // import { TChartColor } from "@/config/color";
-import { getChartListColor } from "@/utils/color";
-import { getRandomArray, getDateArray } from "@/utils/charts";
+import {getChartListColor} from "@/utils/color";
+import {getDateArray, getRandomArray} from "@/utils/charts";
 
 /** 折线图数据 */
 export function getFolderLineDataSet({

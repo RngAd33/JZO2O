@@ -38,8 +38,9 @@
 
 <script>
 import popup from '../uni-popup/popup.js';
-import { initVueI18n } from '@dcloudio/uni-i18n';
+import {initVueI18n} from '@dcloudio/uni-i18n';
 import messages from '../uni-popup/i18n/index.js';
+
 const { t } = initVueI18n(messages);
 /**
  * PopUp 弹出层-对话框样式

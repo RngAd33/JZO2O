@@ -1,4 +1,4 @@
-import { formatDateTimeToDateTimeString } from '@/utils/date'
+import {formatDateTimeToDateTimeString} from '@/utils/date'
 // 服务人员列表
 export const COLUMNS = [
   {

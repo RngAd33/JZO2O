@@ -64,15 +64,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { MessagePlugin } from 'tdesign-vue-next'
-import type { FormInstanceFunctions, FormRule } from 'tdesign-vue-next'
-import { useUserStore } from '@/store'
+import {ref} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
+import type {FormInstanceFunctions, FormRule} from 'tdesign-vue-next'
+import {MessagePlugin} from 'tdesign-vue-next'
+import {useUserStore} from '@/store'
 
-import { userLogins } from '@/api/user'
-import { validatePhone } from '@/utils/validate'
-import { getSettingStatus } from '@/api/setting'
+import {userLogins} from '@/api/user'
+import {validatePhone} from '@/utils/validate'
+import {getSettingStatus} from '@/api/setting'
 // 发送事件给父组件
 const emit = defineEmits(['handleFrozen', 'handleTo', 'openForgetPwd'])
 // tab切换数据

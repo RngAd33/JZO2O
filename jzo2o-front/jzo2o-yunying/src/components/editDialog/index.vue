@@ -49,8 +49,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { ValidateResultContext } from 'tdesign-vue-next'
+import {ref, watch} from 'vue'
+import {ValidateResultContext} from 'tdesign-vue-next'
 // const resetType = ref('empty')
 const form = ref()
 const props = defineProps({

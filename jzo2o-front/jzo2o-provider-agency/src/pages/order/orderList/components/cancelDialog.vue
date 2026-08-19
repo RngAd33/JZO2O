@@ -44,10 +44,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { ValidateResultContext } from 'tdesign-vue-next'
-import { CANCEL_REASON } from '@/constants'
-import { forEach } from 'lodash'
+import {ref, watch} from 'vue'
+import {ValidateResultContext} from 'tdesign-vue-next'
+import {CANCEL_REASON} from '@/constants'
+import {forEach} from 'lodash'
 
 const props = defineProps({
   visible: {
