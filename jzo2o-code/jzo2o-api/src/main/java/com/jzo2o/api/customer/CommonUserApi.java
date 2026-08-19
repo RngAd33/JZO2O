@@ -15,4 +15,5 @@ public interface CommonUserApi {
 
     @GetMapping("/{id}")
     CommonUserResDTO findById(@PathVariable("id") Long id);
+
 }

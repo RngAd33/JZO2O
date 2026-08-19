@@ -56,7 +56,7 @@ public interface IActivityService extends IService<Activity> {
     void updateStatus();
 
     /**
-     * 缓存预热(将满足条件的活动,同步到Redis中等待抢券)
+     * 缓存预热（将满足条件的活动,同步到 Redis 中等待抢券）
      */
     void preHeat();
 
@@ -67,5 +67,13 @@ public interface IActivityService extends IService<Activity> {
      * @return 活动列表
      */
     List<SeizeCouponInfoResDTO> queryForListFromCache(Integer tabType);
+
+    /**
+     * 从缓存中获取活动信息
+     *
+     * @param id 活动id
+     * @return 活动信息
+     */
+    ActivityInfoResDTO getActivityInfoByIdFromCache(Long id);
 
 }

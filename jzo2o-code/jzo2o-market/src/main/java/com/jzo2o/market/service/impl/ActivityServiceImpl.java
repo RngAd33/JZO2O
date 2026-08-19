@@ -40,6 +40,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.jzo2o.market.constants.RedisConstants.RedisKey.ACTIVITY_CACHE_LIST;
+import static com.jzo2o.market.constants.RedisConstants.RedisKey.COUPON_RESOURCE_STOCK;
+import static com.jzo2o.market.enums.ActivityStatusEnum.DISTRIBUTING;
 import static com.jzo2o.market.enums.ActivityStatusEnum.NO_DISTRIBUTE;
 
 /**
@@ -137,14 +140,14 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
             throw new ForbiddenOperationException("当前活动不存在");
         }
         if (activity.getStatus() != NO_DISTRIBUTE.getStatus()
-                && activity.getStatus() != ActivityStatusEnum.DISTRIBUTING.getStatus()) {
+                && activity.getStatus() != DISTRIBUTING.getStatus()) {
             throw new ForbiddenOperationException("当前活动状态不允许撤销");
         }
         // 修改活动的状态  待生效或者进行中 ---> 作废
         // update activity set status = 4 where id = 活动id and status in(1,2)
         boolean flag = this.lambdaUpdate()
                 .eq(Activity::getId, id)
-                .in(Activity::getStatus, Arrays.asList(NO_DISTRIBUTE.getStatus(), ActivityStatusEnum.DISTRIBUTING.getStatus()))
+                .in(Activity::getStatus, Arrays.asList(NO_DISTRIBUTE.getStatus(), DISTRIBUTING.getStatus()))
                 .set(Activity::getStatus, ActivityStatusEnum.VOIDED.getStatus())
                 .update();
         // 修改优惠券的状态 未使用  --> 已作废
@@ -166,12 +169,12 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
                 .eq(Activity::getStatus, NO_DISTRIBUTE.getStatus())
                 .le(Activity::getDistributeStartTime,LocalDateTime.now())
                 .gt(Activity::getDistributeEndTime,LocalDateTime.now())
-                .set(Activity::getStatus, ActivityStatusEnum.DISTRIBUTING.getStatus())
+                .set(Activity::getStatus, DISTRIBUTING.getStatus())
                 .update();
         // 对于待生效及进行中的活动到达发放结束时间状态改为已失效
         // update activity set status = 3 where status in (1,2) and  distribute_end_time < 当前时间
         this.lambdaUpdate()
-                .in(Activity::getStatus, Arrays.asList(NO_DISTRIBUTE.getStatus(), ActivityStatusEnum.DISTRIBUTING.getStatus()))
+                .in(Activity::getStatus, Arrays.asList(NO_DISTRIBUTE.getStatus(), DISTRIBUTING.getStatus()))
                 .lt(Activity::getDistributeEndTime,LocalDateTime.now())
                 .set(Activity::getStatus, ActivityStatusEnum.LOSE_EFFICACY.getStatus())
                 .update();
@@ -182,7 +185,7 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         // 查询状态是待开始或者进行中，并且发放开始时间距离现在不足 1 个月的活动，按照开始时间升序排列
         // select * from activity where status in (1,2) and distribute_start_time < 当前时间+1个月 order by distribute_start_time asc
         List<Activity> list = this.lambdaQuery()
-                .in(Activity::getStatus, Arrays.asList(NO_DISTRIBUTE.getStatus(), ActivityStatusEnum.DISTRIBUTING.getStatus()))
+                .in(Activity::getStatus, Arrays.asList(NO_DISTRIBUTE.getStatus(), DISTRIBUTING.getStatus()))
                 .lt(Activity::getDistributeStartTime, LocalDateTime.now().plusMonths(1))
                 .orderByAsc(Activity::getDistributeStartTime)
                 .list();
@@ -193,14 +196,31 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
         List<SeizeCouponInfoResDTO> seizeCouponInfoResDTOS = BeanUtils.copyToList(list, SeizeCouponInfoResDTO.class);
         String jsonStr = JsonUtils.toJsonStr(seizeCouponInfoResDTOS);
 
-        // 将JSON字符串存入 Redis
-        redisTemplate.opsForValue().set(RedisConstants.RedisKey.ACTIVITY_CACHE_LIST, jsonStr);
+        // 将 JSON 字符串存入 Redis
+        redisTemplate.opsForValue().set(ACTIVITY_CACHE_LIST, jsonStr);
+
+        // 将优惠券活动的库存从 MySQL 同步到 Redis
+        // - 对于待生效的活动，更新库存
+        list.stream().filter(e ->
+                getStatus(e.getDistributeStartTime(), e.getDistributeEndTime(), e.getStatus()) == NO_DISTRIBUTE.getStatus()
+        ).forEach(e ->
+                redisTemplate.opsForHash()
+                        .put(String.format(COUPON_RESOURCE_STOCK, e.getId() % 10), e.getId(), e.getStockNum())
+        );
+        // - 对于已生效的活动，如果库存已经同步则不再同步
+        list.stream().filter(e ->
+                getStatus(e.getDistributeStartTime(), e.getDistributeEndTime(), e.getStatus()) == DISTRIBUTING.getStatus()
+        ).forEach(e ->
+                // - 只有在库存不存在的情况下, 才进行保存操作
+                redisTemplate.opsForHash()
+                        .putIfAbsent(String.format(COUPON_RESOURCE_STOCK, e.getId() % 10), e.getId(), e.getStockNum())
+        );
     }
 
     @Override
     public List<SeizeCouponInfoResDTO> queryForListFromCache(Integer tabType) {
         // 从Redis中查询优惠券活动的数据
-        String jsonStr = (String) redisTemplate.opsForValue().get(RedisConstants.RedisKey.ACTIVITY_CACHE_LIST);
+        String jsonStr = (String) redisTemplate.opsForValue().get(ACTIVITY_CACHE_LIST);
         if (StrUtil.isBlank(jsonStr)) {
             return List.of();
         }
@@ -213,7 +233,7 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
             int status = getStatus(e.getDistributeStartTime(), e.getDistributeEndTime(), e.getStatus());
             if (tabType == 1) {
                 // - 筛选疯抢中的
-                return status == ActivityStatusEnum.DISTRIBUTING.getStatus();
+                return status == DISTRIBUTING.getStatus();
             } else {
                 // - 筛选即将开始的
                 return status == ActivityStatusEnum.NO_DISTRIBUTE.getStatus();
@@ -223,6 +243,24 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
 //            e.setRemainNum(e.getStockNum());
 //            return e;
 //        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public ActivityInfoResDTO getActivityInfoByIdFromCache(Long id) {
+        // 从缓存中获取活动信息
+        String jsonString = (String) redisTemplate.opsForValue().get(ACTIVITY_CACHE_LIST);
+        if (StrUtil.isBlank(jsonString)) {
+            return null;
+        }
+        // 反序列化
+        List<ActivityInfoResDTO> activityInfoResDTOList = JSON.parseArray(jsonString, ActivityInfoResDTO.class);
+        if (CollUtil.isEmpty(activityInfoResDTOList)) {
+            return null;
+        }
+        // 过滤出指定 id 的活动
+        return activityInfoResDTOList.stream()
+                .filter(e -> e.getId().equals(id))
+                .findFirst().orElse(null);
     }
 
     /**
@@ -240,11 +278,11 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity> i
     private int getStatus(LocalDateTime distributeStartTime, LocalDateTime distributeEndTime, Integer status) {
         if (NO_DISTRIBUTE.getStatus() == status && distributeStartTime.isBefore(DateUtils.now()) && distributeEndTime.isAfter(LocalDateTime.now())) {
             // 状态在待生效, 但是 活动开始时间<=当前时间<活动结束时间  真实状态应该是 进行中
-            return ActivityStatusEnum.DISTRIBUTING.getStatus();
+            return DISTRIBUTING.getStatus();
         } else if (NO_DISTRIBUTE.getStatus() == status && distributeEndTime.isBefore(LocalDateTime.now())) {
             // 状态在待生效, 但是 活动结束时间 < 当前时间   真实状态应该是 已结束
             return ActivityStatusEnum.LOSE_EFFICACY.getStatus();
-        } else if (ActivityStatusEnum.DISTRIBUTING.getStatus() == status && distributeEndTime.isBefore(LocalDateTime.now())) {
+        } else if (DISTRIBUTING.getStatus() == status && distributeEndTime.isBefore(LocalDateTime.now())) {
             // 状态在进行中, 但是 活动结束时间 < 当前时间   真实状态应该是 已结束
             return ActivityStatusEnum.LOSE_EFFICACY.getStatus();
         }
