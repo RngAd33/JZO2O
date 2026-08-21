@@ -1,6 +1,8 @@
 package com.jzo2o.market.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jzo2o.api.market.dto.request.CouponUseReqDTO;
+import com.jzo2o.api.market.dto.response.CouponUseResDTO;
 import com.jzo2o.common.model.PageResult;
 import com.jzo2o.market.model.domain.Coupon;
 import com.jzo2o.market.model.dto.request.CouponOperationPageQueryReqDTO;
@@ -47,5 +49,23 @@ public interface ICouponService extends IService<Coupon> {
      * @param seizeCouponReqDTO 抢券参数
      */
     void seizeCoupon(SeizeCouponReqDTO seizeCouponReqDTO);
+
+    /**
+     * 我的优惠券列表
+     *
+     * @param lastId 最后一个优惠券id
+     * @param userId 用户id
+     * @param status 状态
+     * @return 优惠券列表
+     */
+    List<CouponInfoResDTO> queryForList(Long lastId, Long userId, Integer status);
+
+    /**
+     * 核销优惠券
+     *
+     * @param couponUseReqDTO 优惠券对象
+     * @return 实际使用金额
+     */
+    CouponUseResDTO use(CouponUseReqDTO couponUseReqDTO);
 
 }

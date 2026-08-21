@@ -4,10 +4,13 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.jzo2o.api.market.CouponApi;
 import com.jzo2o.api.customer.AddressBookApi;
 import com.jzo2o.api.customer.dto.response.AddressBookResDTO;
 import com.jzo2o.api.foundations.ServeApi;
 import com.jzo2o.api.foundations.dto.response.ServeAggregationResDTO;
+import com.jzo2o.api.market.dto.request.CouponUseReqDTO;
+import com.jzo2o.api.market.dto.response.CouponUseResDTO;
 import com.jzo2o.api.trade.NativePayApi;
 import com.jzo2o.api.trade.TradingApi;
 import com.jzo2o.api.trade.dto.request.NativePayReqDTO;
@@ -31,6 +34,7 @@ import com.jzo2o.orders.manager.model.dto.response.PlaceOrderResDTO;
 import com.jzo2o.orders.manager.porperties.TradeProperties;
 import com.jzo2o.orders.manager.service.IOrdersCreateService;
 import com.jzo2o.redis.annotations.Lock;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -60,6 +64,9 @@ public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
 
     @Resource
     private NativePayApi nativePayApi;
+
+    @Resource
+    private CouponApi couponApi;
 
     @Resource
     private ServeApi serveApi;
@@ -214,6 +221,25 @@ public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
         return ordersPayResDTO;
     }
 
+    @Override
+    @GlobalTransactional
+    public void saveOrdersWithCoupon(Orders orders, Long couponId) {
+        //1. 调用优惠券微服务核销优惠券
+        CouponUseReqDTO couponUseReqDTO = new CouponUseReqDTO();
+        couponUseReqDTO.setId(couponId);//优惠券id
+        couponUseReqDTO.setOrdersId(orders.getId());//订单id
+        couponUseReqDTO.setTotalAmount(orders.getTotalAmount());//总金额
+        CouponUseResDTO couponUseResDTO = couponApi.use(couponUseReqDTO);
+
+        //2. 修改订单的优惠金额和实付金额
+        BigDecimal discountAmount = couponUseResDTO.getDiscountAmount();
+        orders.setDiscountAmount(discountAmount);//优惠金额
+        orders.setRealPayAmount(orders.getTotalAmount().subtract(discountAmount));//实付金额
+
+        //3. 创建订单
+        this.save(orders);
+    }
+
     /**
      * 生成订单 id
      *
@@ -222,8 +248,14 @@ public class OrdersCreateServiceImpl extends ServiceImpl<OrdersMapper, Orders> i
     private Long generateOrderId() {
         // 2位年 + 2位月 + 2位日
         Long yyMMdd = DateUtils.getFormatDate(LocalDateTime.now(), "yyMMdd");
-        // 自增数字  1 2
+        if (yyMMdd == null) {
+            throw new IllegalStateException("生成订单ID失败：日期格式化返回 null");
+        }
+        // 自增数字 1 2
         Long num = redisTemplate.opsForValue().increment(RedisConstants.Lock.ORDERS_SHARD_KEY_ID_GENERATOR, 1);   // 1 代表每次增长量为 1
+        if (num == null) {
+            throw new IllegalStateException("生成订单ID失败：Redis自增操作返回 null");
+        }
         // 组装返回
         return yyMMdd * 10000000000000L + num;
     }

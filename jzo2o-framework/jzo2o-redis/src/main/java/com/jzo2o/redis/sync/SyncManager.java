@@ -15,7 +15,6 @@ public interface SyncManager {
      */
     void start(String queueName, int storageType, int mode);
 
-
     /**
      * 开始同步，可以使用自定义线程池，如果不设置使用默认线程池
      * @param queueName 同步队列名称
@@ -24,6 +23,5 @@ public interface SyncManager {
      * @param dataSyncExecutor 数据同步线程池
      */
     void start(String queueName, int storageType, int mode, Executor dataSyncExecutor);
-
 
 }

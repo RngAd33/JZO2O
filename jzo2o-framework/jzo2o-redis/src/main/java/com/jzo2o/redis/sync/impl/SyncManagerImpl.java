@@ -22,7 +22,8 @@ public class SyncManagerImpl implements SyncManager {
     private static final ThreadPoolTaskExecutor DEFAULT_SYNC_EXECUTOR;
 
     @Resource
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
+
     @Resource
     private RedissonClient redissonClient;
 
@@ -35,10 +36,9 @@ public class SyncManagerImpl implements SyncManager {
         DEFAULT_SYNC_EXECUTOR.setMaxPoolSize(20);
         DEFAULT_SYNC_EXECUTOR.setQueueCapacity(999);
         DEFAULT_SYNC_EXECUTOR.setThreadNamePrefix("redis-queue-sync-");
-        // 设置拒绝策略：当pool已经达到max size的时候，如何处理新任务
+        // 设置拒绝策略：当 pool 已经达到 max_size 的时候，如何处理新任务
         // CALLER_RUNS：不在新线程中执行任务，而是有调用者所在的线程来执行
         DEFAULT_SYNC_EXECUTOR.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
-
         DEFAULT_SYNC_EXECUTOR.initialize();
     }
 
@@ -75,16 +75,14 @@ public class SyncManagerImpl implements SyncManager {
      * @return
      */
     private SyncThread getSyncThread(String queueName, int index, Integer storageType, int mode) {
-        switch (storageType) {//目前组件支付同步Redis Hash结构的数据
+        switch (storageType) {   // 目前组件支付同步Redis Hash结构的数据
             case STORAGE_TYPE_HASH:
                 return new HashSyncThread(redissonClient, queueName, index, redisTemplate, redisSyncProperties.getPerCount(), mode);
             case STORAGE_TYPE_LIST:
-                return null;
             case STORAGE_TYPE_ZSET:
                 return null;
         }
         return null;
     }
-
 
 }
